@@ -1,3 +1,5 @@
+import de.ur.mi.graphics.Color;
+import de.ur.mi.graphics.Label;
 import de.ur.mi.graphicsapp.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -24,6 +26,9 @@ public class Controller extends GraphicsApp implements KeyListener {
 	public void draw(){
 		Views.draw();
 		thymio.draw();
+		
+		
+      
     }
     
 	

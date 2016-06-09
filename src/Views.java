@@ -1,4 +1,5 @@
 import de.ur.mi.graphics.Color;
+import de.ur.mi.graphics.Label;
 import de.ur.mi.graphics.Rect;
 
 public class Views {
@@ -12,13 +13,21 @@ public class Views {
 	    static void drawStartPoint(int startX, int startY) {
 	    	Rect start = new Rect(startX,startY, FIELD_WIDTH, FIELD_HEIGHT, Color.GREEN);
 			start.draw();
+			Label starttext = new Label(Settings.getStartX()+5,Settings.getStartY()+Settings.getFieldHeight()/2,"Start",Color.WHITE);
+		       
+			starttext.setFontSize(20);
+			starttext.draw();
 		}
-
+	    
 	    
 	    // Draws the End
 	     static void drawEndPoint(int endX, int endY){
 	    	Rect end = new Rect(endX,endY, FIELD_WIDTH, FIELD_HEIGHT, Color.BLUE);
 	    	end.draw();
+	    	Label endtext = new Label(Settings.getEndX()+5,Settings.getEndY()+Settings.getFieldHeight()/2,"Goal",Color.WHITE);
+		       
+	    	endtext.setFontSize(20);
+	    	endtext.draw();
 	    }
 	     
 	     // Checks if a field is an obstacle and if so, draws it
@@ -43,7 +52,7 @@ public class Views {
 			Chessboard.get_board().redraw();
 	    	drawObstacles();
 	    	drawStartPoint(Settings.getStartX(),Settings.getStartY());
-	    	drawEndPoint(Settings.getEndX(),Settings.getEndY());
+	    	drawEndPoint(Settings.getEndX(),Settings.getEndY());	
 	    	
 		}
 
