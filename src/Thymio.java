@@ -11,7 +11,7 @@ public class Thymio extends Image{
 	private static final int CANVAS_HEIGHT = Settings.getCanvasHeight();
 	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
 	private static int CURRENT_ROTATION = 0;
-	
+	private static 	String[][] board = Settings.getBoard().boardAsArray();
 //	Constructor
 	public Thymio(double xPos, double yPos,double width, double height, String src){
 		super(xPos,yPos,width,height,src);
@@ -76,13 +76,15 @@ public class Thymio extends Image{
 	
 	// Moves Thymio left
 	public void moveLeft() {	
+	
 		if(super.getX()>0  && collision("Left") == false) {
 			super.move(-DISTANCE, 0);
 			setOrientation("left");	
+			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
+
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -93,6 +95,7 @@ public class Thymio extends Image{
 		if(super.getX() < CANVAS_WIDTH && collision("Right") == false){
 			super.move(DISTANCE, 0);
 			setOrientation("right");
+			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -108,6 +111,7 @@ public class Thymio extends Image{
 		if(super.getY()>0 && collision("Up") == false){
 			super.move(0, -DISTANCE);
 			setOrientation("up");
+			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -122,6 +126,7 @@ public class Thymio extends Image{
 		if(super.getY() < CANVAS_HEIGHT && collision("Down") == false){
 			super.move(0, DISTANCE);
 			setOrientation("down");
+			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {

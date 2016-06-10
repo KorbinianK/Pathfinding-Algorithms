@@ -103,7 +103,7 @@ public class Chessboard extends Rect{
 	public boolean fieldHasRightNeighbour(int x, int y){
 		int check_x = x+1;
 		int check_y = y;
-		System.out.println(check_x);
+//		System.out.println(check_x);
 		if(check_x < Settings.getBoardArraySize()){
 			return checkField(check_x,check_y);
 		}

@@ -1,5 +1,3 @@
-import de.ur.mi.graphics.Color;
-import de.ur.mi.graphics.Label;
 import de.ur.mi.graphicsapp.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,8 +15,11 @@ public class Controller extends GraphicsApp implements KeyListener {
 	   
 	// Basic setup
     public void setup() {
+    	
       	size(CANVAS_HEIGHT+FIELD_HEIGHT,CANVAS_WIDTH+FIELD_HEIGHT);   	 	
       	thymio = new Thymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg());
+      	String[][] board =Settings.getBoard().boardAsArray();
+      	Dijkstra.addToVisited(board[thymio.getXPosAsField()][thymio.getYPosAsField()]);
     }
     
     

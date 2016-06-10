@@ -6,7 +6,7 @@ public class Dijkstra {
 
 	private static String[][] board = Settings.getBoard().boardAsArray();
 	private static Thymio thymio =  Controller.thymio;
-	static List<String> visited = new ArrayList<String>();
+	private static List<String> visited = new ArrayList<String>();
 //	private static Thymio thymio2 = new Thymio(orig_thymio.getXPos(), orig_thymio.getYPos(), Settings.getFieldHeight(), Settings.getFieldHeight(), Settings.getThymioImg());
 	
 	public static void print(){
@@ -28,8 +28,8 @@ public class Dijkstra {
 		int distance = 0;
 		int intStartX = getX(board,x,y); 
 		int intStartY = getY(board,x,y);
-		visited.add(board[x][y]);
-		System.out.println(visited);
+		
+		System.out.println(getVisitedArray());
 		int currentX = intStartX;
 		int currentY= intStartY;
 		int cheapest = 999;
@@ -72,7 +72,7 @@ public class Dijkstra {
 			}
 			System.out.println("Cost to left "+cost);
 		}
-		System.out.println(cheapestDirection);
+		
 		if(cheapestDirection != null){
 			switch (cheapestDirection) {
 			case "right":
@@ -156,6 +156,27 @@ public class Dijkstra {
 		}
 		
 	
+		
+	}
+
+	public static List<String> getVisitedArray() {
+		return visited;
+	}
+
+	public static void setVisitedArray(List<String> visited) {
+		Dijkstra.visited = visited;
+	}
+	
+	public static void addToVisited(String coordinates){
+		
+		if(!visited.contains(coordinates)){
+			
+			visited.add(coordinates);
+		}else{
+			System.out.println(coordinates+" already visited.");
+		}
+//		System.out.println(visited.get(0));
+//		System.out.println(coordinates);
 		
 	}
 }
