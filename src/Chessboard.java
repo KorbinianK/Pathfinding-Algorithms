@@ -90,12 +90,13 @@ public class Chessboard extends Rect{
 		return board;
 	}
 	
+	
+//	Methods to check if a field has neighbours surrounding it
 	public boolean fieldHasLeftNeighbour(int x, int y){
 		int check_x = x-1;
 		int check_y = y;
 		return checkField(check_x,check_y);
 	}
-	
 	public boolean fieldHasRightNeighbour(int x, int y){
 		int check_x = x+1;
 		int check_y = y;
@@ -114,17 +115,59 @@ public class Chessboard extends Rect{
 	}
 
 
+	
+//	checks if the field exists and has no obstacle
 	private boolean checkField(int x, int y) {
 		if(x <= Settings.getBoardArraySize()&& x >= 0){
 			if(y <= Settings.getBoardArraySize()&& y >= 0){
 				if(!Settings.getObstacles().isObstacle(x, y)){
 					return true;
-				}
-				
+				}	
 			}
 			return false;
 		}else{
 			return false;
 		}
 	}
+	
+	
+//	Calculates the distance between two fields, ignoring obstacles (Heuristic for A*)
+	public int calculateAirDistance(int start_x, int start_y, int end_x, int end_y){
+		int cost = 0;
+		if(start_x < end_x){
+			while(start_x < end_x){
+				cost++;
+				start_x++;
+			}
+		}else if(start_x > end_x){
+			while(start_x > end_x){
+				cost++;
+				start_x--;
+			}
+		}
+		
+		if(start_y  < end_y){
+			while(start_y < end_y){
+				cost++;
+				start_y++;
+			}
+		}else if(start_y > end_y){
+			while(start_y > end_y){
+				cost++;
+				start_y--;
+			}
+		}
+		
+		return cost;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

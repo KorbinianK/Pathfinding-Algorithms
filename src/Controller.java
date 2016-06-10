@@ -26,11 +26,9 @@ public class Controller extends GraphicsApp implements KeyListener {
 	public void draw(){
 		Views.draw();
 		thymio.draw();
-		
-		
-      
     }
     
+	
 	
 	 
 //	Very basic test to automate Thymios movement. Moves Thymio to a given coordinate. See @keyPressed case't' to see an example. 
@@ -101,6 +99,10 @@ public class Controller extends GraphicsApp implements KeyListener {
 			break;
 		case 't':
 			moveToPos(thymio,Settings.getThymioEndField_X(),Settings.getThymioEndField_Y());
+			break;
+		case '1':
+			int cost = Settings.getBoard().calculateAirDistance(Settings.getThymioStartField_X(), Settings.getThymioStartField_Y(), Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
+			System.out.println(cost);
 			break;
 		case 'c':
 			System.out.println(Settings.getThymioStartField_X());
