@@ -51,13 +51,14 @@ public class Chessboard extends Rect{
 	}
 	
 
-	
+//	gets the field as Chess-like String 
 	public String getCoordString(int x, int y){
 		String array[][] = boardAsStringArray();
 		String coord = array[x][y];
 		return coord;
 	}
 	
+//	gets the field as coordinates
 	public String getCoord(int x, int y){
 		String array[][] = boardAsArray();
 		String coord = array[x][y];
@@ -71,9 +72,10 @@ public class Chessboard extends Rect{
 		for (int row = 0; row < board.length; row++) {
 		    String[] sub = board[row];
 		    for (int col = 0; col < sub.length; col++) {
-		    	sub[col] = col+","+row;	
+		    	sub[col] = row+","+col;	
 		    }
 		}
+//		System.out.println(Arrays.deepToString(board));
 		return board;
 	}
 	
@@ -90,12 +92,48 @@ public class Chessboard extends Rect{
 		return board;
 	}
 	
+//	Methods to return x-Neighbour of the current field
+	public String leftNeighbour(int x, int y){
+		int check_x = x-1;
+		int check_y = y;
+		String[][] board = Settings.getBoard().boardAsArray();
+		String neighbour = board[check_x][check_y];
+		return neighbour;
+	}
+	public String rightNeighbour(int x, int y){
+		int check_x = x+1;
+		int check_y = y;
+		String[][] board = Settings.getBoard().boardAsArray();
+		String neighbour = board[check_x][check_y];
+		return neighbour;
+	}
+	public String topNeighbour(int x, int y){
+		int check_x = x;
+		int check_y = y-1;
+		String[][] board = Settings.getBoard().boardAsArray();
+		String neighbour = board[check_x][check_y];
+		return neighbour;
+	}
+	public String bottomNeighbour(int x, int y){
+		int check_x = x;
+		int check_y = y+1;
+		String[][] board = Settings.getBoard().boardAsArray();
+		String neighbour = board[check_x][check_y];
+		return neighbour;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 //	Methods to check if a field has neighbours surrounding it
 	public boolean fieldHasLeftNeighbour(int x, int y){
-		int check_x = x;
-		int check_y = y-1;
-		if(check_y >= 0){
+		int check_x = x-1;
+		int check_y = y;
+		if(check_x >= 0){
 			return checkField(check_x,check_y);
 		}
 		return false;
@@ -103,26 +141,25 @@ public class Chessboard extends Rect{
 	public boolean fieldHasRightNeighbour(int x, int y){
 		int check_x = x+1;
 		int check_y = y;
-//		System.out.println(check_x);
 		if(check_x < Settings.getBoardArraySize()){
 			return checkField(check_x,check_y);
 		}
 		return false;
 	}
 	public boolean fieldHasBottomNeighbour(int x, int y){
-		int check_x = x+1;
-		int check_y = y;
-		if(check_x < Settings.getBoardArraySize()){
+		int check_x = x;
+		int check_y = y+1;
+		if(check_y < Settings.getBoardArraySize()){
 			return checkField(check_x,check_y);
 		}
 		return false;
 	}
 	
 	public boolean fieldHasTopNeighbour(int x, int y){
-		int check_x = x-1;
-		int check_y = y;
+		int check_x = x;
+		int check_y = y-1;
 		
-		if(check_x >= 0){
+		if(check_y >= 0){
 			return checkField(check_x,check_y);
 		}
 		return false;
@@ -173,14 +210,6 @@ public class Chessboard extends Rect{
 		
 		return cost;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }

@@ -122,7 +122,7 @@ public class Settings  {
 	public static int getBoardArraySize() {
 		return BOARD_ARRAY_SIZE;
 	}
-	public static void setBoardArraySize(int bOARD_ARRAY_SIZE) {
-		BOARD_ARRAY_SIZE = bOARD_ARRAY_SIZE;
+	public static void setBoardArraySize(int boardArraySize) {
+		BOARD_ARRAY_SIZE = boardArraySize;
 	}
 }

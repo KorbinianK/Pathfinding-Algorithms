@@ -7,92 +7,119 @@ public class Dijkstra {
 	private static String[][] board = Settings.getBoard().boardAsArray();
 	private static Thymio thymio =  Controller.thymio;
 	private static List<String> visited = new ArrayList<String>();
-//	private static Thymio thymio2 = new Thymio(orig_thymio.getXPos(), orig_thymio.getYPos(), Settings.getFieldHeight(), Settings.getFieldHeight(), Settings.getThymioImg());
+	private static int currentCost = 0;
 	
 	public static void print(){
 		System.out.println(Arrays.deepToString(board));
 	}
 	
+//	Gets only the X Coordinate of the checked field
 	private static int getX(String[][] board, int x, int y){
 		String[] arr = board[x][y].split(",");
 		int intX = Integer.parseInt(arr[0]); 
 		return intX;
 	}
+	
+//	Gets only the Y Coordinate of the checked field
 	private static int getY(String[][] board, int x, int y){
 		String[] arr = board[x][y].split(",");
 		int intY = Integer.parseInt(arr[1]); 
 		return intY;
 	}
 	
-	public static int calcCostToSurrounding(int x, int y){
-		int distance = 0;
+//	Returns the cheapest Neighbour from the current field (avoiding obstacles)
+	public static String getCheapestNeighbour(int x, int y){
+		String destination  = null;
 		int intStartX = getX(board,x,y); 
 		int intStartY = getY(board,x,y);
-		
-		System.out.println(getVisitedArray());
 		int currentX = intStartX;
 		int currentY= intStartY;
 		int cheapest = 999;
 		String cheapestDirection = null;
-
 		String direction = "";
 		if(Settings.getBoard().fieldHasBottomNeighbour(currentX, currentY)){
-			direction = "bottom";
-			int cost = calculateCost(currentX,currentY,direction);
-			if (cost < cheapest){
-				cheapest = cost;
-				cheapestDirection = direction;
+			if(!getVisitedArray().contains(Settings.getBoard().bottomNeighbour(currentX, currentY))){
+				direction = "bottom";
+				int cost = calculateCost(currentX,currentY,direction);
+				if (cost < cheapest){
+					cheapest = cost;
+					cheapestDirection = direction;
+				}
+//				System.out.println("Cost to bottom "+cost);
 			}
-			System.out.println("Cost to bottom "+cost);
 		}
 		if(Settings.getBoard().fieldHasTopNeighbour(currentX, currentY)){
-			direction = "top";
-			int cost = calculateCost(currentX,currentY,direction);
-			if (cost < cheapest){
-				cheapest = cost;
-				cheapestDirection = direction;
+			if(!getVisitedArray().contains(Settings.getBoard().topNeighbour(currentX, currentY))){
+				direction = "top";
+				int cost = calculateCost(currentX,currentY,direction);
+				if (cost < cheapest){
+					cheapest = cost;
+					cheapestDirection = direction;
+				}
+//				System.out.println("Cost to top "+cost);
 			}
-			System.out.println("Cost to top "+cost);
 		}
 		if(Settings.getBoard().fieldHasRightNeighbour(currentX, currentY)){
-			direction = "right";
-			int cost = calculateCost(currentX,currentY,direction);
-			if (cost < cheapest){
-				cheapest = cost;
-				cheapestDirection = direction;
+			if(!getVisitedArray().contains(Settings.getBoard().rightNeighbour(currentX, currentY))){
+				direction = "right";
+				int cost = calculateCost(currentX,currentY,direction);
+				if (cost < cheapest){
+					cheapest = cost;
+					cheapestDirection = direction;
+				}
+//				System.out.println("Cost to right "+cost);
 			}
-			System.out.println("Cost to right "+cost);
 		}
 		if(Settings.getBoard().fieldHasLeftNeighbour(currentX, currentY)){
-			direction = "left";
-			int cost = calculateCost(currentX,currentY,direction);
-			if (cost < cheapest){
-				cheapest = cost;
-				cheapestDirection = direction;
+			if(!getVisitedArray().contains(Settings.getBoard().leftNeighbour(currentX, currentY))){
+				direction = "left";
+				int cost = calculateCost(currentX,currentY,direction);
+				if (cost < cheapest){
+					cheapest = cost;
+					cheapestDirection = direction;
+				}
+//				System.out.println("Cost to left "+cost);
 			}
-			System.out.println("Cost to left "+cost);
+			
 		}
 		
 		if(cheapestDirection != null){
 			switch (cheapestDirection) {
 			case "right":
-				thymio.moveRight();		
+			
+				destination = Settings.getBoard().rightNeighbour(currentX, currentY);
+//				thymio.moveRight();		
 				break;
 			case "top":
-				thymio.moveUp();			
+				destination = Settings.getBoard().topNeighbour(currentX, currentY);
+//				thymio.moveUp();			
 				break;
 			case "left":
-				thymio.moveLeft();			
+				destination = Settings.getBoard().leftNeighbour(currentX, currentY);
+//				thymio.moveLeft();			
 				break;
 			case "bottom":
-				thymio.moveDown();
+				destination = Settings.getBoard().bottomNeighbour(currentX, currentY);
+//				thymio.moveDown();
 				break;
 			}
 		}
-		
-		return distance;
+//		System.out.println(cheapestDirection);
+		return destination;
+	}
+	
+//	Returns the cheapest Neighbour as Chess Coordinates
+	public static String getCheapestNeighbourChess(int x, int y){
+		String cheapest = getCheapestNeighbour(x,y);
+		String[] arr = cheapest.split(",");
+		int intX = Integer.parseInt(arr[0]); 
+		int intY = Integer.parseInt(arr[1]); 
+		String[][] board = Settings.getBoard().boardAsStringArray();
+		return board[intX][intY];
 	}
 
+	
+//	Calculates the Cost: each 90° Rotation = 1 -> Cheapest route is straight ahead
 	private static int calculateCost(int currentX, int currentY, String direction) {
 		int cost = 0;
 		int bottom = 180;
@@ -100,11 +127,8 @@ public class Dijkstra {
 		int left = 270;
 		int right = 90;
 		int orientation = thymio.getOrientation();
-//		System.out.println("orientation="+orientation);
-//		thymio.setOrientation(direction);
 		switch (direction) {
 		case "bottom":
-			
 				if((orientation > bottom || orientation < bottom)  && orientation != top){
 					cost = 2;
 				}else if(orientation == top){
@@ -112,8 +136,6 @@ public class Dijkstra {
 				}else{
 					cost +=1;
 				}
-			
-			
 			return cost;
 		case "top":
 				if(orientation > top && orientation != bottom){
@@ -124,11 +146,8 @@ public class Dijkstra {
 				}else{
 					cost +=1;
 				}
-			
-
 			return cost;
 		case "left":
-			
 				if((orientation == top || orientation == bottom)){
 					cost += 2;
 				}else if(orientation == right){
@@ -136,11 +155,8 @@ public class Dijkstra {
 				}else{
 					cost +=1;
 				}
-			
-			
 			return cost;
 		case "right":
-			
 				if((orientation == top || orientation == bottom)){
 					cost += 2;
 				}else if(orientation == left){
@@ -148,17 +164,14 @@ public class Dijkstra {
 				}else{
 					cost +=1;
 				}
-			
-			
 			return cost;
 		default:
 			return cost;
 		}
-		
-	
-		
 	}
 
+	
+//	Setter and getter for the visited list
 	public static List<String> getVisitedArray() {
 		return visited;
 	}
@@ -167,16 +180,16 @@ public class Dijkstra {
 		Dijkstra.visited = visited;
 	}
 	
+	
+//	Adds the position to the visited List 
 	public static void addToVisited(String coordinates){
-		
 		if(!visited.contains(coordinates)){
 			
 			visited.add(coordinates);
 		}else{
 			System.out.println(coordinates+" already visited.");
 		}
-//		System.out.println(visited.get(0));
-//		System.out.println(coordinates);
+
 		
 	}
 }

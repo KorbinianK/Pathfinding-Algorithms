@@ -102,23 +102,22 @@ public class Controller extends GraphicsApp implements KeyListener {
 			moveToPos(thymio,Settings.getThymioEndField_X(),Settings.getThymioEndField_Y());
 			break;
 		case '1':
-			int cost = Settings.getBoard().calculateAirDistance(Settings.getThymioStartField_X(), Settings.getThymioStartField_Y(), Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
-			System.out.println(cost);
+			int cost = Settings.getBoard().calculateAirDistance(thymio.getXPosAsField(), thymio.getYPosAsField(), Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
+			System.out.println("Airdistance to goal:"+cost);
 			break;
-		case 'c':
-//			Dijkstra.print();
-//			Dijkstra.calculateDistance(Settings.getThymioStartField_X(), Settings.getThymioStartField_Y(), Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
-			Dijkstra.calcCostToSurrounding(thymio.getXPosAsField(),thymio.getYPosAsField());
+		
     	}
     	Views.draw();
+//    	System.out.println("Curr: "+thymio.getXPosAsField()+","+thymio.getYPosAsField());
 //		System.out.println("Left Neighbour: ["+Settings.getBoard().fieldHasLeftNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 //		System.out.println("Right Neighbour: ["+Settings.getBoard().fieldHasRightNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 //		System.out.println("Top Neighbour: ["+Settings.getBoard().fieldHasTopNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 //		System.out.println("Bottom Neighbour: ["+Settings.getBoard().fieldHasBottomNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-
-//		System.out.println("Position Chess: ["+Settings.getBoard().getCoordString(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-//		System.out.println("Coordinates: ["+Settings.getBoard().getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-	
+    	System.out.println("Visited: "+Dijkstra.getVisitedArray());
+		System.out.println("Current Position: ["+Settings.getBoard().getCoordString(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
+		System.out.println("Current Coordinates: ["+Settings.getBoard().getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
+		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
+		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()));
     }
 
 }

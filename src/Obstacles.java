@@ -7,10 +7,11 @@ public class Obstacles {
 	private static char[][] obs = new char[Settings.getCanvasHeight()/Settings.getFieldHeight()+1][Settings.getCanvasHeight()/Settings.getFieldHeight()+1];
 	Random r = new Random();
 	
-	
+//	Constructor
 	public Obstacles(){
 		createObs(r);
 	}
+	
 	// Create random Obstacles
 	private char[][] createObs(Random r){
 		for (int i = 0; i < obs.length; i++) {
