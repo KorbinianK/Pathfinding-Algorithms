@@ -93,29 +93,42 @@ public class Chessboard extends Rect{
 	
 //	Methods to check if a field has neighbours surrounding it
 	public boolean fieldHasLeftNeighbour(int x, int y){
-		int check_x = x-1;
-		int check_y = y;
-		return checkField(check_x,check_y);
+		int check_x = x;
+		int check_y = y-1;
+		if(check_y >= 0){
+			return checkField(check_x,check_y);
+		}
+		return false;
 	}
 	public boolean fieldHasRightNeighbour(int x, int y){
 		int check_x = x+1;
 		int check_y = y;
-		return checkField(check_x,check_y);
+		System.out.println(check_x);
+		if(check_x < Settings.getBoardArraySize()){
+			return checkField(check_x,check_y);
+		}
+		return false;
 	}
 	public boolean fieldHasBottomNeighbour(int x, int y){
-		int check_x = x;
-		int check_y = y+1;
-		return checkField(check_x,check_y);
+		int check_x = x+1;
+		int check_y = y;
+		if(check_x < Settings.getBoardArraySize()){
+			return checkField(check_x,check_y);
+		}
+		return false;
 	}
 	
 	public boolean fieldHasTopNeighbour(int x, int y){
-		int check_x = x;
-		int check_y = y-1;
-		return checkField(check_x,check_y);
+		int check_x = x-1;
+		int check_y = y;
+		
+		if(check_x >= 0){
+			return checkField(check_x,check_y);
+		}
+		return false;
 	}
 
 
-	
 //	checks if the field exists and has no obstacle
 	private boolean checkField(int x, int y) {
 		if(x <= Settings.getBoardArraySize()&& x >= 0){

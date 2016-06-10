@@ -24,7 +24,7 @@ public class Thymio extends Image{
 *	South / Down = 180
 *	West / Left = 270
 */
-	private void setRotatation(String movement) {
+	public void setOrientation(String movement) {
 		
 		System.out.println(movement);
 		switch (movement) {
@@ -78,7 +78,7 @@ public class Thymio extends Image{
 	public void moveLeft() {	
 		if(super.getX()>0  && collision("Left") == false) {
 			super.move(-DISTANCE, 0);
-			setRotatation("left");	
+			setOrientation("left");	
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -92,7 +92,7 @@ public class Thymio extends Image{
 	public void moveRight() {
 		if(super.getX() < CANVAS_WIDTH && collision("Right") == false){
 			super.move(DISTANCE, 0);
-			setRotatation("right");
+			setOrientation("right");
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -107,7 +107,7 @@ public class Thymio extends Image{
 	public void moveUp() {
 		if(super.getY()>0 && collision("Up") == false){
 			super.move(0, -DISTANCE);
-			setRotatation("up");
+			setOrientation("up");
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -121,7 +121,7 @@ public class Thymio extends Image{
 	public void moveDown() {
 		if(super.getY() < CANVAS_HEIGHT && collision("Down") == false){
 			super.move(0, DISTANCE);
-			setRotatation("down");
+			setOrientation("down");
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -239,5 +239,10 @@ public class Thymio extends Image{
 	// Return Thymios Y Coord as Field
 	public int getYPosAsField(){
 		return (int)super.getY()/Settings.getFieldHeight();
+	}
+	
+//	Returns Orientation
+	public int getOrientation(){
+		return CURRENT_ROTATION;
 	}
 }
