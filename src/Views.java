@@ -7,7 +7,6 @@ public class Views {
 	private static final int FIELD_WIDTH = Settings.getFieldWidth();;
 	private static final int FIELD_HEIGHT = Settings.getFieldHeight();
 	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
-	private static Obstacles obstacles = Settings.getObstacles();   
 		
 		// Draws the Start
 	    static void drawStartPoint(int startX, int startY) {

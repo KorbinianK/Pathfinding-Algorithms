@@ -40,14 +40,13 @@ public class Chessboard extends Rect{
    
 //	Returns the Board as Array with Chess-like Coordinates (A1,A2....B6 etc.)
 	public String[][] boardAsStringArray(){
-		String[][] board_array = new String[CANVAS_HEIGHT/FIELD_HEIGHT+1][CANVAS_HEIGHT/FIELD_HEIGHT+1];
+		String[][] board_array = new String[Settings.getBoardArraySize()][Settings.getBoardArraySize()];
 		return fillCoordinatesString(board_array);
 	}
 	
 // Returns the Boardas Array with Coordinates (0,0; 0,1; ... 5,8 etc)	
 	public String[][] boardAsArray(){
-		
-		String[][] board_array = new String[CANVAS_HEIGHT/FIELD_HEIGHT+1][CANVAS_HEIGHT/FIELD_HEIGHT+1];
+		String[][] board_array = new String[Settings.getBoardArraySize()][Settings.getBoardArraySize()];
 		return fillCoordinates(board_array);
 	}
 	
@@ -60,7 +59,6 @@ public class Chessboard extends Rect{
 	}
 	
 	public String getCoord(int x, int y){
-		
 		String array[][] = boardAsArray();
 		String coord = array[x][y];
 		return coord;
@@ -92,4 +90,41 @@ public class Chessboard extends Rect{
 		return board;
 	}
 	
+	public boolean fieldHasLeftNeighbour(int x, int y){
+		int check_x = x-1;
+		int check_y = y;
+		return checkField(check_x,check_y);
+	}
+	
+	public boolean fieldHasRightNeighbour(int x, int y){
+		int check_x = x+1;
+		int check_y = y;
+		return checkField(check_x,check_y);
+	}
+	public boolean fieldHasBottomNeighbour(int x, int y){
+		int check_x = x;
+		int check_y = y+1;
+		return checkField(check_x,check_y);
+	}
+	
+	public boolean fieldHasTopNeighbour(int x, int y){
+		int check_x = x;
+		int check_y = y-1;
+		return checkField(check_x,check_y);
+	}
+
+
+	private boolean checkField(int x, int y) {
+		if(x <= Settings.getBoardArraySize()&& x >= 0){
+			if(y <= Settings.getBoardArraySize()&& y >= 0){
+				if(!Settings.getObstacles().isObstacle(x, y)){
+					return true;
+				}
+				
+			}
+			return false;
+		}else{
+			return false;
+		}
+	}
 }

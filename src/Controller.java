@@ -106,9 +106,13 @@ public class Controller extends GraphicsApp implements KeyListener {
 			System.out.println(Settings.getThymioStartField_X());
 		}
     	Views.draw();
-    
-		System.out.println("Position Chess: ["+Settings.getBoard().getCoordString(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-		System.out.println("Coordinates: ["+Settings.getBoard().getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
+		System.out.println("Left Neighbour: ["+Settings.getBoard().fieldHasLeftNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
+		System.out.println("Right Neighbour: ["+Settings.getBoard().fieldHasRightNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
+		System.out.println("Top Neighbour: ["+Settings.getBoard().fieldHasTopNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
+		System.out.println("Bottom Neighbour: ["+Settings.getBoard().fieldHasBottomNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
+
+//		System.out.println("Position Chess: ["+Settings.getBoard().getCoordString(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
+//		System.out.println("Coordinates: ["+Settings.getBoard().getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 	
     }
 

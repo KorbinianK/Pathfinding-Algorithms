@@ -24,14 +24,15 @@ public class Settings  {
 	
 	
 /*
- * 	No changes needed below this comment.
+ * 	No changes needed below this comment. Canvas width could be increased in 50pixel steps.
  */
 	private static final int CANVAS_HEIGHT = getCanvasWidth();
 	private static final int FIELD_HEIGHT = getFieldWidth();
-	private static final int CANVAS_WIDTH  = 750;
+	private static final int CANVAS_WIDTH  = 450;
 	private static final int FIELD_WIDTH = 50;
 	private static final Obstacles obstacles = new Obstacles();	
 	private static Chessboard board = Chessboard.get_board();
+	private static int BOARD_ARRAY_SIZE = CANVAS_HEIGHT/FIELD_HEIGHT+1;
 
 	
 	
@@ -117,5 +118,11 @@ public class Settings  {
 	}
 	public static void setBoard(Chessboard board) {
 		Settings.board = board;
+	}
+	public static int getBoardArraySize() {
+		return BOARD_ARRAY_SIZE;
+	}
+	public static void setBoardArraySize(int bOARD_ARRAY_SIZE) {
+		BOARD_ARRAY_SIZE = bOARD_ARRAY_SIZE;
 	}
 }
