@@ -7,14 +7,14 @@
 
 ### Aktuelle Funktionen
 
-  - Schachbrett mit randomisierten Hindernissen (anpassbar)
-  - Steuerung von Thymio (grafisch) mit W A S D Tasten
-  - Berechnung der Kosten zu umliegenden Feldern
-  - Empfehlung, welches Feld als nächstes angefahren werden sollte:
-     - Vermeidet Hindernisse
-     - Keine Orientierung am Zielpunkt
- - Speichert besuchte Felder und erkennt, wenn diese erneut angefahren werden
- 
+   - Schachbrett mit randomisierten Hindernissen (anpassbar)
+   - Steuerung von Thymio (grafisch) mit W A S D Tasten
+   - Berechnung der Kosten zu umliegenden Feldern
+   - Empfehlung, welches Feld als nächstes angefahren werden sollte:
+       - Vermeidet Hindernisse
+       - Keine Orientierung am Zielpunkt
+   - Speichert besuchte Felder und erkennt, wenn diese erneut angefahren werden
+
 ### Todo:
 Fertigstellung Dijkstra
   - Speicherung der aktuell verbrauchten Kosten
