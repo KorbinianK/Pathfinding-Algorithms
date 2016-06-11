@@ -124,11 +124,6 @@ public class Chessboard extends Rect{
 	
 	
 	
-	
-	
-	
-	
-	
 //	Methods to check if a field has neighbours surrounding it
 	public boolean fieldHasLeftNeighbour(int x, int y){
 		int check_x = x-1;

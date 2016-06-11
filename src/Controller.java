@@ -29,7 +29,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 		thymio.draw();
     }
     
-	
+
 	
 	 
 //	Very basic test to automate Thymios movement. Moves Thymio to a given coordinate. See @keyPressed case't' to see an example. 
@@ -118,6 +118,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 		System.out.println("Current Coordinates: ["+Settings.getBoard().getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
 		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()));
-    }
+		System.out.println("_____________________________________________");
+	}
 
 }

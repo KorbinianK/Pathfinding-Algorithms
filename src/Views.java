@@ -1,3 +1,5 @@
+import java.util.List;
+
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Label;
 import de.ur.mi.graphics.Rect;
@@ -51,9 +53,17 @@ public class Views {
 			Chessboard.get_board().redraw();
 	    	drawObstacles();
 	    	drawStartPoint(Settings.getStartX(),Settings.getStartY());
-	    	drawEndPoint(Settings.getEndX(),Settings.getEndY());	
-	    	
+	    	drawEndPoint(Settings.getEndX(),Settings.getEndY());		
+	    	drawVisited(Dijkstra.getVisitedArray());
 		}
+		
+	public static void drawVisited(List<String> list){
+		for (int i = 0; i < list.size(); i++) {
+			
+		}
+//		Rect small = new Rect((int)d, (int)e, Settings.getFieldHeight()/2, Settings.getFieldHeight()/2, Color.MAGENTA);
+//		small.draw();
+	}
 
 }
 
