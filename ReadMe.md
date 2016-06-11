@@ -10,6 +10,7 @@
    - Schachbrett mit randomisierten Hindernissen (anpassbar)
    - Steuerung von Thymio (grafisch) mit W A S D Tasten
    - Berechnung der Kosten zu umliegenden Feldern
+   - Settings-Klasse in der einige Einstellungen angepasst werden können (Start/Endpunkt, Größe, Bilder, Hindernisse etc) und die wichtigsten Konstanten festgelegt sind
    - Empfehlung, welches Feld als nächstes angefahren werden sollte:
        - Vermeidet Hindernisse
        - Keine Orientierung am Zielpunkt
