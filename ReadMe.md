@@ -14,8 +14,7 @@
      - Vermeidet Hindernisse
      - Keine Orientierung am Zielpunkt
  - Speichert besuchte Felder und erkennt, wenn diese erneut angefahren werden
- - 
-
+ 
 ### Todo:
 Fertigstellung Dijkstra
   - Speicherung der aktuell verbrauchten Kosten
