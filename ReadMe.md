@@ -14,6 +14,7 @@
        - Vermeidet Hindernisse
        - Keine Orientierung am Zielpunkt
    - Speichert besuchte Felder und erkennt, wenn diese erneut angefahren werden
+   - Thymio kann zu bestimmten Feldern geschickt werden, funktioniert aber noch nicht wirklich, war nur ein Test
 
 ### Todo:
 Fertigstellung Dijkstra
