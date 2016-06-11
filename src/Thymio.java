@@ -26,7 +26,7 @@ public class Thymio extends Image{
 */
 	public void setOrientation(String movement) {
 		
-		System.out.println(movement);
+		System.out.println("Orientation: "+movement);
 		switch (movement) {
 		case "left":
 			if(CURRENT_ROTATION == 0){

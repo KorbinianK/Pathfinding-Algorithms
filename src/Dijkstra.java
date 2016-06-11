@@ -27,6 +27,7 @@ public class Dijkstra {
 		return intY;
 	}
 	
+	
 //	Returns the cheapest Neighbour from the current field (avoiding obstacles)
 	public static String getCheapestNeighbour(int x, int y){
 		String destination  = null;
@@ -105,12 +106,16 @@ public class Dijkstra {
 			}
 		}
 //		System.out.println(cheapestDirection);
+		
 		return destination;
 	}
 	
 //	Returns the cheapest Neighbour as Chess Coordinates
 	public static String getCheapestNeighbourChess(int x, int y){
 		String cheapest = getCheapestNeighbour(x,y);
+		if(cheapest == null){
+			return "no unvisited node in reach from this position";
+		}
 		String[] arr = cheapest.split(",");
 		int intX = Integer.parseInt(arr[0]); 
 		int intY = Integer.parseInt(arr[1]); 
