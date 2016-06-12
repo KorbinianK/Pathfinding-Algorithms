@@ -1,3 +1,5 @@
+import de.ur.mi.graphics.Color;
+
 /*
  * Settings Class with all the Getter and Setter. Adjust for custom setting
  */
@@ -31,9 +33,10 @@ public class Settings  {
 	private static final int CANVAS_WIDTH  = 450;
 	private static final int FIELD_WIDTH = 50;
 	private static final Obstacles obstacles = new Obstacles();	
-	private static Chessboard board = Chessboard.get_board();
+	private static Chessboard board = new Chessboard(0, 0, CANVAS_HEIGHT+FIELD_HEIGHT, CANVAS_WIDTH+FIELD_HEIGHT, Color.GRAY);
 	private static int BOARD_ARRAY_SIZE = CANVAS_HEIGHT/FIELD_HEIGHT+1;
 
+	
 	
 	
 	public static int getStartX(){
@@ -114,6 +117,7 @@ public class Settings  {
 		return obstacles.getObstacles(Settings.OBSTACLE_COUNT);
 	}
 	public static Chessboard getBoard() {
+		
 		return board;
 	}
 	public static void setBoard(Chessboard board) {

@@ -9,6 +9,7 @@ public class Views {
 	private static final int FIELD_WIDTH = Settings.getFieldWidth();;
 	private static final int FIELD_HEIGHT = Settings.getFieldHeight();
 	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
+	private static Chessboard board = Settings.getBoard();
 		
 		// Draws the Start
 	    static void drawStartPoint(int startX, int startY) {
@@ -50,11 +51,11 @@ public class Views {
 
 //	 	Draw method to draw the individual elements
 		public static void draw() {
-			Chessboard.get_board().redraw();
+			board.redraw();
 	    	drawObstacles();
 	    	drawStartPoint(Settings.getStartX(),Settings.getStartY());
 	    	drawEndPoint(Settings.getEndX(),Settings.getEndY());		
-	    	drawVisited(Dijkstra.getVisitedArray());
+//	    	drawVisited(Dijkstra.getVisitedArray());
 		}
 		
 	public static void drawVisited(List<String> list){

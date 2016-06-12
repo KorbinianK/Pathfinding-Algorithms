@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Rect;
 
@@ -8,9 +11,13 @@ public class Chessboard extends Rect{
 	private static int CANVAS_HEIGHT = Settings.getCanvasHeight();
 	private static int FIELD_WIDTH = Settings.getFieldWidth();
 	private static int FIELD_HEIGHT = Settings.getFieldHeight();
-
+	protected List<Node> nodeList = new ArrayList<Node>();
+	private static Chessboard board;
+	
+	
 	public Chessboard(int x, int y, int width, int height, Color color) {
 		super(x,y,width,height,color);
+		
 	}
 	
 	
@@ -34,7 +41,8 @@ public class Chessboard extends Rect{
 	
 	// Creates the basic Chessboard
 	public static Chessboard get_board(){
-		Chessboard board = new Chessboard(0, 0, CANVAS_HEIGHT+FIELD_HEIGHT, CANVAS_WIDTH+FIELD_HEIGHT, Color.GRAY);
+		
+		
 		return board;
 	}
    
@@ -122,6 +130,32 @@ public class Chessboard extends Rect{
 		return neighbour;
 	}
 	
+	public Node asNode(String neighbour, int currentX, int currentY){
+		List<Node> nodes = Settings.getBoard().getNodes();
+		int x = 0;
+		int y = 0;
+		switch (neighbour) {
+		case "bottom":
+			x = currentX;
+			y = currentY+1;
+			break;
+		case "top":
+			x = currentX;
+			y = currentY-1;
+			break;
+		case "left":
+			x = currentX+1;
+			y = currentY;
+			break;
+		case "right":
+			x = currentX-1;
+			y = currentY;
+			break;
+		}
+		Node node = nodes.get(x+y);
+		return node;
+		
+	}
 	
 	
 //	Methods to check if a field has neighbours surrounding it
@@ -206,5 +240,22 @@ public class Chessboard extends Rect{
 		return cost;
 	}
 
+	
+//	Creates a node representing each field
+	public void createNodes(){
+		for (int i = 0; i < Settings.getBoardArraySize(); i++) {
+			for (int j = 0; j < Settings.getBoardArraySize(); j++) {
+				String[][] board = Settings.getBoard().boardAsStringArray();
+				
+				Node node = new Node(nodeList.size(),i,j,board[j][i]);
+				nodeList.add(node);		
+			}
+		}
+		
+	}
+	
+	public List<Node> getNodes(){
+		return nodeList;
+	}
 	
 }

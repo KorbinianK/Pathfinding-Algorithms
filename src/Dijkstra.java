@@ -6,8 +6,10 @@ public class Dijkstra {
 
 	private static String[][] board = Settings.getBoard().boardAsArray();
 	private static Thymio thymio =  Controller.thymio;
-	private static List<String> visited = new ArrayList<String>();
+	protected static List<Node> visited = new ArrayList<Node>();
 	private static int currentCost = 0;
+	
+	protected static List<Edge> edges = new ArrayList<Edge>();
 	
 	public static void print(){
 		System.out.println(Arrays.deepToString(board));
@@ -42,44 +44,53 @@ public class Dijkstra {
 			if(!getVisitedArray().contains(Settings.getBoard().bottomNeighbour(currentX, currentY))){
 				direction = "bottom";
 				int cost = calculateCost(currentX,currentY,direction);
+				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
+				edges.add(edge);
 				if (cost < cheapest){
 					cheapest = cost;
 					cheapestDirection = direction;
 				}
-//				System.out.println("Cost to bottom "+cost);
+				System.out.println("Cost to bottom "+edge.getCost());
+			
 			}
 		}
 		if(Settings.getBoard().fieldHasTopNeighbour(currentX, currentY)){
 			if(!getVisitedArray().contains(Settings.getBoard().topNeighbour(currentX, currentY))){
 				direction = "top";
 				int cost = calculateCost(currentX,currentY,direction);
+//				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
+//				edges.add(edge);
 				if (cost < cheapest){
 					cheapest = cost;
 					cheapestDirection = direction;
 				}
-//				System.out.println("Cost to top "+cost);
+//				System.out.println("Cost to top "+edge.getCost());
 			}
 		}
 		if(Settings.getBoard().fieldHasRightNeighbour(currentX, currentY)){
 			if(!getVisitedArray().contains(Settings.getBoard().rightNeighbour(currentX, currentY))){
 				direction = "right";
 				int cost = calculateCost(currentX,currentY,direction);
+//				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
+//				edges.add(edge);
 				if (cost < cheapest){
 					cheapest = cost;
 					cheapestDirection = direction;
 				}
-//				System.out.println("Cost to right "+cost);
+//				System.out.println("Cost to right "+edge.getCost());
 			}
 		}
 		if(Settings.getBoard().fieldHasLeftNeighbour(currentX, currentY)){
 			if(!getVisitedArray().contains(Settings.getBoard().leftNeighbour(currentX, currentY))){
 				direction = "left";
 				int cost = calculateCost(currentX,currentY,direction);
+//				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
+//				edges.add(edge);
 				if (cost < cheapest){
 					cheapest = cost;
 					cheapestDirection = direction;
 				}
-//				System.out.println("Cost to left "+cost);
+//				System.out.println("Cost to left "+edge.getCost());
 			}
 			
 		}
@@ -177,22 +188,22 @@ public class Dijkstra {
 
 	
 //	Setter and getter for the visited list
-	public static List<String> getVisitedArray() {
+	public static List<Node> getVisitedArray() {
 		return visited;
 	}
 
-	public static void setVisitedArray(List<String> visited) {
+	public static void setVisitedArray(List<Node> visited) {
 		Dijkstra.visited = visited;
 	}
 	
 	
 //	Adds the position to the visited List 
-	public static void addToVisited(String coordinates){
-		if(!visited.contains(coordinates)){
+	public static void addToVisited(Node node){
+		if(!visited.contains(node)){
 			
-			visited.add(coordinates);
+			visited.add(node);
 		}else{
-			System.out.println(coordinates+" already visited.");
+			System.out.println(node.getXCoord()+","+node.getYCoord()+" already visited.");
 		}
 
 		

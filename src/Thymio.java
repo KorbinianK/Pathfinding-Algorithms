@@ -80,7 +80,8 @@ public class Thymio extends Image{
 		if(super.getX()>0  && collision("Left") == false) {
 			super.move(-DISTANCE, 0);
 			setOrientation("left");	
-			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
+//			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
+			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()));
 
 			try {
 				Thread.sleep(Settings.getDelay());
@@ -95,7 +96,8 @@ public class Thymio extends Image{
 		if(super.getX() < CANVAS_WIDTH && collision("Right") == false){
 			super.move(DISTANCE, 0);
 			setOrientation("right");
-			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
+//			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
+			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()));
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -111,7 +113,8 @@ public class Thymio extends Image{
 		if(super.getY()>0 && collision("Up") == false){
 			super.move(0, -DISTANCE);
 			setOrientation("up");
-			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
+//			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
+			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()));
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -126,7 +129,8 @@ public class Thymio extends Image{
 		if(super.getY() < CANVAS_HEIGHT && collision("Down") == false){
 			super.move(0, DISTANCE);
 			setOrientation("down");
-			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
+//			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
+			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()));
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -136,7 +140,7 @@ public class Thymio extends Image{
 		}
 	}
 	
-	
+
 	
 	// check for Collisions/Obstacles
 	private boolean collision(String direction) {
@@ -224,6 +228,15 @@ public class Thymio extends Image{
 	    return ret;
 	}
 	
+	
+	public int getPosAsID(){
+		int id = 0;
+		for (int i = 0; i < getXPosAsField(); i++) {
+			id++;
+		}
+		int mult = (int) (getYPosAsField()*Settings.getBoardArraySize());
+		return id+mult;
+	}
 	// Draws Thymio
 	public void draw() {
 		super.draw();
