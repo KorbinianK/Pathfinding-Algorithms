@@ -20,7 +20,7 @@ public class Settings  {
 	 * Probability is calculated by picking a random number between 0 and OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static int OBSTACLE_COUNT = 3;
+	private static int OBSTACLE_COUNT = 2;
 	private static int OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
 	

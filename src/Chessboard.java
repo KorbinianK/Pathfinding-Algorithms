@@ -152,7 +152,13 @@ public class Chessboard extends Rect{
 			y = currentY;
 			break;
 		}
-		Node node = nodes.get(x+y);
+		int id = 0;
+		for (int i = 0; i < currentX; i++) {
+			id++;
+		}
+		int mult = (int) currentY*Settings.getBoardArraySize();
+		int index = id+mult;
+		Node node = nodes.get(index);
 		return node;
 		
 	}
@@ -236,7 +242,6 @@ public class Chessboard extends Rect{
 				start_y--;
 			}
 		}
-		
 		return cost;
 	}
 
@@ -250,8 +255,7 @@ public class Chessboard extends Rect{
 				Node node = new Node(nodeList.size(),i,j,board[j][i]);
 				nodeList.add(node);		
 			}
-		}
-		
+		}	
 	}
 	
 	public List<Node> getNodes(){

@@ -16,26 +16,17 @@ public class Node {
 	public String getChessCoord() {
 		return chessCoord;
 	}
-//	public void setChessCoord(String chessCoord) {
-//		this.chessCoord = chessCoord;
-//	}
+	
 	public int getYCoord() {
 		return yCoord;
 	}
-//	public void setYCoord(int yCoord) {
-//		this.yCoord = yCoord;
-//	}
+
 	public int getXCoord() {
 		return xCoord;
 	}
-//	public void setXCoord(int xCoord) {
-//		this.xCoord = xCoord;
-//	}
+
 	public int getId() {
 		return id;
 	}
-//	public void setId(String id) {
-//		this.id = id;
-//	}
 
 }

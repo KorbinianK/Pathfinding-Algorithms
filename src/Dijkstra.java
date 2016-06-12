@@ -50,7 +50,7 @@ public class Dijkstra {
 					cheapest = cost;
 					cheapestDirection = direction;
 				}
-				System.out.println("Cost to bottom "+edge.getCost());
+//				System.out.println("Cost to bottom "+edge.getCost());
 			
 			}
 		}
@@ -58,8 +58,8 @@ public class Dijkstra {
 			if(!getVisitedArray().contains(Settings.getBoard().topNeighbour(currentX, currentY))){
 				direction = "top";
 				int cost = calculateCost(currentX,currentY,direction);
-//				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
-//				edges.add(edge);
+				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
+				edges.add(edge);
 				if (cost < cheapest){
 					cheapest = cost;
 					cheapestDirection = direction;
@@ -71,8 +71,8 @@ public class Dijkstra {
 			if(!getVisitedArray().contains(Settings.getBoard().rightNeighbour(currentX, currentY))){
 				direction = "right";
 				int cost = calculateCost(currentX,currentY,direction);
-//				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
-//				edges.add(edge);
+				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
+				edges.add(edge);
 				if (cost < cheapest){
 					cheapest = cost;
 					cheapestDirection = direction;
@@ -84,8 +84,8 @@ public class Dijkstra {
 			if(!getVisitedArray().contains(Settings.getBoard().leftNeighbour(currentX, currentY))){
 				direction = "left";
 				int cost = calculateCost(currentX,currentY,direction);
-//				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
-//				edges.add(edge);
+				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
+				edges.add(edge);
 				if (cost < cheapest){
 					cheapest = cost;
 					cheapestDirection = direction;
@@ -203,7 +203,7 @@ public class Dijkstra {
 			
 			visited.add(node);
 		}else{
-			System.out.println(node.getXCoord()+","+node.getYCoord()+" already visited.");
+			System.out.println(node.getChessCoord()+" already visited.");
 		}
 
 		

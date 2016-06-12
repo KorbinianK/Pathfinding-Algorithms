@@ -237,6 +237,7 @@ public class Thymio extends Image{
 		int mult = (int) (getYPosAsField()*Settings.getBoardArraySize());
 		return id+mult;
 	}
+	
 	// Draws Thymio
 	public void draw() {
 		super.draw();
