@@ -13,22 +13,25 @@ public class Views {
 		
 		// Draws the Start
 	    static void drawStartPoint(int startX, int startY) {
-	    	Rect start = new Rect(startX,startY, FIELD_WIDTH, FIELD_HEIGHT, Color.GREEN);
-			start.draw();
-			Label starttext = new Label(Settings.getStartX()+5,Settings.getStartY()+Settings.getFieldHeight()/2,"Start",Color.WHITE);
+	    	Rect start = new Rect(startX,startY, FIELD_WIDTH, FIELD_HEIGHT, Settings.getStartFieldColor());
+			start.setBorder(Settings.getColorChessA(), 2);
+	    	start.draw();
+			Label starttext = new Label(Settings.getStartX()+5,Settings.getStartY()+Settings.getFieldHeight()/2,"START",Color.WHITE);
 		       
-			starttext.setFontSize(20);
+			starttext.setFontSize(Settings.getFontSizeStartpoint());
 			starttext.draw();
 		}
 	    
 	    
 	    // Draws the End
 	     static void drawEndPoint(int endX, int endY){
-	    	Rect end = new Rect(endX,endY, FIELD_WIDTH, FIELD_HEIGHT, Color.BLUE);
+	    	Rect end = new Rect(endX,endY, FIELD_WIDTH, FIELD_HEIGHT, Settings.getEndFieldColor());
+	    	end.setBorder(Settings.getColorChessA(), 2);
 	    	end.draw();
-	    	Label endtext = new Label(Settings.getEndX()+5,Settings.getEndY()+Settings.getFieldHeight()/2,"Goal",Color.WHITE);
+	    	Label endtext = new Label(Settings.getEndX()+5,Settings.getEndY()+Settings.getFieldHeight()/2,"END",Color.WHITE);
 		       
-	    	endtext.setFontSize(20);
+	    	endtext.setFontSize(Settings.getFontSizeEndpoint());
+	    	
 	    	endtext.draw();
 	    }
 	     
@@ -41,7 +44,7 @@ public class Views {
 	 					x = i/FIELD_WIDTH;
 	 					y = j/FIELD_HEIGHT;
 	 				if(Settings.getObstacles().isObstacle(x, y)){
-	 					Rect obstacle = new Rect(i,j, FIELD_HEIGHT, FIELD_WIDTH,Color.RED);
+	 					Rect obstacle = new Rect(i,j, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorObstacle());
 	 					obstacle.draw();
 	 				}
 	 			}

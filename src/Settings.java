@@ -7,33 +7,46 @@ public class Settings  {
 	
 	//	Awesome Thymio Image
 	private static final String thymio_img = "images/thymio.gif";
+	
+	// Colors
+	private static Color COLOR_CHESS_A = Color.DARK_GRAY;
+	private static Color COLOR_CHESS_B = Color.LIGHT_GRAY;
+	private static Color COLOR_OBSTACLE = Color.ORANGE;
+	private static Color START_COLOR = Color.GREEN;
+	private static Color END_COLOR = Color.BLUE;
 
+	// Fonts
+	private static int FONT_SIZE_STARTPOINT = 13;
+	private static int FONT_SIZE_ENDPOINT = 19;
+	
 	//	Startfield (currently possible: 0-9)
-	private static int THYMIO_STARTFIELD_X = 0; 
-	private static int THYMIO_STARTFIELD_Y = 0;;
+	private static int THYMIO_STARTFIELD_X = 3; 
+	private static int THYMIO_STARTFIELD_Y = 6;;
 	
 	//	Endfield (currently possible: 0-9)
-	private static int THYMIO_ENDFIELD_X = 3;
+	private static int THYMIO_ENDFIELD_X = 8;
 	private static int THYMIO_ENDFIELD_Y = 3;
 	
 	/*
-	 * Probability is calculated by picking a random number between 0 and OBSTACLE_PROBABILTY_RANGE.
-	 * If it's greater than OBSTACLE COUNT, it is an obstacle.
+	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
+	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static int OBSTACLE_COUNT = 2;
-	private static int OBSTACLE_PROBABILITY_RANGE = 20;
+	private static boolean RANDOM_OBSTACLES = true; // if this is set to false, a fixed obstacle array has to be calculated by hand and inserted below
+	private static char[][] FIXED_OBSTACLE_ARRAY = {};
+	private static int RANDOM_OBSTACLE_COUNT = 3;
+	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
 	
 	
 /*
- * 	No changes needed below this comment. Canvas width could be increased in 50pixel steps.
+ * 	No changes needed below this line. Canvas_Width could be increased in 50pixel steps.
  */
 	private static final int CANVAS_HEIGHT = getCanvasWidth();
 	private static final int FIELD_HEIGHT = getFieldWidth();
-	private static final int CANVAS_WIDTH  = 450;
+	private static final int CANVAS_WIDTH  = 550;
 	private static final int FIELD_WIDTH = 50;
 	private static final Obstacles obstacles = new Obstacles();	
-	private static Chessboard board = new Chessboard(0, 0, CANVAS_HEIGHT+FIELD_HEIGHT, CANVAS_WIDTH+FIELD_HEIGHT, Color.GRAY);
+	private static Chessboard board = new Chessboard(0, 0, CANVAS_HEIGHT+FIELD_HEIGHT, CANVAS_WIDTH+FIELD_HEIGHT, COLOR_CHESS_A);
 	private static int BOARD_ARRAY_SIZE = CANVAS_HEIGHT/FIELD_HEIGHT+1;
 
 	
@@ -84,16 +97,16 @@ public class Settings  {
 		return y;
 	}
 	public static int getObstacleProbability() {
-		return OBSTACLE_COUNT;
+		return RANDOM_OBSTACLE_COUNT;
 	}
 	public static void setObstacleProbability(int prob) {
-		OBSTACLE_COUNT = prob;
+		RANDOM_OBSTACLE_COUNT = prob;
 	}
 	public static int getObstacleProbabilityRange() {
-		return OBSTACLE_PROBABILITY_RANGE;
+		return RANDOM_OBSTACLE_PROBABILITY_RANGE;
 	}
 	public static void setObstacleProbabilityRange(int range) {
-		OBSTACLE_PROBABILITY_RANGE = range;
+		RANDOM_OBSTACLE_PROBABILITY_RANGE = range;
 	}
 	public static int getCanvasWidth() {
 		return CANVAS_WIDTH;
@@ -114,7 +127,7 @@ public class Settings  {
 		return obstacles;
 	}
 	public static char[][] getObstacleArray(){
-		return obstacles.getObstacles(Settings.OBSTACLE_COUNT);
+		return obstacles.getObstacles(Settings.RANDOM_OBSTACLE_COUNT);
 	}
 	public static Chessboard getBoard() {
 		
@@ -128,5 +141,54 @@ public class Settings  {
 	}
 	public static void setBoardArraySize(int boardArraySize) {
 		BOARD_ARRAY_SIZE = boardArraySize;
+	}
+	public static Color getColorChessA() {
+		return COLOR_CHESS_A;
+	}
+	public static void setColorChessA(Color color) {
+		COLOR_CHESS_A = color;
+	}
+	public static Color getColorChessB() {
+		return COLOR_CHESS_B;
+	}
+	public static void setColorChessB(Color color) {
+		COLOR_CHESS_B = color;
+	}
+	public static Color getColorObstacle() {
+		return COLOR_OBSTACLE;
+	}
+	public static void setColorObstacle(Color cOLOR_OBSTACLE) {
+		COLOR_OBSTACLE = cOLOR_OBSTACLE;
+	}
+	public static Color getStartFieldColor() {
+		return START_COLOR;
+	}
+	public static void setStartFieldColor(Color startFieldColor) {
+		START_COLOR = startFieldColor;
+	}
+	public static Color getEndFieldColor() {
+		return END_COLOR;
+	}
+	public static void setEndFieldColor(Color endFieldColor) {
+		END_COLOR = endFieldColor;
+	}
+	public static boolean randomObstacles() {
+		return RANDOM_OBSTACLES;
+	}
+	public static char[][] getFixedObstacleArray() {
+		char[][] obstacles = FIXED_OBSTACLE_ARRAY;
+		return obstacles;
+	}
+	public static int getFontSizeEndpoint() {
+		return FONT_SIZE_ENDPOINT;
+	}
+	public static void setFontSizeEndpoint(int size) {
+		FONT_SIZE_ENDPOINT = size;
+	}
+	public static int getFontSizeStartpoint() {
+		return FONT_SIZE_STARTPOINT;
+	}
+	public static void setFontSizeStartpoint(int size) {
+		FONT_SIZE_STARTPOINT = size;
 	}
 }

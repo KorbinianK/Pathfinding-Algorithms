@@ -9,11 +9,25 @@ public class Obstacles {
 	
 //	Constructor
 	public Obstacles(){
-		createObs(r);
+		if(Settings.randomObstacles()){
+			createRandomObstacles(r);
+		}else{
+			createFixedObstacles(Settings.getFixedObstacleArray());
+		}
+		
 	}
 	
+	private char[][] createFixedObstacles(char[][] fixedObstacleArray) {
+		obs = Settings.getFixedObstacleArray();
+		if(obs.length <1){
+			return obs;
+		}
+		return freeImportantFields(obs);
+		
+	}
+
 	// Create random Obstacles
-	private char[][] createObs(Random r){
+	private char[][] createRandomObstacles(Random r){
 		for (int i = 0; i < obs.length; i++) {
 			for (int j = 0; j < obs.length; j++) {
 				int rnd = r.nextInt(prob_range);
@@ -40,14 +54,17 @@ public class Obstacles {
 	// Creates obstacles based on probability and returns them
 	public char[][] getObstacles(int probabilitiy){
 		Obstacles.probability = probabilitiy;
-		return createObs(r);
+		return createRandomObstacles(r);
 	}
 	
 	// Check if the position contains an obstacle
 	public boolean isObstacle(int x, int y){
-		
-		if (obs[x][y] == 'X'){
-			return true;
+		if(obs.length > 0){
+			if (obs[x][y] == 'X' ){
+				return true;
+			}else{
+				return false;
+			}
 		}else{
 			return false;
 		}

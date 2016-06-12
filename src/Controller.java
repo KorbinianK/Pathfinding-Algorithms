@@ -24,6 +24,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 //      	Dijkstra.addToVisited(boardstr[thymio.getXPosAsField()][thymio.getYPosAsField()]);
 //      	Dijkstra.addToVisited(Settings.getBoard().getNodes().get(THYMIO_STARTFIELD_X+THYMIO_STARTFIELD_Y));
       	board.createNodes();
+      	Dijkstra.addToVisited(board.getNodes().get(thymio.getPosAsID()));
     }
     
     
@@ -108,23 +109,20 @@ public class Controller extends GraphicsApp implements KeyListener {
 		case '1':
 //			int cost = board.calculateAirDistance(thymio.getXPosAsField(), thymio.getYPosAsField(), Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
 //			System.out.println("Airdistance to goal:"+cost);
-//			for (int i = 0; i < board.nodeList.size(); i++) {
-//				System.out.println(board.nodeList.get(i).getChessCoord());
-//			}
+			String visitedNodes = "";
+	    	for (int i = 0; i < Dijkstra.getVisitedArray().size(); i++) {
+	    		visitedNodes += Dijkstra.getVisitedArray().get(i).getChessCoord()+",";
+			}
+			System.out.println("Visited: "+visitedNodes);
 			break;
 		
     	}
     	Views.draw();
-//    	System.out.println("Curr: "+thymio.getXPosAsField()+","+thymio.getYPosAsField());
 //		System.out.println("Left Neighbour: ["+board.fieldHasLeftNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 //		System.out.println("Right Neighbour: ["+board.fieldHasRightNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 //		System.out.println("Top Neighbour: ["+board.fieldHasTopNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 //		System.out.println("Bottom Neighbour: ["+board.fieldHasBottomNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-//    	String visitedNodes = "";
-//    	for (int i = 0; i < Dijkstra.getVisitedArray().size(); i++) {
-//    		visitedNodes += Dijkstra.getVisitedArray().get(i).getChessCoord()+",";
-//		}
-//		System.out.println("Visited: "+visitedNodes);
+//    	
 //		System.out.println("Current Position: ["+board.getCoordString(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 		System.out.println("Current Position: "+board.getNodes().get(thymio.getPosAsID()).getChessCoord());
 		

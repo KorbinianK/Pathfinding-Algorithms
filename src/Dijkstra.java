@@ -44,7 +44,7 @@ public class Dijkstra {
 			if(!getVisitedArray().contains(Settings.getBoard().bottomNeighbour(currentX, currentY))){
 				direction = "bottom";
 				int cost = calculateCost(currentX,currentY,direction);
-				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(currentX+currentY), Settings.getBoard().asNode(direction, currentX, currentY), cost);
+				Edge edge = new Edge(edges.size(), Settings.getBoard().getNodes().get(Controller.thymio.getPosAsID()), Settings.getBoard().asNode(direction, currentX, currentY), cost);
 				edges.add(edge);
 				if (cost < cheapest){
 					cheapest = cost;

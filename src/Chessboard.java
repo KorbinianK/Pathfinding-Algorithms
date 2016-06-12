@@ -27,13 +27,13 @@ public class Chessboard extends Rect{
 		
 		 for (int i = 0; i <= CANVAS_WIDTH; i+=FIELD_WIDTH*2) {
 		       	for (int j = 0; j <= CANVAS_HEIGHT; j+=FIELD_HEIGHT*2) {     	
-	       			Rect rect2 = new Rect(i, j, FIELD_HEIGHT, FIELD_WIDTH,Color.WHITE); 
+	       			Rect rect2 = new Rect(i, j, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorChessB()); 
 		       		rect2.draw();
 					}
 			}
 		    for (int i = FIELD_HEIGHT; i <= CANVAS_WIDTH; i+=FIELD_HEIGHT*2) {
 				for (int j = FIELD_HEIGHT; j <= CANVAS_HEIGHT; j+=FIELD_HEIGHT*2) {
-					Rect rect3 = new Rect(i, j, FIELD_HEIGHT, FIELD_WIDTH,Color.WHITE);
+					Rect rect3 = new Rect(i, j, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorChessB());
 					rect3.draw();
 				}
 		    }
@@ -132,31 +132,33 @@ public class Chessboard extends Rect{
 	
 	public Node asNode(String neighbour, int currentX, int currentY){
 		List<Node> nodes = Settings.getBoard().getNodes();
-		int x = 0;
-		int y = 0;
+		int x = currentX;
+		int y = currentY;
+		
+		
 		switch (neighbour) {
 		case "bottom":
-			x = currentX;
+			
 			y = currentY+1;
 			break;
 		case "top":
-			x = currentX;
+			
 			y = currentY-1;
 			break;
 		case "left":
-			x = currentX+1;
-			y = currentY;
+			x = currentX-1;
+			
 			break;
 		case "right":
-			x = currentX-1;
-			y = currentY;
+			x = currentX+1;
+			
 			break;
 		}
 		int id = 0;
-		for (int i = 0; i < currentX; i++) {
+		for (int i = 0; i < x; i++) {
 			id++;
 		}
-		int mult = (int) currentY*Settings.getBoardArraySize();
+		int mult = (int) y*Settings.getBoardArraySize();
 		int index = id+mult;
 		Node node = nodes.get(index);
 		return node;
