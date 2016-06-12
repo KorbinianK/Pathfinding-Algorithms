@@ -16,6 +16,7 @@
        - Keine Orientierung am Zielpunkt
        - Erkennt, wenn von aktueller Position kein unbesuchtes Feld erreichbar ist
    - Speichert besuchte Felder und erkennt, wenn diese erneut angefahren werden
+   - Nodes und Edges in eigenen Klassen
    - Thymio kann zu bestimmten Feldern geschickt werden, funktioniert aber noch nicht wirklich, war nur ein Test
 
 ### Todo:
