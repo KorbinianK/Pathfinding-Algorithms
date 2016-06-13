@@ -23,7 +23,6 @@ public class Obstacles {
 			return obs;
 		}
 		return freeImportantFields(obs);
-		
 	}
 
 	// Create random Obstacles

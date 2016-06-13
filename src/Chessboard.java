@@ -41,8 +41,6 @@ public class Chessboard extends Rect{
 	
 	// Creates the basic Chessboard
 	public static Chessboard get_board(){
-		
-		
 		return board;
 	}
    
@@ -134,24 +132,18 @@ public class Chessboard extends Rect{
 		List<Node> nodes = Settings.getBoard().getNodes();
 		int x = currentX;
 		int y = currentY;
-		
-		
 		switch (neighbour) {
 		case "bottom":
-			
 			y = currentY+1;
 			break;
 		case "top":
-			
 			y = currentY-1;
 			break;
 		case "left":
 			x = currentX-1;
-			
 			break;
 		case "right":
 			x = currentX+1;
-			
 			break;
 		}
 		int id = 0;
@@ -162,7 +154,6 @@ public class Chessboard extends Rect{
 		int index = id+mult;
 		Node node = nodes.get(index);
 		return node;
-		
 	}
 	
 	
@@ -254,7 +245,7 @@ public class Chessboard extends Rect{
 			for (int j = 0; j < Settings.getBoardArraySize(); j++) {
 				String[][] board = Settings.getBoard().boardAsStringArray();
 				
-				Node node = new Node(nodeList.size(),i,j,board[j][i]);
+				Node node = new Node(nodeList.size(),i,j,board[j][i],0);
 				nodeList.add(node);		
 			}
 		}	

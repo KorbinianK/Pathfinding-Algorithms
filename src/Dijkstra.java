@@ -2,13 +2,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/* ToDo:
+ * Costs Formula: min(infinite,current+destination)
+ * calc cost to all other nodes that are connected to the current node (getCheapestNeighbour Method?)
+ * Save them in hashmap
+ * Remember/save orientation on every node
+ * Pick lowest cost and continue
+ * 
+ */
+
 public class Dijkstra {
 
 	private static String[][] board = Settings.getBoard().boardAsArray();
 	private static Thymio thymio =  Controller.thymio;
-	protected static List<Node> visited = new ArrayList<Node>();
-	private static int currentCost = 0;
 	
+	private static int currentCost = 0;
+	protected static List<Node> visited = new ArrayList<Node>();
 	protected static List<Edge> edges = new ArrayList<Edge>();
 	
 	public static void print(){
@@ -157,7 +166,6 @@ public class Dijkstra {
 				if(orientation > top && orientation != bottom){
 					cost += 2;
 				}else if(orientation == bottom){
-					
 					cost += 3;
 				}else{
 					cost +=1;
@@ -197,15 +205,14 @@ public class Dijkstra {
 	}
 	
 	
+	
 //	Adds the position to the visited List 
-	public static void addToVisited(Node node){
+	public static void addToVisited(Node node, int orientation){
 		if(!visited.contains(node)){
-			
 			visited.add(node);
+			node.setOrientation(orientation);
 		}else{
 			System.out.println(node.getChessCoord()+" already visited.");
 		}
-
-		
 	}
 }

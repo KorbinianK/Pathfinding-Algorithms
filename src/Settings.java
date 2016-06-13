@@ -6,8 +6,8 @@ import de.ur.mi.graphics.Color;
 public class Settings  {
 	
 	//	Awesome Thymio Image
-	private static final String thymio_img = "images/thymio.gif";
-	
+	private static final String THYMIO_IMG = "images/thymio.gif";
+	private static final String THYMIO_ROTATION = "east";
 	// Colors
 	private static Color COLOR_CHESS_A = Color.DARK_GRAY;
 	private static Color COLOR_CHESS_B = Color.LIGHT_GRAY;
@@ -20,12 +20,12 @@ public class Settings  {
 	private static int FONT_SIZE_ENDPOINT = 19;
 	
 	//	Startfield (currently possible: 0-9)
-	private static int THYMIO_STARTFIELD_X = 3; 
-	private static int THYMIO_STARTFIELD_Y = 6;;
+	private static int THYMIO_STARTFIELD_X = 0; 
+	private static int THYMIO_STARTFIELD_Y = 4;;
 	
 	//	Endfield (currently possible: 0-9)
 	private static int THYMIO_ENDFIELD_X = 8;
-	private static int THYMIO_ENDFIELD_Y = 3;
+	private static int THYMIO_ENDFIELD_Y = 8;
 	
 	/*
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
@@ -33,7 +33,7 @@ public class Settings  {
 	 */
 	private static boolean RANDOM_OBSTACLES = true; // if this is set to false, a fixed obstacle array has to be calculated by hand and inserted below
 	private static char[][] FIXED_OBSTACLE_ARRAY = {};
-	private static int RANDOM_OBSTACLE_COUNT = 3;
+	private static int RANDOM_OBSTACLE_COUNT = 2;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
 	
@@ -73,7 +73,7 @@ public class Settings  {
 		return THYMIO_STARTFIELD_X;
 	}
 	public static String getThymioImg() {
-		return thymio_img;
+		return THYMIO_IMG;
 	}
 	public static int getThymioStartField_Y() {
 		return THYMIO_STARTFIELD_Y;
@@ -190,5 +190,8 @@ public class Settings  {
 	}
 	public static void setFontSizeStartpoint(int size) {
 		FONT_SIZE_STARTPOINT = size;
+	}
+	public static String getThymioRotation() {
+		return THYMIO_ROTATION;
 	}
 }

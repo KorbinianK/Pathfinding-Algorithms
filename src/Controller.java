@@ -19,12 +19,10 @@ public class Controller extends GraphicsApp implements KeyListener {
     public void setup() {
     	
       	size(CANVAS_HEIGHT+FIELD_HEIGHT,CANVAS_WIDTH+FIELD_HEIGHT);   	 	
-      	thymio = new Thymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg());
+      	thymio = new Thymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioRotation());
       	String[][] boardstr =board.boardAsArray();
-//      	Dijkstra.addToVisited(boardstr[thymio.getXPosAsField()][thymio.getYPosAsField()]);
-//      	Dijkstra.addToVisited(Settings.getBoard().getNodes().get(THYMIO_STARTFIELD_X+THYMIO_STARTFIELD_Y));
       	board.createNodes();
-      	Dijkstra.addToVisited(board.getNodes().get(thymio.getPosAsID()));
+      	Dijkstra.addToVisited(board.getNodes().get(thymio.getPosAsID()),thymio.getOrientation());
     }
     
     

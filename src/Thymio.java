@@ -10,11 +10,28 @@ public class Thymio extends Image{
 	private static final int FIELD_HEIGHT = Settings.getFieldHeight();
 	private static final int CANVAS_HEIGHT = Settings.getCanvasHeight();
 	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
+
 	private static int CURRENT_ROTATION = 0;
 	private static 	String[][] board = Settings.getBoard().boardAsArray();
 //	Constructor
-	public Thymio(double xPos, double yPos,double width, double height, String src){
+	public Thymio(double xPos, double yPos,double width, double height, String src, String orientation){
 		super(xPos,yPos,width,height,src);
+		switch (orientation) {
+		case "north":
+			setOrientation("up");
+			break;
+		case "south":
+			setOrientation("down");
+			break;
+			
+		case "west":
+			setOrientation("left");
+			break;
+		case "east":
+			setOrientation("right");
+			break;
+
+		}
 	}
 	
 /* 	Sets rotation based on command sent to Thymio
@@ -80,8 +97,7 @@ public class Thymio extends Image{
 		if(super.getX()>0  && collision("Left") == false) {
 			super.move(-DISTANCE, 0);
 			setOrientation("left");	
-//			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
-			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()));
+			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
 
 			try {
 				Thread.sleep(Settings.getDelay());
@@ -96,8 +112,7 @@ public class Thymio extends Image{
 		if(super.getX() < CANVAS_WIDTH && collision("Right") == false){
 			super.move(DISTANCE, 0);
 			setOrientation("right");
-//			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
-			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()));
+			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -113,8 +128,7 @@ public class Thymio extends Image{
 		if(super.getY()>0 && collision("Up") == false){
 			super.move(0, -DISTANCE);
 			setOrientation("up");
-//			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
-			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()));
+			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -129,8 +143,7 @@ public class Thymio extends Image{
 		if(super.getY() < CANVAS_HEIGHT && collision("Down") == false){
 			super.move(0, DISTANCE);
 			setOrientation("down");
-//			Dijkstra.addToVisited(board[Controller.thymio.getXPosAsField()][Controller.thymio.getYPosAsField()]);
-			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()));
+			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -243,14 +256,6 @@ public class Thymio extends Image{
 		super.draw();
 	}
 	
-	// Return Thymios X Coord
-	public double getXPos(){
-		return super.getX();
-	}
-	// Return Thymios Y Coord
-	public double getYPos(){
-		return super.getY();
-	}
 	// Return Thymios X Coord as Field  (0, 1, 2 etc)
 	public int getXPosAsField(){
 		return (int)super.getX()/Settings.getFieldHeight();
