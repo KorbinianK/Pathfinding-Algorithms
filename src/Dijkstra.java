@@ -1,6 +1,17 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+
+
+
+
 
 /* ToDo:
  * Costs Formula: min(infinite,current+destination)
@@ -12,6 +23,10 @@ import java.util.List;
  */
 
 public class Dijkstra {
+	
+	
+	
+
 
 	private static String[][] board = Settings.getBoard().boardAsArray();
 	private static Thymio thymio =  Controller.thymio;
@@ -19,6 +34,7 @@ public class Dijkstra {
 	private static int currentCost = 0;
 	protected static List<Node> visited = new ArrayList<Node>();
 	protected static List<Edge> edges = new ArrayList<Edge>();
+	private static Node destinationNode;
 	
 	public static void print(){
 		System.out.println(Arrays.deepToString(board));
@@ -40,7 +56,7 @@ public class Dijkstra {
 	
 	
 //	Returns the cheapest Neighbour from the current field (avoiding obstacles)
-	public static String getCheapestNeighbour(int x, int y){
+	public static Node getCheapestNeighbour(int x, int y){
 		String destination  = null;
 		int intStartX = getX(board,x,y); 
 		int intStartY = getY(board,x,y);
@@ -101,46 +117,24 @@ public class Dijkstra {
 				}
 //				System.out.println("Cost to left "+edge.getCost());
 			}
-			
 		}
 		
 		if(cheapestDirection != null){
-			switch (cheapestDirection) {
-			case "right":
-			
-				destination = Settings.getBoard().rightNeighbour(currentX, currentY);
-//				thymio.moveRight();		
-				break;
-			case "top":
-				destination = Settings.getBoard().topNeighbour(currentX, currentY);
-//				thymio.moveUp();			
-				break;
-			case "left":
-				destination = Settings.getBoard().leftNeighbour(currentX, currentY);
-//				thymio.moveLeft();			
-				break;
-			case "bottom":
-				destination = Settings.getBoard().bottomNeighbour(currentX, currentY);
-//				thymio.moveDown();
-				break;
-			}
+			destinationNode = Settings.getBoard().asNode(cheapestDirection, currentX, currentY);
 		}
 //		System.out.println(cheapestDirection);
 		
-		return destination;
+		return destinationNode;
 	}
 	
 //	Returns the cheapest Neighbour as Chess Coordinates
 	public static String getCheapestNeighbourChess(int x, int y){
-		String cheapest = getCheapestNeighbour(x,y);
+		Node cheapest = getCheapestNeighbour(x,y);
 		if(cheapest == null){
 			return "no unvisited node in reach from this position";
 		}
-		String[] arr = cheapest.split(",");
-		int intX = Integer.parseInt(arr[0]); 
-		int intY = Integer.parseInt(arr[1]); 
-		String[][] board = Settings.getBoard().boardAsStringArray();
-		return board[intX][intY];
+		
+		return cheapest.getChessCoord();
 	}
 
 	
@@ -215,4 +209,37 @@ public class Dijkstra {
 			System.out.println(node.getChessCoord()+" already visited.");
 		}
 	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

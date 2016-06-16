@@ -32,8 +32,14 @@ public class Node {
 		return xCoord;
 	}
 
+
 	public int getId() {
 		return id;
+	}
+
+	public String toCoordString() {
+		// TODO Auto-generated method stub
+		return yCoord+","+xCoord;
 	}
 
 }

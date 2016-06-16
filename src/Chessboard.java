@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Rect;
@@ -127,6 +130,57 @@ public class Chessboard extends Rect{
 		String neighbour = board[check_x][check_y];
 		return neighbour;
 	}
+	
+	
+	public List<Node> getNeighbourNodes(Node current) {
+		
+		List<Node> nodes = new ArrayList<Node>();
+		nodes.add(leftNeighbourNode(current));
+		nodes.add(rightNeighbourNode(current));
+		nodes.add(topNeighbourNode(current));
+		nodes.add(bottomNeighbourNode(current));
+		
+		return nodes;
+		
+	}
+	
+	
+	private Node leftNeighbourNode(Node current){
+		int currentID = current.getId();
+		int neighbourID = currentID-1;
+		return getNeighbourNode(neighbourID);
+	}
+
+	private Node rightNeighbourNode(Node current){
+		int currentID = current.getId();
+		int neighbourID = currentID+1;
+		return getNeighbourNode(neighbourID);
+	}
+	
+	private Node topNeighbourNode(Node current){
+		int currentID = current.getId();
+		int neighbourID = currentID+Settings.getBoardArraySize();
+		return getNeighbourNode(neighbourID);
+	}
+	
+	private Node bottomNeighbourNode(Node current){
+		int currentID = current.getId();
+		int neighbourID = currentID-Settings.getBoardArraySize();
+		return getNeighbourNode(neighbourID);
+	}
+	
+	
+	private Node getNeighbourNode(int neighbourID) {
+		Node neighbour;
+		if (neighbourID < Settings.getBoard().getNodes().size() && neighbourID >= 0) {
+			neighbour = Settings.getBoard().getNodes().get(neighbourID);
+		}else{
+			neighbour = null;
+		}
+		
+		return neighbour;
+	}
+	
 	
 	public Node asNode(String neighbour, int currentX, int currentY){
 		List<Node> nodes = Settings.getBoard().getNodes();

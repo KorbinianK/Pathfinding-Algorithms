@@ -126,7 +126,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 		
 		System.out.println("Current Coordinates: ["+board.getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
-		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()));
+		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()).toCoordString());
 		System.out.println("_____________________________________________");
 	}
 
