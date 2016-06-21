@@ -166,13 +166,13 @@ public class Chessboard extends Rect{
 	
 	private Node topNeighbourNode(Node current){
 		int currentID = current.getId();
-		int neighbourID = currentID+Settings.getBoardArraySize();
+		int neighbourID = currentID+Settings.getBoardArrayHeight();
 		return getNeighbourNode(neighbourID);
 	}
 	
 	private Node bottomNeighbourNode(Node current){
 		int currentID = current.getId();
-		int neighbourID = currentID-Settings.getBoardArraySize();
+		int neighbourID = currentID-Settings.getBoardArrayHeight();
 		return getNeighbourNode(neighbourID);
 	}
 	

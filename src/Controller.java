@@ -130,13 +130,10 @@ public class Controller extends GraphicsApp implements KeyListener {
 		System.out.println("Current Position: "+board.getNodes().get(thymio.getPosAsID()).getChessCoord());
 		
 		System.out.println("Current Coordinates: ["+board.getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-<<<<<<< Updated upstream
-		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
-		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()).toCoordString());
-=======
+
 //		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
-		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()));
->>>>>>> Stashed changes
+		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()).getChessCoord());
+
 		System.out.println("_____________________________________________");
 	}
 
