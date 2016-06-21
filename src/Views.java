@@ -9,6 +9,7 @@ public class Views {
 	private static final int FIELD_WIDTH = Settings.getFieldWidth();;
 	private static final int FIELD_HEIGHT = Settings.getFieldHeight();
 	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
+	private static final int CANVAS_HEIGHT = Settings.getCanvasHeight();
 	private static Chessboard board = Settings.getBoard();
 		
 		// Draws the Start
@@ -40,7 +41,7 @@ public class Views {
 	 		
 	 		for (int i = 0; i <= CANVAS_WIDTH; i+= FIELD_WIDTH) {
 	 			int x = 0; int y = 0;
-	 			for (int j = 0; j <= CANVAS_WIDTH; j+= FIELD_WIDTH) {
+	 			for (int j = 0; j <= CANVAS_HEIGHT; j+= FIELD_WIDTH) {
 	 					x = i/FIELD_WIDTH;
 	 					y = j/FIELD_HEIGHT;
 	 				if(Settings.getObstacles().isObstacle(x, y)){

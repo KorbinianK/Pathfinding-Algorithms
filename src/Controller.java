@@ -1,6 +1,7 @@
 import de.ur.mi.graphicsapp.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 
 public class Controller extends GraphicsApp implements KeyListener {
@@ -18,7 +19,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 	// Basic setup
     public void setup() {
     	
-      	size(CANVAS_HEIGHT+FIELD_HEIGHT,CANVAS_WIDTH+FIELD_HEIGHT);   	 	
+      	size(CANVAS_WIDTH,CANVAS_HEIGHT);   	 	
       	thymio = new Thymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioRotation());
       	String[][] boardstr =board.boardAsArray();
       	board.createNodes();
@@ -102,7 +103,11 @@ public class Controller extends GraphicsApp implements KeyListener {
 			moveToPos(thymio,Settings.getThymioStartField_X(),Settings.getThymioStartField_Y());
 			break;
 		case 't':
-			moveToPos(thymio,Settings.getThymioEndField_X(),Settings.getThymioEndField_Y());
+//			moveToPos(thymio,Settings.getThymioEndField_X(),Settings.getThymioEndField_Y());
+			List<Node> nodes = Settings.getBoard().getNodes();
+			for(Node node : nodes){
+				System.out.println(node.getXCoord()+","+node.getYCoord());
+			}
 			break;
 		case '1':
 //			int cost = board.calculateAirDistance(thymio.getXPosAsField(), thymio.getYPosAsField(), Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
@@ -125,8 +130,13 @@ public class Controller extends GraphicsApp implements KeyListener {
 		System.out.println("Current Position: "+board.getNodes().get(thymio.getPosAsID()).getChessCoord());
 		
 		System.out.println("Current Coordinates: ["+board.getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
+<<<<<<< Updated upstream
 		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
 		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()).toCoordString());
+=======
+//		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
+		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()));
+>>>>>>> Stashed changes
 		System.out.println("_____________________________________________");
 	}
 

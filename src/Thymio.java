@@ -109,7 +109,7 @@ public class Thymio extends Image{
 	
 	// Moves Thymio right
 	public void moveRight() {
-		if(super.getX() < CANVAS_WIDTH && collision("Right") == false){
+		if(super.getX() < CANVAS_WIDTH-DISTANCE && collision("Right") == false){
 			super.move(DISTANCE, 0);
 			setOrientation("right");
 			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
@@ -140,7 +140,7 @@ public class Thymio extends Image{
 
 	// Moves Thymio down
 	public void moveDown() {
-		if(super.getY() < CANVAS_HEIGHT && collision("Down") == false){
+		if(super.getY() < CANVAS_HEIGHT-DISTANCE && collision("Down") == false){
 			super.move(0, DISTANCE);
 			setOrientation("down");
 			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
@@ -243,12 +243,16 @@ public class Thymio extends Image{
 	
 	
 	public int getPosAsID(){
+		int[][] arr = new int[Settings.getBoardArrayHeight()][Settings.getBoardArrayWidth()];
 		int id = 0;
-		for (int i = 0; i < getXPosAsField(); i++) {
-			id++;
+		for (int i = 0; i < Settings.getBoardArrayHeight();i++) {
+			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
+				
+				arr[i][j]= id;
+				id++;
+			}
 		}
-		int mult = (int) (getYPosAsField()*Settings.getBoardArraySize());
-		return id+mult;
+		return arr[getYPosAsField()][getXPosAsField()];
 	}
 	
 	// Draws Thymio

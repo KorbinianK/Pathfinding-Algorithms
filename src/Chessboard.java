@@ -28,14 +28,14 @@ public class Chessboard extends Rect{
 	public void redraw(){
 		super.draw();
 		
-		 for (int i = 0; i <= CANVAS_WIDTH; i+=FIELD_WIDTH*2) {
-		       	for (int j = 0; j <= CANVAS_HEIGHT; j+=FIELD_HEIGHT*2) {     	
+		 for (int i = 0; i < CANVAS_WIDTH; i+=FIELD_WIDTH*2) {
+		       	for (int j = 0; j < CANVAS_HEIGHT; j+=FIELD_HEIGHT*2) {     	
 	       			Rect rect2 = new Rect(i, j, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorChessB()); 
 		       		rect2.draw();
 					}
 			}
-		    for (int i = FIELD_HEIGHT; i <= CANVAS_WIDTH; i+=FIELD_HEIGHT*2) {
-				for (int j = FIELD_HEIGHT; j <= CANVAS_HEIGHT; j+=FIELD_HEIGHT*2) {
+		    for (int i = FIELD_HEIGHT; i < CANVAS_WIDTH; i+=FIELD_HEIGHT*2) {
+				for (int j = FIELD_HEIGHT; j <CANVAS_HEIGHT; j+=FIELD_HEIGHT*2) {
 					Rect rect3 = new Rect(i, j, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorChessB());
 					rect3.draw();
 				}
@@ -49,13 +49,13 @@ public class Chessboard extends Rect{
    
 //	Returns the Board as Array with Chess-like Coordinates (A1,A2....B6 etc.)
 	public String[][] boardAsStringArray(){
-		String[][] board_array = new String[Settings.getBoardArraySize()][Settings.getBoardArraySize()];
+		String[][] board_array = new String[20][8];
 		return fillCoordinatesString(board_array);
 	}
 	
 // Returns the Boardas Array with Coordinates (0,0; 0,1; ... 5,8 etc)	
 	public String[][] boardAsArray(){
-		String[][] board_array = new String[Settings.getBoardArraySize()][Settings.getBoardArraySize()];
+		String[][] board_array = new String[Settings.getBoardArrayWidth()][Settings.getBoardArrayHeight()];
 		return fillCoordinates(board_array);
 	}
 	
@@ -92,10 +92,17 @@ public class Chessboard extends Rect{
 	private String[][] fillCoordinatesString(String[][] board) {
 		
 		char[] letters = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-		for (int row = 0; row < board.length; row++) {
-			for (int col = 0; col < board.length; col++) {
-				String curr = Integer.toString(row);
-				board[col][row] = letters[col]+curr;	
+//		for (int col = 0; col < 8; col++) {
+//			for (int row = 0; row < 20; row++) {
+//				String curr = Integer.toString(row);
+//				board[row][col] = letters[col]+curr;	
+//			}
+//		}
+		for (int i = 0; i < board[0].length; i++) {
+			
+			for (int j = 0; j < board.length; j++) {
+				String curr = Integer.toString(i);
+				board[j][i]=letters[j]+curr;
 			}
 		}
 		return board;
@@ -201,11 +208,16 @@ public class Chessboard extends Rect{
 			break;
 		}
 		int id = 0;
-		for (int i = 0; i < x; i++) {
-			id++;
+		int[][] arr = new int[Settings.getBoardArrayHeight()][Settings.getBoardArrayWidth()];
+		
+		for (int i = 0; i < Settings.getBoardArrayHeight();i++) {
+			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
+				
+				arr[i][j]= id;
+				id++;
+			}
 		}
-		int mult = (int) y*Settings.getBoardArraySize();
-		int index = id+mult;
+		int index = arr[y][x];
 		Node node = nodes.get(index);
 		return node;
 	}
@@ -223,7 +235,7 @@ public class Chessboard extends Rect{
 	public boolean fieldHasRightNeighbour(int x, int y){
 		int check_x = x+1;
 		int check_y = y;
-		if(check_x < Settings.getBoardArraySize()){
+		if(check_x < Settings.getBoardArrayWidth()){
 			return checkField(check_x,check_y);
 		}
 		return false;
@@ -231,7 +243,7 @@ public class Chessboard extends Rect{
 	public boolean fieldHasBottomNeighbour(int x, int y){
 		int check_x = x;
 		int check_y = y+1;
-		if(check_y < Settings.getBoardArraySize()){
+		if(check_y < Settings.getBoardArrayHeight()){
 			return checkField(check_x,check_y);
 		}
 		return false;
@@ -250,8 +262,8 @@ public class Chessboard extends Rect{
 
 //	checks if the field exists and has no obstacle
 	private boolean checkField(int x, int y) {
-		if(x <= Settings.getBoardArraySize()&& x >= 0){
-			if(y <= Settings.getBoardArraySize()&& y >= 0){
+		if(x <= Settings.getBoardArrayWidth()&& x >= 0){
+			if(y <= Settings.getBoardArrayHeight()&& y >= 0){
 				if(!Settings.getObstacles().isObstacle(x, y)){
 					return true;
 				}	
@@ -295,8 +307,8 @@ public class Chessboard extends Rect{
 	
 //	Creates a node representing each field
 	public void createNodes(){
-		for (int i = 0; i < Settings.getBoardArraySize(); i++) {
-			for (int j = 0; j < Settings.getBoardArraySize(); j++) {
+		for (int i = 0; i < Settings.getCanvasHeight()/Settings.getFieldHeight(); i++) {
+			for (int j = 0; j < Settings.getCanvasWidth()/Settings.getFieldHeight(); j++) {
 				String[][] board = Settings.getBoard().boardAsStringArray();
 				
 				Node node = new Node(nodeList.size(),i,j,board[j][i],0);

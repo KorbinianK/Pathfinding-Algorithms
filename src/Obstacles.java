@@ -4,7 +4,7 @@ public class Obstacles {
 	
 	private static int probability = Settings.getObstacleProbability();
 	private static int prob_range = Settings.getObstacleProbabilityRange();
-	private static char[][] obs = new char[Settings.getCanvasHeight()/Settings.getFieldHeight()+1][Settings.getCanvasHeight()/Settings.getFieldHeight()+1];
+	private static char[][] obs = new char[Settings.getCanvasWidth()/Settings.getFieldHeight()+1][Settings.getCanvasHeight()/Settings.getFieldHeight()+1];
 	Random r = new Random();
 	
 //	Constructor
@@ -28,7 +28,7 @@ public class Obstacles {
 	// Create random Obstacles
 	private char[][] createRandomObstacles(Random r){
 		for (int i = 0; i < obs.length; i++) {
-			for (int j = 0; j < obs.length; j++) {
+			for (int j = 0; j < obs[0].length; j++) {
 				int rnd = r.nextInt(prob_range);
 				if(rnd < probability){
 					obs[i][j] = 'X';
