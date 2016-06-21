@@ -1,4 +1,7 @@
+import java.util.List;
+
 import de.ur.mi.graphics.Color;
+
 
 /*
  * Settings Class with all the Getter and Setter. Adjust for custom setting
@@ -11,7 +14,7 @@ public class Settings  {
 	// Colors
 	private static Color COLOR_CHESS_A = Color.DARK_GRAY;
 	private static Color COLOR_CHESS_B = Color.LIGHT_GRAY;
-	private static Color COLOR_OBSTACLE = Color.ORANGE;
+	private static Color COLOR_OBSTACLE = Color.RED;
 	private static Color START_COLOR = Color.GREEN;
 	private static Color END_COLOR = Color.BLUE;
 
@@ -19,11 +22,11 @@ public class Settings  {
 	private static int FONT_SIZE_STARTPOINT = 13;
 	private static int FONT_SIZE_ENDPOINT = 19;
 	
-	//	Startfield (currently possible: 0-9)
+	//	Startfield (currently possible: 0-19)
 	private static int THYMIO_STARTFIELD_X = 4; 
 	private static int THYMIO_STARTFIELD_Y = 1;;
 	
-	//	Endfield (currently possible: 0-9)
+	//	Endfield (currently possible: 0-19)
 	private static int THYMIO_ENDFIELD_X = 17;
 	private static int THYMIO_ENDFIELD_Y = 3;
 	
@@ -33,7 +36,7 @@ public class Settings  {
 	 */
 	private static boolean RANDOM_OBSTACLES = true; // if this is set to false, a fixed obstacle array has to be calculated by hand and inserted below
 	private static char[][] FIXED_OBSTACLE_ARRAY = {};
-	private static int RANDOM_OBSTACLE_COUNT = 0;
+	private static int RANDOM_OBSTACLE_COUNT = 2;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
 	
@@ -47,8 +50,13 @@ public class Settings  {
 	private static final int FIELD_WIDTH = 50;
 	private static final Obstacles obstacles = new Obstacles();	
 	private static Chessboard board = new Chessboard(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, COLOR_CHESS_A);
-//	private static int BOARD_ARRAY_SIZE = CANVAS_HEIGHT/FIELD_HEIGHT;
 
+	private static final String EMPTY_MAP_SRC = "empty_map.csv";
+	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
+	private static final MapGenerator mapGen = new MapGenerator();
+//	private static final Map map = mapGen.getMap();
+	private static List<Node> mapNodes = mapGen.getNodes();
+	
 	
 	public static int getStartX(){
 		return getThymioStartField_X() * getFieldHeight();
@@ -134,12 +142,6 @@ public class Settings  {
 	public static void setBoard(Chessboard board) {
 		Settings.board = board;
 	}
-//	public static int getBoardArraySize() {
-//		return BOARD_ARRAY_SIZE;
-//	}
-//	public static void setBoardArraySize(int boardArraySize) {
-//		BOARD_ARRAY_SIZE = boardArraySize;
-//	}
 	public static Color getColorChessA() {
 		return COLOR_CHESS_A;
 	}
@@ -193,11 +195,15 @@ public class Settings  {
 		return THYMIO_ROTATION;
 	}
 	public static int getBoardArrayWidth() {
-		// TODO Auto-generated method stub
 		return CANVAS_WIDTH/FIELD_HEIGHT;
 	}
 	public static int getBoardArrayHeight() {
-		// TODO Auto-generated method stub
 		return CANVAS_HEIGHT/FIELD_HEIGHT;
+	}
+	public static String getEmptySrc() {
+		return EMPTY_MAP_SRC;
+	}
+	public static String getObstacleSrc() {
+		return OBSTACLE_MAP_SRC;
 	}
 }

@@ -92,12 +92,6 @@ public class Chessboard extends Rect{
 	private String[][] fillCoordinatesString(String[][] board) {
 		
 		char[] letters = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-//		for (int col = 0; col < 8; col++) {
-//			for (int row = 0; row < 20; row++) {
-//				String curr = Integer.toString(row);
-//				board[row][col] = letters[col]+curr;	
-//			}
-//		}
 		for (int i = 0; i < board[0].length; i++) {
 			
 			for (int j = 0; j < board.length; j++) {
@@ -189,7 +183,7 @@ public class Chessboard extends Rect{
 	}
 	
 	
-	public Node asNode(String neighbour, int currentX, int currentY){
+	public Node neighbourAsNode(String neighbour, int currentX, int currentY){
 		List<Node> nodes = Settings.getBoard().getNodes();
 		int x = currentX;
 		int y = currentY;
@@ -206,19 +200,37 @@ public class Chessboard extends Rect{
 		case "right":
 			x = currentX+1;
 			break;
+		default:
+			break;
 		}
 		int id = 0;
 		int[][] arr = new int[Settings.getBoardArrayHeight()][Settings.getBoardArrayWidth()];
 		
 		for (int i = 0; i < Settings.getBoardArrayHeight();i++) {
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
-				
 				arr[i][j]= id;
 				id++;
 			}
 		}
 		int index = arr[y][x];
 		Node node = nodes.get(index);
+		return node;
+	}
+	
+	public static Node posAsNode(int x, int y){
+		List<Node> nodes = Settings.getBoard().getNodes();
+		int id = 0;
+		int[][] arr = new int[Settings.getBoardArrayHeight()][Settings.getBoardArrayWidth()];
+		
+		for (int i = 0; i < Settings.getBoardArrayHeight();i++) {
+			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
+				arr[i][j]= id;
+				id++;
+			}
+		}
+		int index = arr[y][x];
+		Node node = nodes.get(index);
+		
 		return node;
 	}
 	
@@ -310,7 +322,6 @@ public class Chessboard extends Rect{
 		for (int i = 0; i < Settings.getCanvasHeight()/Settings.getFieldHeight(); i++) {
 			for (int j = 0; j < Settings.getCanvasWidth()/Settings.getFieldHeight(); j++) {
 				String[][] board = Settings.getBoard().boardAsStringArray();
-				
 				Node node = new Node(nodeList.size(),i,j,board[j][i],0);
 				nodeList.add(node);		
 			}

@@ -18,7 +18,6 @@ public class Controller extends GraphicsApp implements KeyListener {
 		
 	// Basic setup
     public void setup() {
-    	
       	size(CANVAS_WIDTH,CANVAS_HEIGHT);   	 	
       	thymio = new Thymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioRotation());
       	String[][] boardstr =board.boardAsArray();
@@ -121,20 +120,25 @@ public class Controller extends GraphicsApp implements KeyListener {
 		
     	}
     	Views.draw();
-//		System.out.println("Left Neighbour: ["+board.fieldHasLeftNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-//		System.out.println("Right Neighbour: ["+board.fieldHasRightNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-//		System.out.println("Top Neighbour: ["+board.fieldHasTopNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-//		System.out.println("Bottom Neighbour: ["+board.fieldHasBottomNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-//    	
 //		System.out.println("Current Position: ["+board.getCoordString(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 		System.out.println("Current Position: "+board.getNodes().get(thymio.getPosAsID()).getChessCoord());
-		
 		System.out.println("Current Coordinates: ["+board.getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 
-//		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
+		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
 		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()).getChessCoord());
 
 		System.out.println("_____________________________________________");
+		System.out.println("Reached destinatio: "+reachedDest());
+		
+	}
+
+
+	private boolean reachedDest() {
+		
+		if(Chessboard.posAsNode(thymio.getXPosAsField(),thymio.getYPosAsField()) == Chessboard.posAsNode(Settings.getThymioEndField_X(),Settings.getThymioEndField_Y())){
+			return true;
+		}
+		return false;
 	}
 
 }
