@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.List;
 
 import de.ur.mi.graphics.Color;
@@ -34,8 +35,8 @@ public class Settings  {
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static boolean RANDOM_OBSTACLES = true; // if this is set to false, a fixed obstacle array has to be calculated by hand and inserted below
-	private static char[][] FIXED_OBSTACLE_ARRAY = {};
+	private static boolean RANDOM_OBSTACLES = false; // if this is set to false, a fixed obstacle array has to be calculated by hand and inserted below
+
 	private static int RANDOM_OBSTACLE_COUNT = 2;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
@@ -48,7 +49,7 @@ public class Settings  {
 	private static final int FIELD_HEIGHT = getFieldWidth();
 	private static final int CANVAS_WIDTH  = 1000;
 	private static final int FIELD_WIDTH = 50;
-	private static final Obstacles obstacles = new Obstacles();	
+	
 	private static Chessboard board = new Chessboard(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, COLOR_CHESS_A);
 
 	private static final String EMPTY_MAP_SRC = "empty_map.csv";
@@ -56,7 +57,20 @@ public class Settings  {
 	private static final MapGenerator mapGen = new MapGenerator();
 //	private static final Map map = mapGen.getMap();
 	private static List<Node> mapNodes = mapGen.getNodes();
+	private static CSVData csv = getReader();
+	private static List<String[]> csv_list = csv.getEntries();
+	private static final Obstacles obstacles = new Obstacles();	
 	
+	private static CSVData getReader(){
+		CSVData test = null;
+		try {
+			test = new CSVData();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return test;
+	}
 	
 	public static int getStartX(){
 		return getThymioStartField_X() * getFieldHeight();
@@ -175,10 +189,7 @@ public class Settings  {
 	public static boolean randomObstacles() {
 		return RANDOM_OBSTACLES;
 	}
-	public static char[][] getFixedObstacleArray() {
-		char[][] obstacles = FIXED_OBSTACLE_ARRAY;
-		return obstacles;
-	}
+
 	public static int getFontSizeEndpoint() {
 		return FONT_SIZE_ENDPOINT;
 	}
@@ -206,4 +217,8 @@ public class Settings  {
 	public static String getObstacleSrc() {
 		return OBSTACLE_MAP_SRC;
 	}
+	public static List<String[]> getCsv() {
+		return csv_list;
+	}
+	
 }

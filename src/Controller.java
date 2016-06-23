@@ -99,7 +99,24 @@ public class Controller extends GraphicsApp implements KeyListener {
 			thymio.moveDown();
 			break;
 		case 'g':
-			moveToPos(thymio,Settings.getThymioStartField_X(),Settings.getThymioStartField_Y());
+//			moveToPos(thymio,Settings.getThymioStartField_X(),Settings.getThymioStartField_Y());
+			char[][] test = new char[20][8];
+			int x = 0;
+			for(String[] entry : Settings.getCsv()){
+				
+				for (int i = 0; i < entry.length; i++) {
+					String t = entry[i];
+					char[] arr = t.toCharArray();
+					for (int j = 0; j < arr.length; j++) {
+						test[i][x] = arr[j];
+						System.out.print(arr[j]);
+					}
+					
+				}
+				x++;
+				
+			}
+			
 			break;
 		case 't':
 //			moveToPos(thymio,Settings.getThymioEndField_X(),Settings.getThymioEndField_Y());
@@ -126,9 +143,9 @@ public class Controller extends GraphicsApp implements KeyListener {
 
 		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
 		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()).getChessCoord());
-
-		System.out.println("_____________________________________________");
 		System.out.println("Reached destinatio: "+reachedDest());
+		System.out.println("_____________________________________________");
+		
 		
 	}
 

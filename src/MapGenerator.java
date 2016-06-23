@@ -30,7 +30,7 @@ public class MapGenerator {
 		
 	}
 
-	private void generateNodes() {
+	private static void generateNodes() {
 		for (int i = 0; i < Settings.getCanvasHeight(); i++) {
 			  for (int j = 0; j < Settings.getCanvasWidth(); j++) {
 
@@ -52,8 +52,8 @@ public class MapGenerator {
 				
 				  FileWriter writer = new FileWriter(file,true);
 					
-				  for (int i = 0; i < Settings.getCanvasHeight(); i++) {
-					  for (int j = 0; j < Settings.getCanvasWidth(); j++) {
+				  for (int i = 0; i < Settings.getCanvasHeight()/Settings.getFieldHeight(); i++) {
+					  for (int j = 0; j < Settings.getCanvasWidth()/Settings.getFieldHeight(); j++) {
 						  	int rnd = r.nextInt(prob_range);
 						  	if(randomObs){
 								if(rnd < probability){

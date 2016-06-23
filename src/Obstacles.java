@@ -12,13 +12,29 @@ public class Obstacles {
 		if(Settings.randomObstacles()){
 			createRandomObstacles(r);
 		}else{
-			createFixedObstacles(Settings.getFixedObstacleArray());
+			createFixedObstacles();
 		}
 		
 	}
 	
-	private char[][] createFixedObstacles(char[][] fixedObstacleArray) {
-		obs = Settings.getFixedObstacleArray();
+	private char[][] createFixedObstacles() {
+		
+		
+		int x = 0;
+		for(String[] entry : Settings.getCsv()){
+			
+			for (int i = 0; i < entry.length; i++) {
+				String t = entry[i];
+				char[] arr = t.toCharArray();
+				for (int j = 0; j < arr.length; j++) {
+					obs[i][x] = arr[j];
+					
+				}
+				
+			}
+			x++;
+			
+		}
 		if(obs.length <1){
 			return obs;
 		}
@@ -31,10 +47,10 @@ public class Obstacles {
 			for (int j = 0; j < obs[0].length; j++) {
 				int rnd = r.nextInt(prob_range);
 				if(rnd < probability){
-					obs[i][j] = 'X';
+					obs[i][j] = '1';
 					
 				}else{
-					obs[i][j] = ' ';
+					obs[i][j] = '0';
 				}
 			}
 		}	
@@ -59,7 +75,7 @@ public class Obstacles {
 	// Check if the position contains an obstacle
 	public boolean isObstacle(int x, int y){
 		if(obs.length > 0){
-			if (obs[x][y] == 'X' ){
+			if (obs[x][y] == '1' ){
 				return true;
 			}else{
 				return false;
