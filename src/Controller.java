@@ -98,8 +98,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 		case 's':
 			thymio.moveDown();
 			break;
-		case 'g':
-//			moveToPos(thymio,Settings.getThymioStartField_X(),Settings.getThymioStartField_Y());
+		case 'g': // Only for testing/debugging purposes
 			char[][] test = new char[20][8];
 			int x = 0;
 			for(String[] entry : Settings.getCsv()){
@@ -118,14 +117,13 @@ public class Controller extends GraphicsApp implements KeyListener {
 			}
 			
 			break;
-		case 't':
-//			moveToPos(thymio,Settings.getThymioEndField_X(),Settings.getThymioEndField_Y());
+		case 't': // Only for testing/debugging purposes
 			List<Node> nodes = Settings.getBoard().getNodes();
 			for(Node node : nodes){
 				System.out.println(node.getXCoord()+","+node.getYCoord());
 			}
 			break;
-		case '1':
+		case '1': // Only for testing/debugging purposes
 //			int cost = board.calculateAirDistance(thymio.getXPosAsField(), thymio.getYPosAsField(), Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
 //			System.out.println("Airdistance to goal:"+cost);
 			String visitedNodes = "";
@@ -137,10 +135,8 @@ public class Controller extends GraphicsApp implements KeyListener {
 		
     	}
     	Views.draw();
-//		System.out.println("Current Position: ["+board.getCoordString(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
 		System.out.println("Current Position: "+board.getNodes().get(thymio.getPosAsID()).getChessCoord());
 		System.out.println("Current Coordinates: ["+board.getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-
 		System.out.println("Should go to Position: "+Dijkstra.getCheapestNeighbourChess(thymio.getXPosAsField(),thymio.getYPosAsField()));
 		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getXPosAsField(),thymio.getYPosAsField()).getChessCoord());
 		System.out.println("Reached destinatio: "+reachedDest());
@@ -150,8 +146,8 @@ public class Controller extends GraphicsApp implements KeyListener {
 	}
 
 
+//	Checks if Thymio has reached the destination
 	private boolean reachedDest() {
-		
 		if(Chessboard.posAsNode(thymio.getXPosAsField(),thymio.getYPosAsField()) == Chessboard.posAsNode(Settings.getThymioEndField_X(),Settings.getThymioEndField_Y())){
 			return true;
 		}

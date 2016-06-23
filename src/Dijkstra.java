@@ -8,11 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
-
-
-
-
 /* ToDo:
  * Costs Formula: min(infinite,current+destination)
  * calc cost to all other nodes that are connected to the current node (getCheapestNeighbour Method?)

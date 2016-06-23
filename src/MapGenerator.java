@@ -17,19 +17,19 @@ public class MapGenerator {
 	private static List<Node> nodes = new ArrayList<Node>();
 
 	
-	
+//	Constructor
 	public MapGenerator(){
 		if(randomObs){
 			source = Settings.getObstacleSrc();
 		}else{
 			source =  Settings.getEmptySrc();
 		}	
-		
 		generateMap(source);
 		generateNodes();
-		
 	}
 
+	
+//	Generates the Nodes for the Map
 	private static void generateNodes() {
 		for (int i = 0; i < Settings.getCanvasHeight(); i++) {
 			  for (int j = 0; j < Settings.getCanvasWidth(); j++) {
@@ -43,6 +43,7 @@ public class MapGenerator {
 
 	}
 
+//	If no CSV file exists, a new Map will be generated
 	private static void generateMap(String src) {
 		
 		boolean alreadyExists = new File(src).exists();

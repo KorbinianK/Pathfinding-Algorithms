@@ -11,14 +11,17 @@ public class Settings  {
 	
 	//	Awesome Thymio Image
 	private static final String THYMIO_IMG = "images/thymio.gif";
-	private static final String THYMIO_ROTATION = "west";
+	private static final String THYMIO_ROTATION = "north";
 	// Colors
 	private static Color COLOR_CHESS_A = Color.DARK_GRAY;
 	private static Color COLOR_CHESS_B = Color.LIGHT_GRAY;
 	private static Color COLOR_OBSTACLE = Color.RED;
 	private static Color START_COLOR = Color.GREEN;
 	private static Color END_COLOR = Color.BLUE;
-
+	// Maps
+	private static final String EMPTY_MAP_SRC = "empty_map.csv";
+	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
+	
 	// Fonts
 	private static int FONT_SIZE_STARTPOINT = 13;
 	private static int FONT_SIZE_ENDPOINT = 19;
@@ -35,7 +38,7 @@ public class Settings  {
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static boolean RANDOM_OBSTACLES = false; // if this is set to false, a fixed obstacle array has to be calculated by hand and inserted below
+	private static boolean RANDOM_OBSTACLES = false; // if this is set to false, it will read the obstacle_map.csv. If it doesn't exist, a new one with random obstacles gets created
 
 	private static int RANDOM_OBSTACLE_COUNT = 2;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
@@ -49,13 +52,9 @@ public class Settings  {
 	private static final int FIELD_HEIGHT = getFieldWidth();
 	private static final int CANVAS_WIDTH  = 1000;
 	private static final int FIELD_WIDTH = 50;
-	
 	private static Chessboard board = new Chessboard(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, COLOR_CHESS_A);
 
-	private static final String EMPTY_MAP_SRC = "empty_map.csv";
-	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
 	private static final MapGenerator mapGen = new MapGenerator();
-//	private static final Map map = mapGen.getMap();
 	private static List<Node> mapNodes = mapGen.getNodes();
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
@@ -66,7 +65,6 @@ public class Settings  {
 		try {
 			test = new CSVData();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return test;

@@ -17,9 +17,8 @@ public class Obstacles {
 		
 	}
 	
+//	Creates Obstacles from CSV file
 	private char[][] createFixedObstacles() {
-		
-		
 		int x = 0;
 		for(String[] entry : Settings.getCsv()){
 			
@@ -27,13 +26,10 @@ public class Obstacles {
 				String t = entry[i];
 				char[] arr = t.toCharArray();
 				for (int j = 0; j < arr.length; j++) {
-					obs[i][x] = arr[j];
-					
+					obs[i][x] = arr[j];	
 				}
-				
 			}
-			x++;
-			
+			x++;	
 		}
 		if(obs.length <1){
 			return obs;
