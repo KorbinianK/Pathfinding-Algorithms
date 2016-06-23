@@ -8,6 +8,8 @@
 ### Aktuelle Funktionen
 
    - Schachbrett mit randomisierten Hindernissen (anpassbar)
+   - Feste 20x8 Map kann aus CSV erstellt werden
+   - CSV mit random Obstacles kann erstellt werden (Map Generator)
    - Steuerung von Thymio (grafisch) mit W A S D Tasten
    - Berechnung der Kosten zu umliegenden Feldern
    - Settings-Klasse in der einige Einstellungen angepasst werden können (Start/Endpunkt, Größe, Bilder, Hindernisse etc) und die wichtigsten Konstanten festgelegt sind
