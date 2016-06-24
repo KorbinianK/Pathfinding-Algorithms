@@ -1,4 +1,10 @@
+package thymio;
+
+import pathfinding.Dijkstra;
+import pathfinding.Node;
 import de.ur.mi.graphics.Image;
+import main.Settings;
+import map.Obstacles;
 
 
 
@@ -12,7 +18,7 @@ public class Thymio extends Image{
 	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
 
 	private static int CURRENT_ROTATION = 0;
-	private static 	String[][] board = Settings.getBoard().boardAsArray();
+	
 //	Constructor
 	public Thymio(double xPos, double yPos,double width, double height, String src, String orientation){
 		super(xPos,yPos,width,height,src);
@@ -253,6 +259,10 @@ public class Thymio extends Image{
 			}
 		}
 		return arr[getYPosAsField()][getXPosAsField()];
+	}
+	
+	public Node getPosAsNode(){
+		return Settings.getBoard().getNodes().get(getPosAsID());
 	}
 	
 	// Draws Thymio

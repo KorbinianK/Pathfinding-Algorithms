@@ -1,3 +1,4 @@
+package pathfinding;
 
 public class Node {
 	
@@ -32,6 +33,7 @@ public class Node {
 		return xCoord;
 	}
 
+	
 
 	public int getId() {
 		return id;

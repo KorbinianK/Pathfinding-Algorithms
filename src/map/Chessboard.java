@@ -1,11 +1,13 @@
+package map;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
+
 
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Rect;
+import main.Settings;
+import pathfinding.Node;
 
 public class Chessboard extends Rect{
 	
@@ -27,7 +29,6 @@ public class Chessboard extends Rect{
 	// redraws the Chessboard entirely
 	public void redraw(){
 		super.draw();
-		
 		 for (int i = 0; i < CANVAS_WIDTH; i+=FIELD_WIDTH*2) {
 		       	for (int j = 0; j < CANVAS_HEIGHT; j+=FIELD_HEIGHT*2) {     	
 	       			Rect rect2 = new Rect(i, j, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorChessB()); 
@@ -49,7 +50,7 @@ public class Chessboard extends Rect{
    
 //	Returns the Board as Array with Chess-like Coordinates (A1,A2....B6 etc.)
 	public String[][] boardAsStringArray(){
-		String[][] board_array = new String[20][8];
+		String[][] board_array = new String[Settings.getBoardArrayWidth()][Settings.getBoardArrayHeight()];
 		return fillCoordinatesString(board_array);
 	}
 	
@@ -60,19 +61,6 @@ public class Chessboard extends Rect{
 	}
 	
 
-//	gets the field as Chess-like String 
-	public String getCoordString(int x, int y){
-		String array[][] = boardAsStringArray();
-		String coord = array[x][y];
-		return coord;
-	}
-	
-//	gets the field as coordinates
-	public String getCoord(int x, int y){
-		String array[][] = boardAsArray();
-		String coord = array[x][y];
-		return coord;
-	}
 
 	
 	// Creates an Array with Coordinates for each position
@@ -102,71 +90,61 @@ public class Chessboard extends Rect{
 		return board;
 	}
 	
-//	Methods to return x-Neighbour of the current field
-	public String leftNeighbour(int x, int y){
-		int check_x = x-1;
-		int check_y = y;
-		String[][] board = Settings.getBoard().boardAsArray();
-		String neighbour = board[check_x][check_y];
-		return neighbour;
-	}
-	public String rightNeighbour(int x, int y){
-		int check_x = x+1;
-		int check_y = y;
-		String[][] board = Settings.getBoard().boardAsArray();
-		String neighbour = board[check_x][check_y];
-		return neighbour;
-	}
-	public String topNeighbour(int x, int y){
-		int check_x = x;
-		int check_y = y-1;
-		String[][] board = Settings.getBoard().boardAsArray();
-		String neighbour = board[check_x][check_y];
-		return neighbour;
-	}
-	public String bottomNeighbour(int x, int y){
-		int check_x = x;
-		int check_y = y+1;
-		String[][] board = Settings.getBoard().boardAsArray();
-		String neighbour = board[check_x][check_y];
-		return neighbour;
-	}
 	
-	
-	public List<Node> getNeighbourNodes(Node current) {
+	public HashMap<String,Node> getNeighbourNodes(Node current) {
 		
-		List<Node> nodes = new ArrayList<Node>();
-		nodes.add(leftNeighbourNode(current));
-		nodes.add(rightNeighbourNode(current));
-		nodes.add(topNeighbourNode(current));
-		nodes.add(bottomNeighbourNode(current));
-		
+		HashMap<String,Node> nodes = new HashMap<>();
+		if(leftNeighbourNode(current)!=null){
+			nodes.put("left",leftNeighbourNode(current));
+		}
+		if(rightNeighbourNode(current) != null){
+			nodes.put("right",rightNeighbourNode(current));
+		}
+		if(topNeighbourNode(current) != null){
+			nodes.put("top",topNeighbourNode(current));
+		}
+		if(bottomNeighbourNode(current) != null){
+			nodes.put( "bottom",bottomNeighbourNode(current));
+		}
 		return nodes;
 		
 	}
 	
 	
 	private Node leftNeighbourNode(Node current){
+		if(current.getYCoord() == 0){
+			return null;
+		}
 		int currentID = current.getId();
 		int neighbourID = currentID-1;
 		return getNeighbourNode(neighbourID);
 	}
 
+
 	private Node rightNeighbourNode(Node current){
+		if(current.getYCoord() >= Settings.getBoardArrayWidth()-1){
+			return null;
+		}
 		int currentID = current.getId();
 		int neighbourID = currentID+1;
 		return getNeighbourNode(neighbourID);
 	}
 	
 	private Node topNeighbourNode(Node current){
+		if( current.getXCoord() == 0){
+			return null;
+		}
 		int currentID = current.getId();
-		int neighbourID = currentID+Settings.getBoardArrayHeight();
+		int neighbourID = currentID-Settings.getBoardArrayWidth();
 		return getNeighbourNode(neighbourID);
 	}
 	
 	private Node bottomNeighbourNode(Node current){
+		if(current.getXCoord() > Settings.getBoardArrayHeight()){
+			return null;
+		}
 		int currentID = current.getId();
-		int neighbourID = currentID-Settings.getBoardArrayHeight();
+		int neighbourID = currentID+Settings.getBoardArrayWidth();
 		return getNeighbourNode(neighbourID);
 	}
 	
@@ -183,39 +161,7 @@ public class Chessboard extends Rect{
 	}
 	
 	
-	public Node neighbourAsNode(String neighbour, int currentX, int currentY){
-		List<Node> nodes = Settings.getBoard().getNodes();
-		int x = currentX;
-		int y = currentY;
-		switch (neighbour) {
-		case "bottom":
-			y = currentY+1;
-			break;
-		case "top":
-			y = currentY-1;
-			break;
-		case "left":
-			x = currentX-1;
-			break;
-		case "right":
-			x = currentX+1;
-			break;
-		default:
-			break;
-		}
-		int id = 0;
-		int[][] arr = new int[Settings.getBoardArrayHeight()][Settings.getBoardArrayWidth()];
-		
-		for (int i = 0; i < Settings.getBoardArrayHeight();i++) {
-			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
-				arr[i][j]= id;
-				id++;
-			}
-		}
-		int index = arr[y][x];
-		Node node = nodes.get(index);
-		return node;
-	}
+
 	
 	public static Node posAsNode(int x, int y){
 		List<Node> nodes = Settings.getBoard().getNodes();
@@ -234,59 +180,7 @@ public class Chessboard extends Rect{
 		return node;
 	}
 	
-	
-//	Methods to check if a field has neighbours surrounding it
-	public boolean fieldHasLeftNeighbour(int x, int y){
-		int check_x = x-1;
-		int check_y = y;
-		if(check_x >= 0){
-			return checkField(check_x,check_y);
-		}
-		return false;
-	}
-	public boolean fieldHasRightNeighbour(int x, int y){
-		int check_x = x+1;
-		int check_y = y;
-		if(check_x < Settings.getBoardArrayWidth()){
-			return checkField(check_x,check_y);
-		}
-		return false;
-	}
-	public boolean fieldHasBottomNeighbour(int x, int y){
-		int check_x = x;
-		int check_y = y+1;
-		if(check_y < Settings.getBoardArrayHeight()){
-			return checkField(check_x,check_y);
-		}
-		return false;
-	}
-	
-	public boolean fieldHasTopNeighbour(int x, int y){
-		int check_x = x;
-		int check_y = y-1;
-		
-		if(check_y >= 0){
-			return checkField(check_x,check_y);
-		}
-		return false;
-	}
 
-
-//	checks if the field exists and has no obstacle
-	private boolean checkField(int x, int y) {
-		if(x <= Settings.getBoardArrayWidth()&& x >= 0){
-			if(y <= Settings.getBoardArrayHeight()&& y >= 0){
-				if(!Settings.getObstacles().isObstacle(x, y)){
-					return true;
-				}	
-			}
-			return false;
-		}else{
-			return false;
-		}
-	}
-	
-	
 //	Calculates the distance between two fields, ignoring obstacles (Heuristic for A*)
 	public int calculateAirDistance(int start_x, int start_y, int end_x, int end_y){
 		int cost = 0;
@@ -319,8 +213,8 @@ public class Chessboard extends Rect{
 	
 //	Creates a node representing each field
 	public void createNodes(){
-		for (int i = 0; i < Settings.getCanvasHeight()/Settings.getFieldHeight(); i++) {
-			for (int j = 0; j < Settings.getCanvasWidth()/Settings.getFieldHeight(); j++) {
+		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {
+			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
 				String[][] board = Settings.getBoard().boardAsStringArray();
 				Node node = new Node(nodeList.size(),i,j,board[j][i],0);
 				nodeList.add(node);		

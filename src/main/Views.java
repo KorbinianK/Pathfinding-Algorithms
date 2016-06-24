@@ -1,8 +1,10 @@
+package main;
 import java.util.List;
 
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Label;
 import de.ur.mi.graphics.Rect;
+import map.Chessboard;
 
 public class Views {
 	

@@ -1,9 +1,13 @@
+package map;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import main.Settings;
+import pathfinding.Node;
 
 
 public class MapGenerator {
@@ -13,17 +17,17 @@ public class MapGenerator {
 	private static int prob_range = Settings.getObstacleProbabilityRange();
 	private static Random r = new Random();
 	private static String source;
-	private static boolean randomObs = Settings.randomObstacles();
+	
 	private static List<Node> nodes = new ArrayList<Node>();
+	private static boolean randomObs = true;
 
 	
 //	Constructor
 	public MapGenerator(){
-		if(randomObs){
+		
 			source = Settings.getObstacleSrc();
-		}else{
-			source =  Settings.getEmptySrc();
-		}	
+		
+		System.out.println("create");
 		generateMap(source);
 		generateNodes();
 	}
@@ -56,7 +60,7 @@ public class MapGenerator {
 				  for (int i = 0; i < Settings.getCanvasHeight()/Settings.getFieldHeight(); i++) {
 					  for (int j = 0; j < Settings.getCanvasWidth()/Settings.getFieldHeight(); j++) {
 						  	int rnd = r.nextInt(prob_range);
-						  	if(randomObs){
+						  	if(randomObs ){
 								if(rnd < probability){
 									writer.append("1");	
 								}else{

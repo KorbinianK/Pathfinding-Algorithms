@@ -1,3 +1,4 @@
+package pathfinding;
 
 
 public class Edge  {

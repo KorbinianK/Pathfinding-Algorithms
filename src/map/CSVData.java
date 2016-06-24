@@ -1,5 +1,9 @@
+package map;
 import com.opencsv.CSVReader;
 
+import main.Settings;
+
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -9,16 +13,21 @@ import java.util.List;
  */
 public class CSVData {
 
-    private static final String csvPath = "obstacle_map.csv";
-    private static List entries;
+    private static final String csvPath = Settings.getObstacleSrc();
+    private static List<String[]> entries;
     private static CSVReader reader;
 
     public CSVData () throws IOException {
+    	boolean alreadyExists = new File(csvPath).exists();
+    	if(!alreadyExists){
+    		
+			MapGenerator mapGen = new MapGenerator();
+    	}
         reader = new CSVReader(new FileReader(csvPath));
         entries = reader.readAll();
     }
 
-    public static List<String[]> getEntries() {        
+    public List<String[]> getEntries() {        
     	return entries;
     }
 

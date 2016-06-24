@@ -1,4 +1,7 @@
+package map;
 import java.util.Random;
+
+import main.Settings;
 
 public class Obstacles {
 	
