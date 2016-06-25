@@ -6,7 +6,7 @@ import thymio.Thymio;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
-import java.util.List;
+
 
 import pathfinding.Dijkstra;
 import pathfinding.Node;
@@ -14,7 +14,8 @@ import pathfinding.Node;
 
 public class Controller extends GraphicsApp implements KeyListener {
 
-	// Fixed, don't change, adjustments in Settings Class
+
+		private static final long serialVersionUID = -8745424889380898909L;
 		private static final int FIELD_HEIGHT = Settings.getFieldHeight();
 		private static final int CANVAS_HEIGHT = Settings.getCanvasHeight();
 		private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
@@ -28,7 +29,6 @@ public class Controller extends GraphicsApp implements KeyListener {
     public void setup() {
       	size(CANVAS_WIDTH,CANVAS_HEIGHT);   	 	
       	thymio = new Thymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioRotation());
-      	String[][] boardstr =board.boardAsArray();
       	board.createNodes();
       	Dijkstra.addToVisited(board.getNodes().get(thymio.getPosAsID()),thymio.getOrientation());
     }
@@ -45,6 +45,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 	 
 //	Very basic test to automate Thymios movement. Moves Thymio to a given coordinate. See @keyPressed case't' to see an example. 
 	
+	@SuppressWarnings("unused")
 	private void moveToPos(Thymio t, int x, int y){
 		int current_x = (int) thymio.getXPosAsField();
 		int current_y = (int) thymio.getYPosAsField();
@@ -148,7 +149,9 @@ public class Controller extends GraphicsApp implements KeyListener {
 			}
 			System.out.println("Visited: "+visitedNodes);
 			break;
-		
+		case'2':
+			
+		break;	
     	}
     	Views.draw();
 		System.out.println("Current Position: ["+board.getNodes().get(thymio.getPosAsID()).getChessCoord()+"]");

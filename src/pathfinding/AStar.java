@@ -6,6 +6,7 @@ import java.util.List;
 
 import main.Settings;
 import map.Chessboard;
+import map.Obstacles;
 
 /*
  * loop
@@ -36,6 +37,7 @@ public class AStar {
 	private static Node end  = Settings.getEndNode();
 	private static Node current;
 	private static Chessboard board = Settings.getBoard();
+//	private static List<Node> obs = Settings.getObstacles();
 	
 	public static void main(String[] args) {
 		while(true){
@@ -45,7 +47,11 @@ public class AStar {
 			}
 			
 			HashMap<String, Node> neighbours = board.getNeighbourNodes(current);
-			
+			for(Node neighbour : neighbours.values()){
+				if(!closed.contains(neighbour)){
+					
+				}
+			}
 		}
 		
 	}

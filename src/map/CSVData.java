@@ -21,6 +21,7 @@ public class CSVData {
     	boolean alreadyExists = new File(csvPath).exists();
     	if(!alreadyExists){
     		
+			@SuppressWarnings("unused")
 			MapGenerator mapGen = new MapGenerator();
     	}
         reader = new CSVReader(new FileReader(csvPath));

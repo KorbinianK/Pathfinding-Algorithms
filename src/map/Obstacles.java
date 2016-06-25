@@ -1,34 +1,35 @@
 package map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
+import main.Helper;
 import main.Settings;
+import pathfinding.Node;
 
 public class Obstacles {
 	
 	private static int probability = Settings.getObstacleProbability();
 	private static int prob_range = Settings.getObstacleProbabilityRange();
-	private static char[][] obs = new char[Settings.getCanvasWidth()/Settings.getFieldHeight()+1][Settings.getCanvasHeight()/Settings.getFieldHeight()+1];
-	Random r = new Random();
 	
-//	Constructor
-	public Obstacles(){
-		if(Settings.randomObstacles()){
-			createRandomObstacles(r);
-		}else{
-			createFixedObstacles();
-		}
-		
-	}
+	private static List<Node> obstacleList = new ArrayList<Node>();
+
+	static Random r = new Random();
+	private static char[][] obs = new char[Settings.getBoardArrayWidth()][Settings.getBoardArrayHeight()];
 	
+
 //	Creates Obstacles from CSV file
-	private char[][] createFixedObstacles() {
+	public static char[][] createFixedObstacles() {
+		
 		int x = 0;
-		for(String[] entry : Settings.getCsv()){
+		List<String[]> csv = Settings.getCsv();
+		for(String[] row : csv){
 			
-			for (int i = 0; i < entry.length; i++) {
-				String t = entry[i];
+			for (int i = 0; i < row.length; i++) {
+				String t = row[i];
 				char[] arr = t.toCharArray();
 				for (int j = 0; j < arr.length; j++) {
+					
 					obs[i][x] = arr[j];	
 				}
 			}
@@ -40,12 +41,22 @@ public class Obstacles {
 		return freeImportantFields(obs);
 	}
 
+
+	
+	public char[][] getObstaclesArray(){
+		return createFixedObstacles();
+	}
+
 	// Create random Obstacles
-	private char[][] createRandomObstacles(Random r){
+	private static char[][] createRandomObstacles(Random r){
+		
 		for (int i = 0; i < obs.length; i++) {
 			for (int j = 0; j < obs[0].length; j++) {
 				int rnd = r.nextInt(prob_range);
 				if(rnd < probability){
+					int id = Helper.calculateID(i, j);
+					Node obstacle = Settings.getBoardNodes().get(id);
+					obstacleList.add(obstacle);
 					obs[i][j] = '1';
 					
 				}else{
@@ -58,29 +69,28 @@ public class Obstacles {
 	
 	
 	// Removes Thymios Start field as well as the End to avoid some impossible cases
-	private char[][] freeImportantFields(char[][] obs) {
+	private static char[][] freeImportantFields(char[][] obs) {
 		Obstacles.obs = obs;
-		obs[Settings.getStartX()/Settings.getFieldHeight()][Settings.getStartY()/Settings.getFieldHeight()] = ' ';
-		obs[Settings.getEndX()/Settings.getFieldHeight()][Settings.getEndY()/Settings.getFieldHeight()] = ' ';
+		
+		for(Node node : obstacleList){
+			if(node == Settings.getStartNode()){
+				obstacleList.remove(node);
+				obs[node.getXCoord()][node.getYCoord()] = 0;
+			}
+			if(node == Settings.getEndNode()){
+				obstacleList.remove(node);
+				obs[node.getXCoord()][node.getYCoord()] = 0;
+			}
+		}
+		
 		return obs;
 	}
 
 	// Creates obstacles based on probability and returns them
-	public char[][] getObstacles(int probabilitiy){
+	public char[][] setObstacles(int probabilitiy){
 		Obstacles.probability = probabilitiy;
 		return createRandomObstacles(r);
 	}
 	
-	// Check if the position contains an obstacle
-	public boolean isObstacle(int x, int y){
-		if(obs.length > 0){
-			if (obs[x][y] == '1' ){
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return false;
-		}
-	}
+	
 }

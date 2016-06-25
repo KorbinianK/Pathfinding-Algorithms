@@ -5,7 +5,6 @@ import java.util.List;
 import de.ur.mi.graphics.Color;
 import map.CSVData;
 import map.Chessboard;
-import map.MapGenerator;
 import map.Obstacles;
 import pathfinding.Node;
 
@@ -43,8 +42,8 @@ public class Settings  {
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
 	private static boolean RANDOM_OBSTACLES = false; // if this is set to false, it will read the obstacle_map.csv. If it doesn't exist, a new one with random obstacles gets created
-	
-	private static int RANDOM_OBSTACLE_COUNT = 2;
+	private static Obstacles obs;
+	private static int RANDOM_OBSTACLE_COUNT = 3;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
 	
@@ -56,18 +55,12 @@ public class Settings  {
 	private static final int FIELD_HEIGHT = getFieldWidth();
 	private static final int CANVAS_WIDTH  = 1000;
 	private static final int FIELD_WIDTH = 50;
-	private static Chessboard board = new Chessboard(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, COLOR_CHESS_A);
-	
-//	private static final MapGenerator mapGen = new MapGenerator();
-//	private static List<Node> mapNodes = mapGen.getNodes();
 	private static final String EMPTY_MAP_SRC = "empty_map.csv";
 	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
-	private static final Obstacles obstacles = new Obstacles();	
-	private static Helper h = new Helper();
-	
-	// Maps
+	private static Chessboard board = new Chessboard(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, COLOR_CHESS_A);
+
 	
 	
 	private static CSVData getReader(){
@@ -153,12 +146,12 @@ public class Settings  {
 	public static int getDelay() {
 		return DELAY;
 	}
-	public static Obstacles getObstacles() {
-		return obstacles;
-	}
-	public static char[][] getObstacleArray(){
-		return obstacles.getObstacles(Settings.RANDOM_OBSTACLE_COUNT);
-	}
+//	public static List<Node> getObstacles() {
+//		return obstacles;
+//	}
+//	public static char[][] getObstacleArray(){
+//		return Obstacle.setObstacles(Settings.RANDOM_OBSTACLE_COUNT);
+//	}
 	public static Chessboard getBoard() {
 		return board;
 	}
@@ -231,19 +224,24 @@ public class Settings  {
 	}
 
 	public static Node getStartNode() {
-		int id = h.calculateID(THYMIO_STARTFIELD_X,THYMIO_STARTFIELD_Y);
+		int id = Helper.calculateID(THYMIO_STARTFIELD_X,THYMIO_STARTFIELD_Y);
 		return getBoard().getNodes().get(id);
 	}
 
 	public static Node getEndNode() {
-		int id = h.calculateID(THYMIO_ENDFIELD_X,THYMIO_ENDFIELD_Y);
+		int id = Helper.calculateID(THYMIO_ENDFIELD_X,THYMIO_ENDFIELD_Y);
 		return getBoard().getNodes().get(id);
 	}
 
 	public static List<Node> getBoardNodes() {
-		getBoard().createNodes();
-		
 		return getBoard().getNodes();
+	}
+
+
+
+	public static char[][] getObstaclesArray() {
+		
+		return obs.getObstaclesArray();
 	}
 
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Rect;
+import main.Helper;
 import main.Settings;
 import pathfinding.Node;
 
@@ -17,15 +18,36 @@ public class Chessboard extends Rect{
 	private static int FIELD_WIDTH = Settings.getFieldWidth();
 	private static int FIELD_HEIGHT = Settings.getFieldHeight();
 	protected List<Node> nodeList = new ArrayList<Node>();
+	private String[][] chessArray = boardAsStringArray();
 	private static Chessboard board;
 	
 	
 	public Chessboard(int x, int y, int width, int height, Color color) {
 		super(x,y,width,height,color);
-		
+		createNodes();
+		createObstacles();
 	}
 	
 	
+	private void createObstacles() {
+		char[][] obs = Settings.getObstaclesArray();
+		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {
+			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
+				int id = Helper.calculateID(j, i);
+				Node node = nodeList.get(id);
+				
+				if(obs[j][i]== '1'){
+
+					System.out.println(node.getChessCoord());
+
+					node.setObstacle(true);
+				}
+			}
+		}	
+		
+	}
+
+
 	// redraws the Chessboard entirely
 	public void redraw(){
 		super.draw();
@@ -50,8 +72,8 @@ public class Chessboard extends Rect{
    
 //	Returns the Board as Array with Chess-like Coordinates (A1,A2....B6 etc.)
 	public String[][] boardAsStringArray(){
-		String[][] board_array = new String[Settings.getBoardArrayWidth()][Settings.getBoardArrayHeight()];
-		return fillCoordinatesString(board_array);
+		chessArray = new String[Settings.getBoardArrayWidth()][Settings.getBoardArrayHeight()];
+		return fillCoordinatesString(chessArray);
 	}
 	
 // Returns the Boardas Array with Coordinates (0,0; 0,1; ... 5,8 etc)	
@@ -72,7 +94,6 @@ public class Chessboard extends Rect{
 		    	sub[col] = row+","+col;	
 		    }
 		}
-//		System.out.println(Arrays.deepToString(board));
 		return board;
 	}
 	
@@ -213,13 +234,18 @@ public class Chessboard extends Rect{
 	
 //	Creates a node representing each field
 	public void createNodes(){
+		
 		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
-				String[][] board = Settings.getBoard().boardAsStringArray();
-				Node node = new Node(nodeList.size(),i,j,board[j][i],0);
-				nodeList.add(node);		
+				
+				
+				int id = Helper.calculateID(j, i);
+				Node node = new Node(id,i,j,chessArray[j][i],0);
+				nodeList.add(node);	
+				
 			}
 		}	
+	
 	}
 	
 	public List<Node> getNodes(){

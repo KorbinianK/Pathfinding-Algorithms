@@ -2,9 +2,10 @@ package thymio;
 
 import pathfinding.Dijkstra;
 import pathfinding.Node;
+import java.util.HashMap;
 import de.ur.mi.graphics.Image;
 import main.Settings;
-import map.Obstacles;
+
 
 
 
@@ -12,8 +13,6 @@ public class Thymio extends Image{
 	
 	// Fixed, don't change, adjustments in Settings Class
 	private static final int DISTANCE = Settings.getFieldWidth();
-	private static final int FIELD_WIDTH = Settings.getFieldWidth();;
-	private static final int FIELD_HEIGHT = Settings.getFieldHeight();
 	private static final int CANVAS_HEIGHT = Settings.getCanvasHeight();
 	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
 
@@ -100,7 +99,7 @@ public class Thymio extends Image{
 	// Moves Thymio left
 	public void moveLeft() {	
 	
-		if(super.getX()>0  && collision("Left") == false) {
+		if(super.getX()>0  && collision(getPosAsNode(),"left") == false) {
 			super.move(-DISTANCE, 0);
 			setOrientation("left");	
 			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
@@ -115,7 +114,7 @@ public class Thymio extends Image{
 	
 	// Moves Thymio right
 	public void moveRight() {
-		if(super.getX() < CANVAS_WIDTH-DISTANCE && collision("Right") == false){
+		if(super.getX() < CANVAS_WIDTH-DISTANCE && collision(getPosAsNode(),"right") == false){
 			super.move(DISTANCE, 0);
 			setOrientation("right");
 			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
@@ -131,7 +130,7 @@ public class Thymio extends Image{
 	
 	// Moves Thymio up
 	public void moveUp() {
-		if(super.getY()>0 && collision("Up") == false){
+		if(super.getY()>0 && collision(getPosAsNode(),"top") == false){
 			super.move(0, -DISTANCE);
 			setOrientation("up");
 			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
@@ -146,7 +145,7 @@ public class Thymio extends Image{
 
 	// Moves Thymio down
 	public void moveDown() {
-		if(super.getY() < CANVAS_HEIGHT-DISTANCE && collision("Down") == false){
+		if(super.getY() < CANVAS_HEIGHT-DISTANCE && collision(getPosAsNode(),"bottom") == false){
 			super.move(0, DISTANCE);
 			setOrientation("down");
 			Dijkstra.addToVisited(Settings.getBoard().getNodes().get(getPosAsID()), getOrientation());
@@ -162,37 +161,29 @@ public class Thymio extends Image{
 
 	
 	// check for Collisions/Obstacles
-	private boolean collision(String direction) {
-		Obstacles obs = Settings.getObstacles();
+	private boolean collision(Node current, String direction) {
+		HashMap<String, Node> neighbours = Settings.getBoard().getNeighbourNodes(current);
 		
-			// Calculate surrounding Fields
-			int x2 = (int) (super.getX()/FIELD_WIDTH);
-			int y2 = (int) (super.getY()/FIELD_HEIGHT);
-			
-			int left = x2-1;
-			int right = x2+1;
-			int above = y2-1;
-			int below = y2+1;
 			
 			//  Check if surrounding contains an obstacle
 			switch (direction) {
-				case "Up":
-					if(obs.isObstacle(x2, above)){
+				case "top":
+					if(neighbours.get(direction).isObstacle()){
 						System.out.println("Collision");
 						return true;
 					}else{
 						return false;
 					}
-				case "Down":
-					if(obs.isObstacle(x2, below)){
+				case "bottom":
+					if(neighbours.get(direction).isObstacle()){
 						System.out.println("Collision");
 						return true;
 					}else{
 						return false;
 					}
 					
-				case "Left":
-					if(obs.isObstacle(left, y2)){
+				case "left":
+					if(neighbours.get(direction).isObstacle()){
 						System.out.println("Collision");
 						return true;
 					}else{
@@ -200,8 +191,8 @@ public class Thymio extends Image{
 					}
 							
 					
-				case "Right":
-					if(obs.isObstacle(right, y2)){
+				case "right":
+					if(neighbours.get(direction).isObstacle()){
 						System.out.println("Collision");
 						return true;
 					}else{

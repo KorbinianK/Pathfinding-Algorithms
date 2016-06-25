@@ -7,12 +7,14 @@ public class Node {
 	private int yCoord;
 	private String chessCoord;
 	private int thymioOrientation;
+	private boolean isObstacle;
 	
 	public Node(int id, int xCoord, int yCoord, String chessCoord, int thymioOrientation){
 		this.id = id;
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 		this.chessCoord = chessCoord;
+		this.isObstacle = false;
 	}
 	
 	public void setOrientation(int thymioOrientation){
@@ -34,13 +36,17 @@ public class Node {
 	}
 
 	
-
+	public void setObstacle(boolean b){
+		isObstacle = true;
+	}
+	public boolean isObstacle(){
+		return isObstacle;
+	}
 	public int getId() {
 		return id;
 	}
 
 	public String toCoordString() {
-		// TODO Auto-generated method stub
 		return yCoord+","+xCoord;
 	}
 

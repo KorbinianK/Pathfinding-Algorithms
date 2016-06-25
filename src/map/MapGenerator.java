@@ -25,9 +25,9 @@ public class MapGenerator {
 //	Constructor
 	public MapGenerator(){
 		
-			source = Settings.getObstacleSrc();
+		source = Settings.getObstacleSrc();
 		
-		System.out.println("create");
+		System.out.println("No map found, created map");
 		generateMap(source);
 		generateNodes();
 	}

@@ -5,14 +5,14 @@ import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Label;
 import de.ur.mi.graphics.Rect;
 import map.Chessboard;
+import pathfinding.Node;
 
 public class Views {
 	
 	private static final int FIELD_WIDTH = Settings.getFieldWidth();;
 	private static final int FIELD_HEIGHT = Settings.getFieldHeight();
-	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
-	private static final int CANVAS_HEIGHT = Settings.getCanvasHeight();
 	private static Chessboard board = Settings.getBoard();
+	static List<Node> nodes = Settings.getBoardNodes();
 		
 		// Draws the Start
 	    static void drawStartPoint(int startX, int startY) {
@@ -40,18 +40,14 @@ public class Views {
 	     
 	     // Checks if a field is an obstacle and if so, draws it
 	 	static void drawObstacles() {
-	 		
-	 		for (int i = 0; i <= CANVAS_WIDTH; i+= FIELD_WIDTH) {
-	 			int x = 0; int y = 0;
-	 			for (int j = 0; j <= CANVAS_HEIGHT; j+= FIELD_WIDTH) {
-	 					x = i/FIELD_WIDTH;
-	 					y = j/FIELD_HEIGHT;
-	 				if(Settings.getObstacles().isObstacle(x, y)){
-	 					Rect obstacle = new Rect(i,j, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorObstacle());
-	 					obstacle.draw();
-	 				}
+	 		List<Node> nodes = Settings.getBoardNodes();
+	 		for(Node node : nodes){
+	 			if(node.isObstacle()){
+	 				Rect obstacle = new Rect(node.getYCoord()*FIELD_HEIGHT,node.getXCoord()*FIELD_HEIGHT, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorObstacle());
+					obstacle.draw();
 	 			}
-	 		}
+			
+				}
 	 	}
 
 
