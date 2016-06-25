@@ -50,4 +50,24 @@ public class Node {
 		return yCoord+","+xCoord;
 	}
 
+	public void setOrientationByString(String direction) {
+		switch (direction) {
+		case "top":
+			setOrientation(0);
+			break;
+		case "bottom":
+			setOrientation(180);
+			break;
+		case "left":
+			setOrientation(270);
+			break;
+		case "right":
+			setOrientation(90);
+			break;
+		default:
+			break;
+		}
+		
+	}
+
 }

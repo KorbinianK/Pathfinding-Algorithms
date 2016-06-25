@@ -41,7 +41,6 @@ public class Settings  {
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static boolean RANDOM_OBSTACLES = false; // if this is set to false, it will read the obstacle_map.csv. If it doesn't exist, a new one with random obstacles gets created
 	private static Obstacles obs;
 	private static int RANDOM_OBSTACLE_COUNT = 3;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
@@ -188,9 +187,7 @@ public class Settings  {
 	public static void setEndFieldColor(Color endFieldColor) {
 		END_COLOR = endFieldColor;
 	}
-	public static boolean randomObstacles() {
-		return RANDOM_OBSTACLES;
-	}
+
 
 	public static int getFontSizeEndpoint() {
 		return FONT_SIZE_ENDPOINT;
@@ -225,7 +222,9 @@ public class Settings  {
 
 	public static Node getStartNode() {
 		int id = Helper.calculateID(THYMIO_STARTFIELD_X,THYMIO_STARTFIELD_Y);
-		return getBoard().getNodes().get(id);
+		Node node = getBoard().getNodes().get(id);
+		node.setOrientation(Controller.thymio.getOrientation());
+		return node;
 	}
 
 	public static Node getEndNode() {
@@ -241,7 +240,7 @@ public class Settings  {
 
 	public static char[][] getObstaclesArray() {
 		
-		return obs.getObstaclesArray();
+		return Obstacles.getObstaclesArray();
 	}
 
 

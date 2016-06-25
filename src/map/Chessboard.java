@@ -37,9 +37,6 @@ public class Chessboard extends Rect{
 				Node node = nodeList.get(id);
 				
 				if(obs[j][i]== '1'){
-
-					System.out.println(node.getChessCoord());
-
 					node.setObstacle(true);
 				}
 			}
@@ -143,6 +140,7 @@ public class Chessboard extends Rect{
 
 
 	private Node rightNeighbourNode(Node current){
+		
 		if(current.getYCoord() >= Settings.getBoardArrayWidth()-1){
 			return null;
 		}
@@ -156,12 +154,12 @@ public class Chessboard extends Rect{
 			return null;
 		}
 		int currentID = current.getId();
-		int neighbourID = currentID-Settings.getBoardArrayWidth();
+		int neighbourID = currentID-Settings.getBoardArrayWidth();	
 		return getNeighbourNode(neighbourID);
 	}
 	
 	private Node bottomNeighbourNode(Node current){
-		if(current.getXCoord() > Settings.getBoardArrayHeight()){
+		if(current.getXCoord() >= Settings.getBoardArrayHeight()-1){
 			return null;
 		}
 		int currentID = current.getId();

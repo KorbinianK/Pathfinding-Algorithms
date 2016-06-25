@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 
-
+import pathfinding.AStar;
 import pathfinding.Dijkstra;
 import pathfinding.Node;
 
@@ -129,47 +129,22 @@ public class Controller extends GraphicsApp implements KeyListener {
 		case 't': // Only for testing/debugging purposes
 			Node current = board.getNodes().get(thymio.getPosAsID());
 			HashMap<String,Node> neighbours = board.getNeighbourNodes(current);
-			System.out.print("Possible movements: ");
-			for(String neighbour : neighbours.keySet()){
-				System.out.print("{"+neighbour+"}");
-			}
-			System.out.println("");
+			
 			System.out.print("Possible Destinations:");
 			for(Node neighbour : neighbours.values()){
-				System.out.print("["+neighbour.getChessCoord()+"]");
+				if(!neighbour.isObstacle()){
+					System.out.print("["+neighbour.getChessCoord()+"]");
+				}
 			}
 			System.out.println("");
 			break;
-		case '1': // Only for testing/debugging purposes
-//			int cost = board.calculateAirDistance(thymio.getXPosAsField(), thymio.getYPosAsField(), Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
-//			System.out.println("Airdistance to goal:"+cost);
-			String visitedNodes = "";
-	    	for (int i = 0; i < Dijkstra.getVisitedList().size(); i++) {
-	    		visitedNodes += Dijkstra.getVisitedList().get(i).getChessCoord()+",";
-			}
-			System.out.println("Visited: "+visitedNodes);
-			break;
-		case'2':
-			
+
+		case'c':
+			AStar.calculate();
 		break;	
     	}
     	Views.draw();
-		System.out.println("Current Position: ["+board.getNodes().get(thymio.getPosAsID()).getChessCoord()+"]");
-		Node current = board.getNodes().get(thymio.getPosAsID());
-		HashMap<String,Node> neighbours = board.getNeighbourNodes(current);
-		System.out.print("Possible movements: ");
-		for(String neighbour : neighbours.keySet()){
-			System.out.print("{"+neighbour+"}");
-		}
-		System.out.println("");
-		System.out.print("Possible Destinations:");
-		for(Node neighbour : neighbours.values()){
-			System.out.print("["+neighbour.getChessCoord()+"]");
-		}
-		System.out.println("");;
-//		System.out.println("Current Coordinates: ["+board.getCoord(thymio.getXPosAsField(),thymio.getYPosAsField())+"]");
-		System.out.println("Should go to Position: ["+Dijkstra.getCheapestNeighbourChess(thymio.getPosAsNode())+"]");
-//		System.out.println("Should go to Coordinates: "+Dijkstra.getCheapestNeighbour(thymio.getPosAsNode()));
+	
 		System.out.println("Reached destinatio: "+reachedDest());
 		System.out.println("_____________________________________________");
 		

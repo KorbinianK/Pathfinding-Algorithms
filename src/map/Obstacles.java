@@ -43,7 +43,7 @@ public class Obstacles {
 
 
 	
-	public char[][] getObstaclesArray(){
+	public static char[][] getObstaclesArray(){
 		return createFixedObstacles();
 	}
 

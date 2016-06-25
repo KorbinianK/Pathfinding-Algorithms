@@ -1,19 +1,17 @@
 package pathfinding;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import main.Controller;
 import main.Settings;
 import thymio.Thymio;
 
-/* ToDo:
+/* 
+ * 
+ *  ToDo:
  * Costs Formula: min(infinite,current+destination)
  * calc cost to all other nodes that are connected to the current node (getCheapestNeighbour Method?)
  * Save them in hashmap
