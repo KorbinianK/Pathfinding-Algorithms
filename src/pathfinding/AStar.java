@@ -50,7 +50,7 @@ public class AStar {
 		currentNode = thymio.getPosAsNode();
 		int count = 0;
 //		while(true){
-		while(count < 40){
+		while(count < 100){
 			if(currentNode == null){
 				currentNode = start;
 			}

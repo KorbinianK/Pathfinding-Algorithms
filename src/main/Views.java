@@ -17,9 +17,9 @@ public class Views {
 		// Draws the Start
 	    static void drawStartPoint(int startX, int startY) {
 	    	Rect start = new Rect(startX,startY, FIELD_WIDTH, FIELD_HEIGHT, Settings.getStartFieldColor());
-			start.setBorder(Settings.getColorChessA(), 2);
+//			start.setBorder(Settings.getColorChessA(), 2);
 	    	start.draw();
-			Label starttext = new Label(Settings.getStartX()+5,Settings.getStartY()+Settings.getFieldHeight()/2,"START",Color.WHITE);
+			Label starttext = new Label(Settings.getStartX()+20,Settings.getStartY()+5+Settings.getFieldHeight()/2,"S",Color.WHITE);
 			starttext.setFontSize(Settings.getFontSizeStartpoint());
 			starttext.draw();
 		}
@@ -28,9 +28,9 @@ public class Views {
 	    // Draws the End
 	     static void drawEndPoint(int endX, int endY){
 	    	Rect end = new Rect(endX,endY, FIELD_WIDTH, FIELD_HEIGHT, Settings.getEndFieldColor());
-	    	end.setBorder(Settings.getColorChessA(), 2);
+//	    	end.setBorder(Settings.getColorChessA(), 2);
 	    	end.draw();
-	    	Label endtext = new Label(Settings.getEndX()+5,Settings.getEndY()+Settings.getFieldHeight()/2,"END",Color.WHITE);
+	    	Label endtext = new Label(Settings.getEndX()+20,Settings.getEndY()+5+Settings.getFieldHeight()/2,"E",Color.WHITE);
 		       
 	    	endtext.setFontSize(Settings.getFontSizeEndpoint());
 	    	

@@ -29,8 +29,8 @@ public class Settings  {
 	
 	
 	// Fonts
-	private static int FONT_SIZE_STARTPOINT = 13;
-	private static int FONT_SIZE_ENDPOINT = 19;
+	private static int FONT_SIZE_STARTPOINT = 22;
+	private static int FONT_SIZE_ENDPOINT = 22;
 	
 	//	Startfield (currently possible: 0-19)
 	private static int THYMIO_STARTFIELD_X = 4; 
@@ -47,7 +47,7 @@ public class Settings  {
 
 	private static int RANDOM_OBSTACLE_COUNT = 2;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
-	private static final int DELAY = 100;
+	private static final int DELAY = 50;
 	
 	
 /*
