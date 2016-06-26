@@ -28,6 +28,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 	// Basic setup
     public void setup() {
       	size(CANVAS_WIDTH,CANVAS_HEIGHT);   	 	
+      	background(Settings.getColorBackground());
       	thymio = new Thymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioRotation());
       	board.createNodes();
       	Dijkstra.addToVisited(board.getNodes().get(thymio.getPosAsID()),thymio.getOrientation());
@@ -97,35 +98,21 @@ public class Controller extends GraphicsApp implements KeyListener {
     	switch (e.getKeyChar()) {
 		case 'd':
 			thymio.moveRight();		
+			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 'w':
-			thymio.moveUp();			
+			thymio.moveUp();	
+			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 'a':
-			thymio.moveLeft();			
+			thymio.moveLeft();	
+			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 's':
 			thymio.moveDown();
+			System.out.println("Reached destination: "+reachedDest());
 			break;
-		case 'g': // Only for testing/debugging purposes
-			char[][] test = new char[20][8];
-			int x = 0;
-			for(String[] entry : Settings.getCsv()){
-				
-				for (int i = 0; i < entry.length; i++) {
-					String t = entry[i];
-					char[] arr = t.toCharArray();
-					for (int j = 0; j < arr.length; j++) {
-						test[i][x] = arr[j];
-						System.out.print(arr[j]);
-					}
-					
-				}
-				x++;
-				
-			}
-			
-			break;
+		
 		case 't': // Only for testing/debugging purposes
 			Node current = board.getNodes().get(thymio.getPosAsID());
 			HashMap<String,Node> neighbours = board.getNeighbourNodes(current);
@@ -141,12 +128,15 @@ public class Controller extends GraphicsApp implements KeyListener {
 
 		case'c':
 			AStar.calculate();
-		break;	
+			break;	
+		case 'r':
+			for(Node node : Settings.getBoardNodes()){
+				node.resetColor();
+			}
     	}
     	Views.draw();
 	
-		System.out.println("Reached destinatio: "+reachedDest());
-		System.out.println("_____________________________________________");
+		
 		
 		
 	}

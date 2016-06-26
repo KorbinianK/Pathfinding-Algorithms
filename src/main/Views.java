@@ -20,7 +20,6 @@ public class Views {
 			start.setBorder(Settings.getColorChessA(), 2);
 	    	start.draw();
 			Label starttext = new Label(Settings.getStartX()+5,Settings.getStartY()+Settings.getFieldHeight()/2,"START",Color.WHITE);
-		       
 			starttext.setFontSize(Settings.getFontSizeStartpoint());
 			starttext.draw();
 		}
@@ -43,8 +42,7 @@ public class Views {
 	 		List<Node> nodes = Settings.getBoardNodes();
 	 		for(Node node : nodes){
 	 			if(node.isObstacle()){
-	 				Rect obstacle = new Rect(node.getYCoord()*FIELD_HEIGHT,node.getXCoord()*FIELD_HEIGHT, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorObstacle());
-					obstacle.draw();
+	 				node.setColor(Settings.getColorObstacle());
 	 			}
 			
 				}
@@ -53,7 +51,7 @@ public class Views {
 
 //	 	Draw method to draw the individual elements
 		public static void draw() {
-			board.redraw();
+			drawBoard();
 	    	drawObstacles();
 	    	drawStartPoint(Settings.getStartX(),Settings.getStartY());
 	    	drawEndPoint(Settings.getEndX(),Settings.getEndY());		
@@ -66,6 +64,24 @@ public class Views {
 		}
 //		Rect small = new Rect((int)d, (int)e, Settings.getFieldHeight()/2, Settings.getFieldHeight()/2, Color.MAGENTA);
 //		small.draw();
+	}
+
+
+	public static void drawBoard() {
+		List<Node> nodes = Settings.getBoardNodes();
+		for (int i = 0; i < Settings.getBoardArrayWidth(); i++) {
+	       	for (int j = 0; j < Settings.getBoardArrayHeight(); j++) {     	
+	       		Node node = nodes.get(Helper.calculateID(i,j));
+	       		boolean white = (i % 2 == 0) == (j % 2 == 0);
+	       		if(white && node.getColor()==null){
+	       			node.setColor(Settings.getColorChessA());
+	       		}else if(node.getColor()==null){
+	       			node.setColor(Settings.getColorChessB());
+	       		}
+	       		node.draw();
+				}
+		}
+		
 	}
 
 }

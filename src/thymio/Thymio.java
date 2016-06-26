@@ -3,6 +3,8 @@ package thymio;
 import pathfinding.Dijkstra;
 import pathfinding.Node;
 import java.util.HashMap;
+
+import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Image;
 import main.Helper;
 import main.Settings;
@@ -120,8 +122,9 @@ public class Thymio extends Image{
 		if(super.getX()>0  && collision(getPosAsNode(),"left") == false) {
 			super.move(-DISTANCE, 0);
 			setOrientation("left");	
-			System.out.println("Thymio is @ ["+getPosAsNode().getChessCoord()+"]");
-			Settings.getBoardNodes().get(getPosAsID()).setOrientation(270);
+			System.out.println("Thymio is at ["+getPosAsNode().getChessCoord()+"]");
+			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
+			currentNode.updateNode(currentNode,270);
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -130,13 +133,16 @@ public class Thymio extends Image{
 		}
 	}
 	
+	
+
 	// Moves Thymio right
 	public void moveRight() {
 		if(super.getX() < CANVAS_WIDTH-DISTANCE && collision(getPosAsNode(),"right") == false){
 			super.move(DISTANCE, 0);
 			setOrientation("right");
-			System.out.println("Thymio is @ ["+getPosAsNode().getChessCoord()+"]");
-			Settings.getBoardNodes().get(getPosAsID()).setOrientation(90);
+			System.out.println("Thymio is at ["+getPosAsNode().getChessCoord()+"]");
+			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
+			currentNode.updateNode(currentNode,90);
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -152,8 +158,9 @@ public class Thymio extends Image{
 		if(super.getY()>0 && collision(getPosAsNode(),"top") == false){
 			super.move(0, -DISTANCE);
 			setOrientation("up");
-			System.out.println("Thymio @ "+getPosAsNode().getChessCoord());
-			Settings.getBoardNodes().get(getPosAsID()).setOrientation(0);
+			System.out.println("Thymio at "+getPosAsNode().getChessCoord());
+			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
+			currentNode.updateNode(currentNode,0);
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {
@@ -168,8 +175,9 @@ public class Thymio extends Image{
 		if(super.getY() < CANVAS_HEIGHT-DISTANCE && collision(getPosAsNode(),"bottom") == false){
 			super.move(0, DISTANCE);
 			setOrientation("down");
-			System.out.println("Thymio is @ ["+getPosAsNode().getChessCoord()+"]");
-			Settings.getBoardNodes().get(getPosAsID()).setOrientation(180);
+			System.out.println("Thymio is at ["+getPosAsNode().getChessCoord()+"]");
+			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
+			currentNode.updateNode(currentNode,180);
 			try {
 				Thread.sleep(Settings.getDelay());
 			} catch (InterruptedException e1) {

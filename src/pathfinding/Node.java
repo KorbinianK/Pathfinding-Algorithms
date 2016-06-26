@@ -1,5 +1,9 @@
 package pathfinding;
 
+import de.ur.mi.graphics.Color;
+import de.ur.mi.graphics.Rect;
+import main.Settings;
+
 public class Node {
 	
 	private int id;
@@ -8,6 +12,10 @@ public class Node {
 	private String chessCoord;
 	private int thymioOrientation;
 	private boolean isObstacle;
+	private int f_cost;
+	private int g_cost;
+	private Color color;
+	private Color originalColor;
 	
 	public Node(int id, int xCoord, int yCoord, String chessCoord, int thymioOrientation){
 		this.id = id;
@@ -15,6 +23,8 @@ public class Node {
 		this.yCoord = yCoord;
 		this.chessCoord = chessCoord;
 		this.isObstacle = false;
+		this.f_cost = Integer.MAX_VALUE;
+		this.g_cost = Integer.MAX_VALUE;;
 	}
 	
 	public void setOrientation(int thymioOrientation){
@@ -49,7 +59,22 @@ public class Node {
 	public String toCoordString() {
 		return yCoord+","+xCoord;
 	}
-
+	
+	public void setFCost(int f_cost){
+		this.f_cost = f_cost;
+	}
+	public void setGCost(int g_cost){
+		this.g_cost = g_cost;
+	}
+	
+	public int getFCost(){
+		return f_cost;
+	}
+	
+	public int getGCost(){
+		return g_cost;
+	}
+	
 	public void setOrientationByString(String direction) {
 		switch (direction) {
 		case "top":
@@ -67,7 +92,33 @@ public class Node {
 		default:
 			break;
 		}
+	}
+	
+	public void setColor(Color c){
+		if(c != color){
+			originalColor = color;	
+		}
+		
+		color = c;
+	}
+	public Color getColor(){
+		return color;
+	}
+	
+	public void resetColor(){
+		if(color != Settings.getColorObstacle()){
+			color = originalColor;
+		}
 		
 	}
-
+	
+	public void draw(){
+		Rect rect = new Rect(getYCoord()*50, getXCoord()*50, 50, 50,getColor());
+		rect.draw();
+	}
+	public void updateNode(Node currentNode, int orientation) {
+		currentNode.setOrientation(orientation);
+		currentNode.setColor(Settings.getColorMovement());
+		
+	}
 }

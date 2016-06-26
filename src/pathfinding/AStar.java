@@ -2,6 +2,7 @@ package pathfinding;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import main.Controller;
@@ -41,8 +42,12 @@ public class AStar {
 	public static void calculate(){
 		List<Edge> edges = new ArrayList<Edge>();
 		List<Node> closedList = new ArrayList<Node>();
+		HashMap<Node,Integer> temp = new HashMap<>();
+		HashMap<String, Node> openList = new HashMap<>();
+		List<Node> open = new ArrayList<Node>();
 		
 		currentNode = thymio.getPosAsNode();
+		
 		while(true){
 			if(currentNode == null){
 				currentNode = start;
@@ -55,29 +60,47 @@ public class AStar {
 				System.out.println("done");
 				break;
 			}
-			HashMap<String, Node> openList = new HashMap<>();
-			openList = board.getNeighbourNodes(currentNode);
+			HashMap<String, Node> neighbours = board.getNeighbourNodes(currentNode);
+			for(Node node : neighbours.values()){
+				if(!closedList.contains(node) && !node.isObstacle()){
+					open.add(node);
+				}
+				
+				
+			}
 			
-			HashMap<Node,Integer> tempEdges = new HashMap<>();
-			for ( HashMap.Entry<String, Node> entry : openList.entrySet()) {
+			/* loop
+			 * 	calc G cost and put it in open list
+			 * 	go to node from open list with cheapest G cost
+			 * 	add neighbours
+			 * 
+			 */
+			
+			for ( HashMap.Entry<String, Node> entry : neighbours.entrySet()) {
 			    String direction = entry.getKey();
 			    Node neighbour = entry.getValue();
+			    neighbour = open.get(getFromOpen(open,neighbour));
 			    if(!closedList.contains(neighbour) && !neighbour.isObstacle()){
 			    	int g_cost = calculateCostG(neighbour,direction);
 			    	int h_cost = calculateCostH(neighbour);
 			    	int f_cost = g_cost+h_cost;
 			    	
+			    	neighbour.setGCost(g_cost);
+			    	neighbour.setFCost(f_cost);
 			    	neighbour.setOrientationByString(direction);
-			    	tempEdges.put(neighbour, f_cost);
+			    	
+			    	temp.put(neighbour, f_cost);
 			    	
 						
 			    }
 			}
-			Node nextNode = getNextNode(tempEdges);
+			Node nextNode = getNextNode(open);
 			
 			closedList.add(nextNode);
+			open.remove(nextNode);
 			
-			int cost = tempEdges.get(nextNode); // Bugged
+//			int cost = temp.get(nextNode); // Bugged
+			int cost = nextNode.getGCost();
 			
 			Edge edge = new Edge(edges.size(), currentNode, nextNode, cost);
 			currentNode = nextNode;
@@ -89,29 +112,66 @@ public class AStar {
 
 	
 
-	private static Node getNextNode(HashMap<Node, Integer> tempEdges) {
-		Node currentlyCheapest_node = null;
+	private static Node getNextNode(List<Node> open) {
+		Node currentlyCheapest_node = new Node(999, 999, 999, "", 999);
+		
 	    int currentlyCheapest_f = Integer.MAX_VALUE;
-	    for(Node node : tempEdges.keySet()) {
-	    	
+	    for(Node node : open){
 	    	if(node == end){
 	    		return node;
 	    	}
-	        int f_cost = tempEdges.get(node);
-	        if(f_cost < currentlyCheapest_f) {
-	            currentlyCheapest_f = f_cost;
+	    	
+	    	int f_cost = node.getFCost();
+	    	
+	    	if(f_cost < currentlyCheapest_node.getFCost() ){
+	    		
+	    		currentlyCheapest_f = f_cost;
 	            currentlyCheapest_node = node;
-	        }else if(f_cost == currentlyCheapest_f){
-
-	        	if(calculateCostH(node) < calculateCostH(currentlyCheapest_node)){
+	    	}else if(f_cost == currentlyCheapest_f){
+	    		if(calculateCostH(node) < calculateCostH(currentlyCheapest_node)){
 	        		currentlyCheapest_node = node;
 	        	}
-	        }
+	    	}
 	    }
-	    
-	    return currentlyCheapest_node;
-		
+		return currentlyCheapest_node;
 	}
+
+
+
+	private static int getFromOpen(List<Node> open, Node neighbour) {
+		for (Node node : open) {
+			if(neighbour == open){
+				return node.getId();
+			}
+		}
+		return 0;
+	}
+
+
+
+//	private static Node getNextNode(HashMap<Node, Integer> tempEdges) {
+//		Node currentlyCheapest_node = null;
+//	    int currentlyCheapest_f = Integer.MAX_VALUE;
+//	    for(Node node : tempEdges.keySet()) {
+//	    	
+//	    	if(node == end){
+//	    		return node;
+//	    	}
+//	        int f_cost = tempEdges.get(node);
+//	        if(f_cost < currentlyCheapest_f) {
+//	            currentlyCheapest_f = f_cost;
+//	            currentlyCheapest_node = node;
+//	        }else if(f_cost == currentlyCheapest_f){
+//
+//	        	if(calculateCostH(node) < calculateCostH(currentlyCheapest_node)){
+//	        		currentlyCheapest_node = node;
+//	        	}
+//	        }
+//	    }
+//	    
+//	    return currentlyCheapest_node;
+//		
+//	}
 
 
 	private static int calculateCostH(Node node) {

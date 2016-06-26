@@ -17,12 +17,15 @@ public class Settings  {
 	//	Awesome Thymio Image
 	private static final String THYMIO_IMG = "images/thymio.gif";
 	private static final String THYMIO_ROTATION = "north";
+	
 	// Colors
 	private static Color COLOR_CHESS_A = Color.DARK_GRAY;
 	private static Color COLOR_CHESS_B = Color.LIGHT_GRAY;
 	private static Color COLOR_OBSTACLE = Color.RED;
-	private static Color START_COLOR = Color.GREEN;
-	private static Color END_COLOR = Color.BLUE;
+	private static Color COLOR_MOVEMENT = Color.YELLOW;
+	private static Color COLOR_BG = Color.WHITE;
+	private static Color COLOR_START = Color.GREEN;
+	private static Color COLOR_END = Color.BLUE;
 	
 	
 	// Fonts
@@ -41,8 +44,8 @@ public class Settings  {
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static Obstacles obs;
-	private static int RANDOM_OBSTACLE_COUNT = 3;
+
+	private static int RANDOM_OBSTACLE_COUNT = 2;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
 	
@@ -59,6 +62,8 @@ public class Settings  {
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
 	private static Chessboard board = new Chessboard(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, COLOR_CHESS_A);
+
+
 
 	
 	
@@ -176,16 +181,16 @@ public class Settings  {
 		COLOR_OBSTACLE = cOLOR_OBSTACLE;
 	}
 	public static Color getStartFieldColor() {
-		return START_COLOR;
+		return COLOR_START;
 	}
 	public static void setStartFieldColor(Color startFieldColor) {
-		START_COLOR = startFieldColor;
+		COLOR_START = startFieldColor;
 	}
 	public static Color getEndFieldColor() {
-		return END_COLOR;
+		return COLOR_END;
 	}
 	public static void setEndFieldColor(Color endFieldColor) {
-		END_COLOR = endFieldColor;
+		COLOR_END = endFieldColor;
 	}
 
 
@@ -239,8 +244,19 @@ public class Settings  {
 
 
 	public static char[][] getObstaclesArray() {
-		
 		return Obstacles.getObstaclesArray();
+	}
+
+
+
+	public static Color getColorMovement() {
+		return COLOR_MOVEMENT;
+	}
+
+
+
+	public static Color getColorBackground() {
+		return COLOR_BG;
 	}
 
 

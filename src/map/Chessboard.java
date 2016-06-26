@@ -2,8 +2,6 @@ package map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Rect;
 import main.Helper;
@@ -13,10 +11,6 @@ import pathfinding.Node;
 public class Chessboard extends Rect{
 	
 	// Fixed, don't change, adjustments in Settings Class
-	private static int CANVAS_WIDTH = Settings.getCanvasWidth();
-	private static int CANVAS_HEIGHT = Settings.getCanvasHeight();
-	private static int FIELD_WIDTH = Settings.getFieldWidth();
-	private static int FIELD_HEIGHT = Settings.getFieldHeight();
 	protected List<Node> nodeList = new ArrayList<Node>();
 	private String[][] chessArray = boardAsStringArray();
 	private static Chessboard board;
@@ -35,7 +29,6 @@ public class Chessboard extends Rect{
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
 				int id = Helper.calculateID(j, i);
 				Node node = nodeList.get(id);
-				
 				if(obs[j][i]== '1'){
 					node.setObstacle(true);
 				}
@@ -44,23 +37,6 @@ public class Chessboard extends Rect{
 		
 	}
 
-
-	// redraws the Chessboard entirely
-	public void redraw(){
-		super.draw();
-		 for (int i = 0; i < CANVAS_WIDTH; i+=FIELD_WIDTH*2) {
-		       	for (int j = 0; j < CANVAS_HEIGHT; j+=FIELD_HEIGHT*2) {     	
-	       			Rect rect2 = new Rect(i, j, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorChessB()); 
-		       		rect2.draw();
-					}
-			}
-		    for (int i = FIELD_HEIGHT; i < CANVAS_WIDTH; i+=FIELD_HEIGHT*2) {
-				for (int j = FIELD_HEIGHT; j <CANVAS_HEIGHT; j+=FIELD_HEIGHT*2) {
-					Rect rect3 = new Rect(i, j, FIELD_HEIGHT, FIELD_WIDTH,Settings.getColorChessB());
-					rect3.draw();
-				}
-		    }
-	}
 	
 	// Creates the basic Chessboard
 	public static Chessboard get_board(){
@@ -84,7 +60,6 @@ public class Chessboard extends Rect{
 	
 	// Creates an Array with Coordinates for each position
 	private String[][] fillCoordinates(String[][] board) {
-		
 		for (int row = 0; row < board.length; row++) {
 		    String[] sub = board[row];
 		    for (int col = 0; col < sub.length; col++) {
@@ -110,7 +85,6 @@ public class Chessboard extends Rect{
 	
 	
 	public HashMap<String,Node> getNeighbourNodes(Node current) {
-		
 		HashMap<String,Node> nodes = new HashMap<>();
 		if(leftNeighbourNode(current)!=null){
 			nodes.put("left",leftNeighbourNode(current));
@@ -124,8 +98,7 @@ public class Chessboard extends Rect{
 		if(bottomNeighbourNode(current) != null){
 			nodes.put( "bottom",bottomNeighbourNode(current));
 		}
-		return nodes;
-		
+		return nodes;	
 	}
 	
 	
@@ -140,7 +113,6 @@ public class Chessboard extends Rect{
 
 
 	private Node rightNeighbourNode(Node current){
-		
 		if(current.getYCoord() >= Settings.getBoardArrayWidth()-1){
 			return null;
 		}
@@ -200,47 +172,14 @@ public class Chessboard extends Rect{
 	}
 	
 
-//	Calculates the distance between two fields, ignoring obstacles (Heuristic for A*)
-	public int calculateAirDistance(int start_x, int start_y, int end_x, int end_y){
-		int cost = 0;
-		if(start_x < end_x){
-			while(start_x < end_x){
-				cost++;
-				start_x++;
-			}
-		}else if(start_x > end_x){
-			while(start_x > end_x){
-				cost++;
-				start_x--;
-			}
-		}
-		
-		if(start_y  < end_y){
-			while(start_y < end_y){
-				cost++;
-				start_y++;
-			}
-		}else if(start_y > end_y){
-			while(start_y > end_y){
-				cost++;
-				start_y--;
-			}
-		}
-		return cost;
-	}
-
 	
-//	Creates a node representing each field
+//	Create a node for each field of the board
 	public void createNodes(){
-		
 		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
-				
-				
 				int id = Helper.calculateID(j, i);
 				Node node = new Node(id,i,j,chessArray[j][i],0);
-				nodeList.add(node);	
-				
+				nodeList.add(node);			
 			}
 		}	
 	
