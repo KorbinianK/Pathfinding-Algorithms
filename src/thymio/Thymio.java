@@ -1,6 +1,5 @@
 package thymio;
 
-import pathfinding.Dijkstra;
 import pathfinding.Node;
 import java.util.HashMap;
 

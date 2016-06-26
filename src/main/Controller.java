@@ -8,7 +8,6 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 import pathfinding.AStar;
-import pathfinding.Dijkstra;
 import pathfinding.Node;
 
 
@@ -31,7 +30,6 @@ public class Controller extends GraphicsApp implements KeyListener {
       	background(Settings.getColorBackground());
       	thymio = new Thymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioRotation());
       	board.createNodes();
-      	Dijkstra.addToVisited(board.getNodes().get(thymio.getPosAsID()),thymio.getOrientation());
     }
     
     

@@ -61,10 +61,15 @@ public class Node {
 	}
 	
 	public void setFCost(int f_cost){
-		this.f_cost = f_cost;
+		if(f_cost < this.f_cost){
+			this.f_cost = f_cost;
+		}
 	}
 	public void setGCost(int g_cost){
-		this.g_cost = g_cost;
+		if(g_cost < this.g_cost){
+			this.g_cost = g_cost;
+		}
+		
 	}
 	
 	public int getFCost(){
@@ -120,5 +125,20 @@ public class Node {
 		currentNode.setOrientation(orientation);
 		currentNode.setColor(Settings.getColorMovement());
 		
+	}
+
+	public String getOrientationString() {
+		switch (getOrientation()) {
+		case 0:
+			return "top";
+		case 90:
+			return "right";
+		case 180:
+			return "bottom";
+		case 270:
+			return "left";
+		default:
+			return "top";
+		}
 	}
 }

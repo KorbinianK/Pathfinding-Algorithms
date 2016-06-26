@@ -102,6 +102,8 @@ public class Chessboard extends Rect{
 	}
 	
 	
+	
+	
 	private Node leftNeighbourNode(Node current){
 		if(current.getYCoord() == 0){
 			return null;
