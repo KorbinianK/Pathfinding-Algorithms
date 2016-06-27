@@ -38,16 +38,17 @@ public class Settings  {
 	
 	//	Endfield (currently possible: 0-19)
 	private static int THYMIO_ENDFIELD_X = 16;
-	private static int THYMIO_ENDFIELD_Y = 3;
+	private static int THYMIO_ENDFIELD_Y = 6;
 	
 	/*
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-
-	private static int RANDOM_OBSTACLE_COUNT = 2;
+	
+	private static boolean OVERWRITE = false;
+	private static int RANDOM_OBSTACLE_COUNT = 4;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
-	private static final int DELAY = 50;
+	private static final int DELAY = 80;
 	
 	
 /*
@@ -63,9 +64,6 @@ public class Settings  {
 	private static List<String[]> csv_list = csv.getEntries();
 	private static Chessboard board = new Chessboard(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, COLOR_CHESS_A);
 
-
-
-	
 	
 	private static CSVData getReader(){
 		CSVData test = null;
@@ -150,12 +148,7 @@ public class Settings  {
 	public static int getDelay() {
 		return DELAY;
 	}
-//	public static List<Node> getObstacles() {
-//		return obstacles;
-//	}
-//	public static char[][] getObstacleArray(){
-//		return Obstacle.setObstacles(Settings.RANDOM_OBSTACLE_COUNT);
-//	}
+
 	public static Chessboard getBoard() {
 		return board;
 	}
@@ -258,6 +251,13 @@ public class Settings  {
 	public static Color getColorBackground() {
 		return COLOR_BG;
 	}
+
+
+
+	public static boolean isOverwrite() {
+		return OVERWRITE;
+	}
+
 
 
 	

@@ -3,7 +3,6 @@ package thymio;
 import pathfinding.Node;
 import java.util.HashMap;
 
-import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Image;
 import main.Helper;
 import main.Settings;
@@ -96,18 +95,18 @@ public class Thymio extends Image{
 		
 	}
 	
-	public void move(int direction){
+	public void move(String direction){
 		switch (direction) {
-		case 0:
+		case "top":
 			moveUp();
 			break;
-		case 180:
+		case "bottom":
 			moveDown();
 			break;
-		case 270:
+		case "left":
 			moveLeft();
 			break;
-		case 90:
+		case "right":
 			moveRight();
 			break;
 		default:

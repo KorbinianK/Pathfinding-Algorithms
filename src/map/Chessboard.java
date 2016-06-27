@@ -30,10 +30,11 @@ public class Chessboard extends Rect{
 				int id = Helper.calculateID(j, i);
 				Node node = nodeList.get(id);
 				if(obs[j][i]== '1'){
-					if(node.getXCoord() != Settings.getStartX()
-						&& node.getYCoord() != Settings.getStartY()
-						&& node.getXCoord() != Settings.getEndX()
-						&& node.getYCoord() != Settings.getEndY()){
+					int start_id = Helper.calculateID(Settings.getThymioStartField_X(), Settings.getThymioStartField_Y());
+					int end_id = Helper.calculateID(Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
+					if(		node.getId() != start_id &&
+							node.getId() != end_id
+						){
 						node.setObstacle(true);
 					}
 					
@@ -162,22 +163,22 @@ public class Chessboard extends Rect{
 	
 
 	
-	public static Node posAsNode(int x, int y){
-		List<Node> nodes = Settings.getBoard().getNodes();
-		int id = 0;
-		int[][] arr = new int[Settings.getBoardArrayHeight()][Settings.getBoardArrayWidth()];
-		
-		for (int i = 0; i < Settings.getBoardArrayHeight();i++) {
-			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
-				arr[i][j]= id;
-				id++;
-			}
-		}
-		int index = arr[y][x];
-		Node node = nodes.get(index);
-		
-		return node;
-	}
+//	public static Node posAsNode(int x, int y){
+//		List<Node> nodes = Settings.getBoard().getNodes();
+//		int id = 0;
+//		int[][] arr = new int[Settings.getBoardArrayHeight()][Settings.getBoardArrayWidth()];
+//		
+//		for (int i = 0; i < Settings.getBoardArrayHeight();i++) {
+//			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
+//				arr[i][j]= id;
+//				id++;
+//			}
+//		}
+//		int index = arr[y][x];
+//		Node node = nodes.get(index);
+//		
+//		return node;
+//	}
 	
 
 	

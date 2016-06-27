@@ -40,54 +40,6 @@ public class Controller extends GraphicsApp implements KeyListener {
     }
     
 
-	
-	 
-//	Very basic test to automate Thymios movement. Moves Thymio to a given coordinate. See @keyPressed case't' to see an example. 
-	
-	@SuppressWarnings("unused")
-	private void moveToPos(Thymio t, int x, int y){
-		int current_x = (int) thymio.getXPosAsField();
-		int current_y = (int) thymio.getYPosAsField();
-		
-		if(current_y < y){
-			while(current_y < y){
-				int old = current_y;
-				thymio.moveDown();
-				current_y = (int) thymio.getYPosAsField();
-				if(current_y == old){
-					break;
-				}
-			}
-		}else if(current_y > y){
-			while(current_y > y){
-				int old = current_y;
-				thymio.moveUp();
-				current_y = (int) thymio.getYPosAsField();
-				if(current_y == old){
-					break;
-				}
-			}
-		}
-		if(current_x > x){
-			while(current_x > x){
-				int old = current_x;
-				thymio.moveLeft();
-				current_x = (int) thymio.getXPosAsField();
-				if(current_x == old){
-					break;
-				}
-			}
-		}else if(current_x < x){
-			while(current_x < x){
-				int old = current_x;
-				thymio.moveRight();
-				current_x = (int) thymio.getXPosAsField();
-				if(current_x == old){
-					break;
-				}
-			}
-		}
-	}
     
     // Handles the keypresses to move Thymio accordingly
 	@Override
@@ -128,6 +80,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 			AStar.calculate();
 			break;	
 		case 'r':
+			
 			for(Node node : Settings.getBoardNodes()){
 				node.resetColor();
 			}

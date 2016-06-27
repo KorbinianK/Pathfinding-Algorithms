@@ -17,6 +17,8 @@ public class Node {
 	private Color color;
 	private Color originalColor;
 	private int originalOrientation;
+	private Node parent;
+	private boolean closed;
 	
 	public Node(int id, int xCoord, int yCoord, String chessCoord, int orientation){
 		this.id = id;
@@ -26,43 +28,29 @@ public class Node {
 		this.isObstacle = false;
 		this.f_cost = Integer.MAX_VALUE;
 		this.g_cost = Integer.MAX_VALUE;
-		this.originalOrientation = orientation;
+
+		this.parent = null;
+		this.closed = false;
 	}
 	
 	
 	public void setOrientation(int orientation){
-		if(orientation != originalOrientation){
+		
 			
 			this.orientation = orientation;
-		}	
+			
+	}
+	
+	public void close(){
+		this.closed = true;
+		
 	}
 	public int getOrientation(){
 		return orientation;
 	}
-	public int getOriginalOrientation(){
-		return originalOrientation;
-	}
-	public void setOriginalOrientation(int orientation){
-		this.originalOrientation = orientation;
-	}
-	public void setOriginalOrientationByString(String direction) {
-		switch (direction) {
-		case "top":
-			setOriginalOrientation(0);
-			break;
-		case "bottom":
-			setOriginalOrientation(180);
-			break;
-		case "left":
-			setOriginalOrientation(270);
-			break;
-		case "right":
-			setOriginalOrientation(90);
-			break;
-		default:
-			break;
-		}
-	}
+
+
+	
 	public String getChessCoord() {
 		return chessCoord;
 	}
@@ -171,5 +159,14 @@ public class Node {
 		default:
 			return "top";
 		}
+	}
+
+
+	public void setParentNode(Node currentNode) {
+		this.parent=currentNode;	
+	}
+	
+	public Node getParent(){
+		return parent;
 	}
 }

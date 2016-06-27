@@ -4,14 +4,12 @@ import java.util.List;
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Label;
 import de.ur.mi.graphics.Rect;
-import map.Chessboard;
 import pathfinding.Node;
 
 public class Views {
 	
 	private static final int FIELD_WIDTH = Settings.getFieldWidth();;
 	private static final int FIELD_HEIGHT = Settings.getFieldHeight();
-	private static Chessboard board = Settings.getBoard();
 	static List<Node> nodes = Settings.getBoardNodes();
 		
 		// Draws the Start
@@ -55,16 +53,9 @@ public class Views {
 	    	drawObstacles();
 	    	drawStartPoint(Settings.getStartX(),Settings.getStartY());
 	    	drawEndPoint(Settings.getEndX(),Settings.getEndY());		
-//	    	drawVisited(Dijkstra.getVisitedArray());
 		}
 		
-	public static void drawVisited(List<String> list){
-		for (int i = 0; i < list.size(); i++) {
-			
-		}
-//		Rect small = new Rect((int)d, (int)e, Settings.getFieldHeight()/2, Settings.getFieldHeight()/2, Color.MAGENTA);
-//		small.draw();
-	}
+	
 
 
 	public static void drawBoard() {
@@ -77,6 +68,8 @@ public class Views {
 	       			node.setColor(Settings.getColorChessA());
 	       		}else if(node.getColor()==null){
 	       			node.setColor(Settings.getColorChessB());
+	       		}if(node.isObstacle()){
+	       			node.setColor(Settings.getColorObstacle());
 	       		}
 	       		node.draw();
 				}

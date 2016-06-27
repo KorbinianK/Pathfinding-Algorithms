@@ -23,7 +23,12 @@ public class CSVData {
     		
 			@SuppressWarnings("unused")
 			MapGenerator mapGen = new MapGenerator();
-    	}
+    	}else if(Settings.isOverwrite()){
+			File f = new File(csvPath);
+			f.delete();
+			@SuppressWarnings("unused")
+			MapGenerator mapGen = new MapGenerator();
+		}
         reader = new CSVReader(new FileReader(csvPath));
         entries = reader.readAll();
     }

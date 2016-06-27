@@ -1,12 +1,14 @@
 package pathfinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+import de.ur.mi.graphics.Color;
 import main.Controller;
+import main.Helper;
 import main.Settings;
 import map.Chessboard;
 import thymio.Thymio;
@@ -34,7 +36,8 @@ import thymio.Thymio;
 
 public class AStar {
 	private static Chessboard board = Settings.getBoard();
-	private static Node start  = Settings.getStartNode();
+	private static List<Node> boardNodes = Settings.getBoardNodes();
+	private static Node start;
 	private static Node end  = Settings.getEndNode();
 	private static Thymio thymio = Controller.thymio;
 	private static Node currentNode = thymio.getPosAsNode();
@@ -42,147 +45,123 @@ public class AStar {
 
 	public static void calculate(){
 		List<Edge> edges = new ArrayList<Edge>();
-		List<Node> closedList = new ArrayList<Node>();
-		HashMap<Node,Integer> temp = new HashMap<>();
-		HashMap<String, Node> openList = new HashMap<>();
-		List<Node> open = new ArrayList<Node>();
-		int current_gcost = 0;
+		List<Integer> openList = new ArrayList<Integer>();
+		List<Integer> closedList = new ArrayList<Integer>();
 		
-		currentNode = thymio.getPosAsNode();
-		int count = 0;
-//		while(true){
-		while(count < 100){
+		
+		start = thymio.getPosAsNode();
+		System.out.println("______________________");
+		System.out.println("Route from "+start.getChessCoord()+" to "+end.getChessCoord());
+	
+		System.out.println("______________________");
+		while(true){
+			
 			if(currentNode == null){
 				currentNode = start;
+				start.setParentNode(currentNode);
 			}
 			if(currentNode == end){
-				for(Edge e : edges){
+			
+				while(true){
 					
-					System.out.println("Go from: [" +e.getSource().getChessCoord()+"] to ["+e.getDestination().getChessCoord()+"]");
-					thymio.move(e.getDestination().getOrientation());
+					if(currentNode.getParent() == null){
+						break;
+					}
+					int parent_id = currentNode.getParent().getId();
+					Node parent = boardNodes.get(parent_id);
+					parent.setColor(Settings.getColorMovement());
+
+					Edge e = new Edge(edges.size(), parent, currentNode, 0);
+					edges.add(e);
+					
+					currentNode = parent;
+					if(currentNode  == start){
+						break;
+					}
+				
+				}
+				Collections.reverse(edges);
+				for(Edge e : edges){
+					System.out.println("Go from "
+							+e.getSource().getChessCoord()
+							+" "
+							+Helper.isPositionedTo(e.getSource(), e.getDestination())
+							+" to "
+							+e.getDestination().getChessCoord());
+					thymio.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
 				}
 				System.out.println("done");
 				break;
 			}
-
+			if(openList.isEmpty() == false){
+				currentNode = getNextNode(openList);
+				
+				closedList.add(currentNode.getId());
+				openList.remove((Integer)currentNode.getId());
+				
+			}
 			HashMap<String, Node> neighbours = board.getNeighbourNodes(currentNode);
 			
 			for ( Entry<String, Node> entry : neighbours.entrySet()) {
-			
-			    String direction = entry.getKey();
-			    Node node = entry.getValue();
-			    
-				current_gcost = node.getGCost();
-			    node.setOriginalOrientationByString(direction);
-			    if(!closedList.contains(node) && !node.isObstacle()){
-			    	
-				    int g_cost = calculateCostG(node,direction);
-			    	int h_cost = calculateCostH(node);
-			    	int f_cost = g_cost+h_cost;
-			    	node.setGCost(current_gcost+g_cost);
-			    	node.setFCost(f_cost);
-			    	node.setOrientationByString(direction);
-				    openList.put(direction, node);
-			    }
-			}
-			
-			for ( Entry<String, Node> entry : openList.entrySet()) {
 				
-			    String direction = entry.getKey();
-			    Node node = entry.getValue();
-			    if(neighbours.containsValue(node)){
-			    	for(Node neighbour : neighbours.values()){
-			    		if(node == neighbour){
-			    			neighbour.setOrientationByString(direction);
-			    		}
-			    	}
-			    }
+			   String direction = entry.getKey();
+			   int id =  entry.getValue().getId();
+			   Node neighbour = boardNodes.get(id);
+			   neighbour.setOrientationByString(direction);
+			   int g_cost = calculateCostG(neighbour,direction);
+			   int h_cost = calculateCostH(neighbour);
+			   int f_cost = g_cost+h_cost;
+			  
 			   
+			   Node parent = neighbour.getParent();
+			   if(parent != null){
+				   neighbour.setGCost(parent.getGCost()+g_cost);
+			   }else{
+				   neighbour.setGCost(g_cost);
+			   }
+			  
+			    neighbour.setFCost(f_cost);
+			   
+			    if(neighbour.getId() == end.getId()){
+			    	end.setParentNode(currentNode);
+				   currentNode = end;
+				   
+			   }
+			   else if(!closedList.contains(id) && !neighbour.isObstacle()){
+				   neighbour.setParentNode(currentNode);
+				   
+				   if(openList.contains(id)){
+					  Node fromOpen = boardNodes.get(id);
+					  if(fromOpen.getGCost() < g_cost){
+						  boardNodes.get(neighbour.getId()).setParentNode(currentNode);
+						  boardNodes.get(neighbour.getId()).setGCost(g_cost);
+					  }
+				   }else{
+//					   Node fromOpen = boardNodes.get(id);
+//					   fromOpen.setColor(Color.WHITE);
+					   
+					   openList.add(id);
+   
+				   }
+			   }
+			   			   
 			}
-			
-			
-			Node cheapest = getCheapestNode(openList);
-			
-			closedList.add(cheapest);
-			openList.remove(cheapest);
-			
-			Edge edge = new Edge(edges.size(), currentNode, cheapest, cheapest.getFCost());
-			currentNode = cheapest;
-			
-			
-			edges.add(edge);	
-			count++;
-			/* loop
-			 * 	calc G cost and put it in open list
-			 * 	go to node from open list with cheapest G cost
-			 * 	add neighbours
-			 * 
-			 */
-			
-//			for ( HashMap.Entry<String, Node> entry : neighbours.entrySet()) {
-//			    String direction = entry.getKey();
-//			    Node neighbour = entry.getValue();
-//			    neighbour = open.get(getFromOpen(open,neighbour));
-//			    if(!closedList.contains(neighbour) && !neighbour.isObstacle()){
-//			    	int g_cost = calculateCostG(neighbour,direction);
-//			    	int h_cost = calculateCostH(neighbour);
-//			    	int f_cost = g_cost+h_cost;
-//			    	
-//			    	neighbour.setGCost(g_cost);
-//			    	neighbour.setFCost(f_cost);
-//			    	neighbour.setOrientationByString(direction);
-//			    	
-//			    	temp.put(neighbour, f_cost);
-//			    	
-//						
-//			    }
-//			}
-//			Node nextNode = getNextNode(open);
-//			
-//			closedList.add(nextNode);
-//			open.remove(nextNode);
-//			
-////			int cost = temp.get(nextNode); // Bugged
-//			int cost = nextNode.getFCost();
-			
-		
 		}
 		
 	}
 
 	
 
-	private static Node getCheapestNode(HashMap<String, Node> openList) {
-		Node currentlyCheapest_node = new Node(999, 999, 999, "", 999);
-		int currentlyCheapest_f = Integer.MAX_VALUE;
-		for(Node node  : openList.values()){
-			if(node == end){
-	    		return node;
-	    	}
-	    	
-	    	int f_cost = node.getFCost();
-	    	
-	    	if(f_cost < currentlyCheapest_node.getFCost() ){
-	    		
-	    		currentlyCheapest_f = f_cost;
-	            currentlyCheapest_node = node;
-	    	}else if(f_cost == currentlyCheapest_f){
-	    		if(calculateCostH(node) < calculateCostH(currentlyCheapest_node)){
-	        		currentlyCheapest_node = node;
-	        	}
-	    	}
-		}
-		System.out.println(currentlyCheapest_node.getChessCoord());
-		return currentlyCheapest_node;
-	}
+	
 
 
-
-	private static Node getNextNode(List<Node> open) {
+	private static Node getNextNode(List<Integer> open) {
 		Node currentlyCheapest_node = new Node(999, 999, 999, "", 999);
 		
 	    int currentlyCheapest_f = Integer.MAX_VALUE;
-	    for(Node node : open){
+	    for(int id : open){
+	    	
+	    	Node node = boardNodes.get(id);
 	    	if(node == end){
 	    		return node;
 	    	}
@@ -199,52 +178,18 @@ public class AStar {
 	        	}
 	    	}
 	    }
+	 
 		return currentlyCheapest_node;
 	}
 
 
 
-	private static int getFromOpen(List<Node> open, Node neighbour) {
-		for (Node node : open) {
-			if(neighbour == open){
-				return node.getId();
-			}
-		}
-		return 0;
-	}
-
-
-
-//	private static Node getNextNode(HashMap<Node, Integer> tempEdges) {
-//		Node currentlyCheapest_node = null;
-//	    int currentlyCheapest_f = Integer.MAX_VALUE;
-//	    for(Node node : tempEdges.keySet()) {
-//	    	
-//	    	if(node == end){
-//	    		return node;
-//	    	}
-//	        int f_cost = tempEdges.get(node);
-//	        if(f_cost < currentlyCheapest_f) {
-//	            currentlyCheapest_f = f_cost;
-//	            currentlyCheapest_node = node;
-//	        }else if(f_cost == currentlyCheapest_f){
-//
-//	        	if(calculateCostH(node) < calculateCostH(currentlyCheapest_node)){
-//	        		currentlyCheapest_node = node;
-//	        	}
-//	        }
-//	    }
-//	    
-//	    return currentlyCheapest_node;
-//		
-//	}
-
 
 	private static int calculateCostH(Node node) {
-		int x1 = node.getXCoord();
-		int x2 = Settings.getEndX();
-		int y1 = node.getYCoord();;
-		int y2 = Settings.getEndY();
+		int x1 = node.getXCoord()/Settings.getFieldHeight();
+		int x2 = Settings.getEndX()/Settings.getFieldHeight();
+		int y1 = node.getYCoord()/Settings.getFieldHeight();
+		int y2 = Settings.getEndY()/Settings.getFieldHeight();
 		int cost = Math.abs(x1 - x2)+Math.abs(y1-y2);
 		return cost;
 	}
@@ -252,7 +197,7 @@ public class AStar {
 
 	private static int calculateCostG(Node neighbour, String direction) {
 		
-		int orientation = thymio.getOrientation();
+		int orientation = currentNode.getOrientation();
 		
 		int cost = 0;
 		int bottom = 180;
@@ -262,38 +207,38 @@ public class AStar {
 		switch (direction) {
 		case "bottom":
 			if((orientation > bottom || orientation < bottom)  && orientation != top){
-				cost = 2;
+				cost = 3;
 			}else if(orientation == top){
 				cost = 3;
 			}else{
-				cost +=1;
+				cost =1;
 			}
 			return cost;
 		case "top":
 			if(orientation > top && orientation != bottom){
-				cost += 2;
+				cost = 3;
 			}else if(orientation == bottom){
-				cost += 3;
+				cost = 3;
 			}else{
-				cost +=1;
+				cost =1;
 			}
 		return cost;
 		case "left":
 			if((orientation == top || orientation == bottom)){
-				cost += 2;
+				cost = 3;
 			}else if(orientation == right){
-				cost += 3;
+				cost = 3;
 			}else{
-				cost +=1;
+				cost =1;
 			}
 		return cost;
 		case "right":
 			if((orientation == top || orientation == bottom)){
-				cost += 2;
+				cost = 3;
 			}else if(orientation == left){
-				cost += 3;
+				cost = 3;
 			}else{
-				cost +=1;
+				cost =1;
 			}
 		return cost;
 		default:

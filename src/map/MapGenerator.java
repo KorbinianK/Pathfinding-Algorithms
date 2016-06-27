@@ -51,8 +51,10 @@ public class MapGenerator {
 	private static void generateMap(String src) {
 		
 		boolean alreadyExists = new File(src).exists();
+		
 		try{
-			if(!alreadyExists){
+			if(!alreadyExists  ){
+				
 				File file = new File(src);
 				
 				  FileWriter writer = new FileWriter(file,true);
