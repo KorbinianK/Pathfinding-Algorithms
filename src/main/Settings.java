@@ -33,7 +33,7 @@ public class Settings  {
 	private static int FONT_SIZE_ENDPOINT = 22;
 	
 	//	Startfield (currently possible: 0-19)
-	private static int THYMIO_STARTFIELD_X = 4; 
+	private static int THYMIO_STARTFIELD_X = 2; 
 	private static int THYMIO_STARTFIELD_Y = 1;;
 	
 	//	Endfield (currently possible: 0-19)
@@ -45,8 +45,8 @@ public class Settings  {
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
 	
-	private static boolean OVERWRITE = false;
-	private static int RANDOM_OBSTACLE_COUNT = 4;
+	private static boolean OVERWRITE = true;
+	private static int RANDOM_OBSTACLE_COUNT = 6;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 80;
 	

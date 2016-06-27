@@ -159,26 +159,7 @@ public class Chessboard extends Rect{
 		
 		return neighbour;
 	}
-	
-	
 
-	
-//	public static Node posAsNode(int x, int y){
-//		List<Node> nodes = Settings.getBoard().getNodes();
-//		int id = 0;
-//		int[][] arr = new int[Settings.getBoardArrayHeight()][Settings.getBoardArrayWidth()];
-//		
-//		for (int i = 0; i < Settings.getBoardArrayHeight();i++) {
-//			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
-//				arr[i][j]= id;
-//				id++;
-//			}
-//		}
-//		int index = arr[y][x];
-//		Node node = nodes.get(index);
-//		
-//		return node;
-//	}
 	
 
 	

@@ -48,13 +48,12 @@ public class AStar {
 		List<Integer> openList = new ArrayList<Integer>();
 		List<Integer> closedList = new ArrayList<Integer>();
 		
-		
+		int timeout = 0;
 		start = thymio.getPosAsNode();
-		System.out.println("______________________");
-		System.out.println("Route from "+start.getChessCoord()+" to "+end.getChessCoord());
 	
-		System.out.println("______________________");
-		while(true){
+		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
+			System.out.println("____________________________________________");
+		while(timeout < 200){
 			
 			if(currentNode == null){
 				currentNode = start;
@@ -146,6 +145,10 @@ public class AStar {
 			   }
 			   			   
 			}
+			timeout++;
+		}
+		if(timeout == 200){
+			System.out.println("No Route possible");
 		}
 		
 	}
