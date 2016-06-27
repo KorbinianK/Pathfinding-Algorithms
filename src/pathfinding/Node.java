@@ -121,6 +121,7 @@ public class Node {
 		Rect rect = new Rect(getYCoord()*50, getXCoord()*50, 50, 50,getColor());
 		rect.draw();
 	}
+	
 	public void updateNode(Node currentNode, int orientation) {
 		currentNode.setOrientation(orientation);
 		currentNode.setColor(Settings.getColorMovement());

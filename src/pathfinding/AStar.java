@@ -216,9 +216,9 @@ public class AStar {
 
 	private static int calculateCostH(Node node) {
 		int x1 = node.getXCoord();
-		int x2 = Settings.getStartX();
+		int x2 = Settings.getEndX();
 		int y1 = node.getYCoord();;
-		int y2 = Settings.getStartY();
+		int y2 = Settings.getEndY();
 		int cost = Math.abs(x1 - x2)+Math.abs(y1-y2);
 		return cost;
 	}
