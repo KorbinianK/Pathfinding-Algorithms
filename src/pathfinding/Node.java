@@ -10,28 +10,58 @@ public class Node {
 	private int xCoord;
 	private int yCoord;
 	private String chessCoord;
-	private int thymioOrientation;
+	private int orientation;
 	private boolean isObstacle;
 	private int f_cost;
 	private int g_cost;
 	private Color color;
 	private Color originalColor;
+	private int originalOrientation;
 	
-	public Node(int id, int xCoord, int yCoord, String chessCoord, int thymioOrientation){
+	public Node(int id, int xCoord, int yCoord, String chessCoord, int orientation){
 		this.id = id;
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 		this.chessCoord = chessCoord;
 		this.isObstacle = false;
 		this.f_cost = Integer.MAX_VALUE;
-		this.g_cost = Integer.MAX_VALUE;;
+		this.g_cost = Integer.MAX_VALUE;
+		this.originalOrientation = orientation;
 	}
 	
-	public void setOrientation(int thymioOrientation){
-		this.thymioOrientation = thymioOrientation;
+	
+	public void setOrientation(int orientation){
+		if(orientation != originalOrientation){
+			
+			this.orientation = orientation;
+		}	
 	}
 	public int getOrientation(){
-		return thymioOrientation;
+		return orientation;
+	}
+	public int getOriginalOrientation(){
+		return originalOrientation;
+	}
+	public void setOriginalOrientation(int orientation){
+		this.originalOrientation = orientation;
+	}
+	public void setOriginalOrientationByString(String direction) {
+		switch (direction) {
+		case "top":
+			setOriginalOrientation(0);
+			break;
+		case "bottom":
+			setOriginalOrientation(180);
+			break;
+		case "left":
+			setOriginalOrientation(270);
+			break;
+		case "right":
+			setOriginalOrientation(90);
+			break;
+		default:
+			break;
+		}
 	}
 	public String getChessCoord() {
 		return chessCoord;

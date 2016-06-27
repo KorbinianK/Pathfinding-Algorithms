@@ -30,7 +30,13 @@ public class Chessboard extends Rect{
 				int id = Helper.calculateID(j, i);
 				Node node = nodeList.get(id);
 				if(obs[j][i]== '1'){
-					node.setObstacle(true);
+					if(node.getXCoord() != Settings.getStartX()
+						&& node.getYCoord() != Settings.getStartY()
+						&& node.getXCoord() != Settings.getEndX()
+						&& node.getYCoord() != Settings.getEndY()){
+						node.setObstacle(true);
+					}
+					
 				}
 			}
 		}	
@@ -181,6 +187,7 @@ public class Chessboard extends Rect{
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
 				int id = Helper.calculateID(j, i);
 				Node node = new Node(id,i,j,chessArray[j][i],0);
+				
 				nodeList.add(node);			
 			}
 		}	

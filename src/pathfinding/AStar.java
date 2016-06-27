@@ -12,7 +12,7 @@ import map.Chessboard;
 import thymio.Thymio;
 
 /*
- * https://www.youtube.com/watch?v=-L-WgKMFuhE
+ * x
  * loop
     current = node in OPEN with the lowest f_cost
     remove current from OPEN
@@ -46,6 +46,7 @@ public class AStar {
 		HashMap<Node,Integer> temp = new HashMap<>();
 		HashMap<String, Node> openList = new HashMap<>();
 		List<Node> open = new ArrayList<Node>();
+		int current_gcost = 0;
 		
 		currentNode = thymio.getPosAsNode();
 		int count = 0;
@@ -56,6 +57,7 @@ public class AStar {
 			}
 			if(currentNode == end){
 				for(Edge e : edges){
+					
 					System.out.println("Go from: [" +e.getSource().getChessCoord()+"] to ["+e.getDestination().getChessCoord()+"]");
 					thymio.move(e.getDestination().getOrientation());
 				}
@@ -64,25 +66,49 @@ public class AStar {
 			}
 
 			HashMap<String, Node> neighbours = board.getNeighbourNodes(currentNode);
-
-			for ( Entry<String, Node> entry : openList.entrySet()) {
+			
+			for ( Entry<String, Node> entry : neighbours.entrySet()) {
+			
 			    String direction = entry.getKey();
 			    Node node = entry.getValue();
-			    int g_cost = calculateCostG(node,direction);
-		    	int h_cost = calculateCostH(node);
-		    	int f_cost = g_cost+h_cost;
-		    	node.setGCost(g_cost);
-		    	node.setFCost(f_cost);
-		    	node.setOrientationByString(direction);
+			    
+				current_gcost = node.getGCost();
+			    node.setOriginalOrientationByString(direction);
+			    if(!closedList.contains(node) && !node.isObstacle()){
+			    	
+				    int g_cost = calculateCostG(node,direction);
+			    	int h_cost = calculateCostH(node);
+			    	int f_cost = g_cost+h_cost;
+			    	node.setGCost(current_gcost+g_cost);
+			    	node.setFCost(f_cost);
+			    	node.setOrientationByString(direction);
+				    openList.put(direction, node);
+			    }
 			}
-
+			
+			for ( Entry<String, Node> entry : openList.entrySet()) {
+				
+			    String direction = entry.getKey();
+			    Node node = entry.getValue();
+			    if(neighbours.containsValue(node)){
+			    	for(Node neighbour : neighbours.values()){
+			    		if(node == neighbour){
+			    			neighbour.setOrientationByString(direction);
+			    		}
+			    	}
+			    }
+			   
+			}
+			
+			
 			Node cheapest = getCheapestNode(openList);
 			
 			closedList.add(cheapest);
 			openList.remove(cheapest);
-			currentNode = (cheapest);
+			
 			Edge edge = new Edge(edges.size(), currentNode, cheapest, cheapest.getFCost());
 			currentNode = cheapest;
+			
 			
 			edges.add(edge);	
 			count++;
@@ -146,7 +172,7 @@ public class AStar {
 	        	}
 	    	}
 		}
-		
+		System.out.println(currentlyCheapest_node.getChessCoord());
 		return currentlyCheapest_node;
 	}
 

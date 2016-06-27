@@ -37,7 +37,7 @@ public class Settings  {
 	private static int THYMIO_STARTFIELD_Y = 1;;
 	
 	//	Endfield (currently possible: 0-19)
-	private static int THYMIO_ENDFIELD_X = 17;
+	private static int THYMIO_ENDFIELD_X = 16;
 	private static int THYMIO_ENDFIELD_Y = 3;
 	
 	/*
