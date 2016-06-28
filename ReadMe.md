@@ -8,25 +8,14 @@
 ### Aktuelle Funktionen
 
    - Schachbrett mit randomisierten Hindernissen (anpassbar)
-   - Feste 20x8 Map kann aus CSV erstellt werden
-   - CSV mit random Obstacles kann erstellt werden (Map Generator)
+   - Feste 20x8 Map wird aus CSV erstellt und gespeichert
    - Steuerung von Thymio (grafisch) mit W A S D Tasten
-   - Berechnung der Kosten zu umliegenden Feldern
    - Settings-Klasse in der einige Einstellungen angepasst werden können (Start/Endpunkt, Größe, Bilder, Hindernisse etc) und die wichtigsten Konstanten festgelegt sind
-   - Empfehlung, welches Feld als nächstes angefahren werden sollte:
-       - Vermeidet Hindernisse
-       - Keine Orientierung am Zielpunkt
-       - Erkennt, wenn von aktueller Position kein unbesuchtes Feld erreichbar ist
-   - Speichert besuchte Felder und erkennt, wenn diese erneut angefahren werden
-   - Nodes und Edges in eigenen Klassen
-   - Thymio kann zu bestimmten Feldern geschickt werden, funktioniert aber noch nicht wirklich, war nur ein Test
+   - A* Algorithmus mit der Taste 'C' starten, Thymio fährt kürzeste Route zum Ziel
+   - Route wird grafisch angezeigt
 
 ### Todo:
-Fertigstellung Dijkstra
-  - Speicherung der aktuell verbrauchten Kosten
-  - Zurückspringen auf letzes Feld wenn kein weiteres unbesuchtes Feld angefahren werden kann
-  - Einbauen des echten Thymios
+   - Implementierung des "echten" Thymio.
+   - Dijkstra Klasse neu programmieren
 
-Optional:
-- Koordinaten auf den Feldern anzeigen lassen, oder wie beim Schach daneben
 
