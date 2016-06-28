@@ -35,6 +35,7 @@ import thymio.Thymio;
  */
 
 public class AStar {
+	private static final int COST_TURN = 10;
 	private static Chessboard board = Settings.getBoard();
 	private static List<Node> boardNodes = Settings.getBoardNodes();
 	private static Node start;
@@ -50,7 +51,7 @@ public class AStar {
 		
 		int timeout = 0;
 		start = thymio.getPosAsNode();
-	
+		start.setOrientation(thymio.getOrientation());
 		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
 			System.out.println("____________________________________________");
 		while(timeout < 200){
@@ -74,6 +75,7 @@ public class AStar {
 					edges.add(e);
 					
 					currentNode = parent;
+					
 					if(currentNode  == start){
 						break;
 					}
@@ -128,7 +130,6 @@ public class AStar {
 			   }
 			   else if(!closedList.contains(id) && !neighbour.isObstacle()){
 				   neighbour.setParentNode(currentNode);
-				   
 				   if(openList.contains(id)){
 					  Node fromOpen = boardNodes.get(id);
 					  if(fromOpen.getGCost() < g_cost){
@@ -136,9 +137,7 @@ public class AStar {
 						  boardNodes.get(neighbour.getId()).setGCost(g_cost);
 					  }
 				   }else{
-//					   Node fromOpen = boardNodes.get(id);
-//					   fromOpen.setColor(Color.WHITE);
-					   
+//					   neighbour.setColor(Color.GREEN);
 					   openList.add(id);
    
 				   }
@@ -210,38 +209,38 @@ public class AStar {
 		switch (direction) {
 		case "bottom":
 			if((orientation > bottom || orientation < bottom)  && orientation != top){
-				cost = 3;
+				cost = COST_TURN*2;
 			}else if(orientation == top){
-				cost = 3;
+				cost = COST_TURN*3;
 			}else{
-				cost =1;
+				cost =COST_TURN;
 			}
 			return cost;
 		case "top":
 			if(orientation > top && orientation != bottom){
-				cost = 3;
+				cost = COST_TURN;
 			}else if(orientation == bottom){
-				cost = 3;
+				cost = COST_TURN*3;
 			}else{
-				cost =1;
+				cost =COST_TURN;
 			}
 		return cost;
 		case "left":
 			if((orientation == top || orientation == bottom)){
-				cost = 3;
+				cost = COST_TURN*2;
 			}else if(orientation == right){
-				cost = 3;
+				cost = COST_TURN*3;
 			}else{
-				cost =1;
+				cost =COST_TURN;
 			}
 		return cost;
 		case "right":
 			if((orientation == top || orientation == bottom)){
-				cost = 3;
+				cost = COST_TURN*2;
 			}else if(orientation == left){
-				cost = 3;
+				cost = COST_TURN*3;
 			}else{
-				cost =1;
+				cost =COST_TURN;
 			}
 		return cost;
 		default:

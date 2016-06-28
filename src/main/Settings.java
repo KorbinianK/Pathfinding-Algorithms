@@ -16,7 +16,7 @@ public class Settings  {
 	
 	//	Awesome Thymio Image
 	private static final String THYMIO_IMG = "images/thymio.gif";
-	private static final String THYMIO_ROTATION = "north";
+	private static final String THYMIO_ROTATION = "east";
 	
 	// Colors
 	private static Color COLOR_CHESS_A = Color.DARK_GRAY;
@@ -46,7 +46,7 @@ public class Settings  {
 	 */
 	
 	private static boolean OVERWRITE = true;
-	private static int RANDOM_OBSTACLE_COUNT = 6;
+	private static int RANDOM_OBSTACLE_COUNT = 5;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 80;
 	

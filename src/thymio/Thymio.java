@@ -50,6 +50,7 @@ public class Thymio extends Image{
 
 		switch (movement) {
 		case "left":
+			
 			if(CURRENT_ROTATION == 0){
 				super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
 			}else if(CURRENT_ROTATION == 90){
