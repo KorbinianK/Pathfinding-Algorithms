@@ -96,7 +96,7 @@ public class AStar {
 			}
 			if(openList.isEmpty() == false){
 				currentNode = getNextNode(openList);
-				
+				currentNode.setColor(Color.MAGENTA);
 				closedList.add(currentNode.getId());
 				openList.remove((Integer)currentNode.getId());
 				
@@ -116,7 +116,9 @@ public class AStar {
 			   
 			   Node parent = neighbour.getParent();
 			   if(parent != null){
+				   
 				   neighbour.setGCost(parent.getGCost()+g_cost);
+				   System.out.println(parent.getGCost()+g_cost);
 			   }else{
 				   neighbour.setGCost(g_cost);
 			   }
@@ -137,7 +139,7 @@ public class AStar {
 						  boardNodes.get(neighbour.getId()).setGCost(g_cost);
 					  }
 				   }else{
-//					   neighbour.setColor(Color.GREEN);
+					   neighbour.setColor(Color.GREEN);
 					   openList.add(id);
    
 				   }
@@ -145,6 +147,11 @@ public class AStar {
 			   			   
 			}
 			timeout++;
+			try {
+				Thread.sleep(Settings.getDelay());
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 		}
 		if(timeout == 200){
 			System.out.println("No Route possible");
@@ -188,12 +195,15 @@ public class AStar {
 
 
 	private static int calculateCostH(Node node) {
-		int x1 = node.getXCoord()/Settings.getFieldHeight();
-		int x2 = Settings.getEndX()/Settings.getFieldHeight();
-		int y1 = node.getYCoord()/Settings.getFieldHeight();
-		int y2 = Settings.getEndY()/Settings.getFieldHeight();
+		
+		int mult = 3;
+		int x1 = node.getXCoord();
+		int x2 = Settings.getEndX();
+		int y1 = node.getYCoord();
+		int y2 = Settings.getEndY();
 		int cost = Math.abs(x1 - x2)+Math.abs(y1-y2);
-		return cost;
+		System.out.println("cost"+cost);
+		return mult*cost;
 	}
 
 

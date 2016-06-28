@@ -48,7 +48,7 @@ public class Settings  {
 	private static boolean OVERWRITE = true;
 	private static int RANDOM_OBSTACLE_COUNT = 5;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
-	private static final int DELAY = 80;
+	private static final int DELAY = 100;
 	
 	
 /*

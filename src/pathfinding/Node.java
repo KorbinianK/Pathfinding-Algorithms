@@ -84,9 +84,9 @@ public class Node {
 		}
 	}
 	public void setGCost(int g_cost){
-		if(g_cost < this.g_cost){
+		
 			this.g_cost = g_cost;
-		}
+		
 		
 	}
 	
