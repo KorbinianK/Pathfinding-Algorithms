@@ -1,11 +1,13 @@
 package pathfinding;
 
 import de.ur.mi.graphics.Color;
+import de.ur.mi.graphics.Label;
 import de.ur.mi.graphics.Rect;
 import main.Settings;
 
 public class Node {
 	
+	private int h_cost;
 	private int id;
 	private int xCoord;
 	private int yCoord;
@@ -27,7 +29,7 @@ public class Node {
 		this.chessCoord = chessCoord;
 		this.isObstacle = false;
 		this.f_cost = Integer.MAX_VALUE;
-		this.g_cost = Integer.MAX_VALUE;
+		
 
 		this.parent = null;
 		this.closed = false;
@@ -136,10 +138,48 @@ public class Node {
 	}
 	
 	public void draw(){
-		Rect rect = new Rect(getYCoord()*50, getXCoord()*50, 50, 50,getColor());
+	
+		
+		int y = getYCoord(); 
+		int x = getXCoord();
+		 if(y != 0){
+			 y *= Settings.getFieldHeight();
+		 }
+		 if(x != 0){
+			 x *= Settings.getFieldHeight();
+		 }
+		 int label_x = x+Settings.getFieldHeight();
+		 Rect rect = new Rect(y, x, 50, 50,getColor());
 		rect.draw();
+		
+	 	Label chess = new Label(y+17,label_x-2, getChessCoord(), Color.BLACK);
+		chess.setFontSize(10);
+		chess.draw();
+		Label h = new Label(y+25,label_x-40, "H: "+Integer.toString(getHCost()), Color.BLACK);
+		h.setFontSize(10);
+		h.draw();
+		if(getFCost() < Integer.MAX_VALUE){
+			Label f = new Label(y+20,label_x-20, Integer.toString(getFCost()), Color.BLACK);
+			f.setFontSize(15);
+			f.draw();
+		}
+		if(getGCost() < Integer.MAX_VALUE){
+			Label g = new Label(y,label_x-40,"G: "+Integer.toString(getGCost()), Color.BLACK);
+			g.setFontSize(10);
+			g.draw();
+		}
+		
+		
 	}
 	
+	public int getHCost() {
+		
+		return h_cost;
+	}
+	public void setHCost(int cost) {
+		this.h_cost = cost;
+	}
+
 	public void updateNode(Node currentNode, int orientation) {
 		currentNode.setOrientation(orientation);
 		currentNode.setColor(Settings.getColorMovement());
@@ -162,8 +202,8 @@ public class Node {
 	}
 
 
-	public void setParentNode(Node currentNode) {
-		this.parent=currentNode;	
+	public void setParentNode(Node node) {
+		this.parent=node;	
 	}
 	
 	public Node getParent(){

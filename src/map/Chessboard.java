@@ -2,13 +2,12 @@ package map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import de.ur.mi.graphics.Color;
-import de.ur.mi.graphics.Rect;
+
 import main.Helper;
 import main.Settings;
 import pathfinding.Node;
 
-public class Chessboard extends Rect{
+public class Chessboard {
 	
 	// Fixed, don't change, adjustments in Settings Class
 	protected List<Node> nodeList = new ArrayList<Node>();
@@ -16,13 +15,13 @@ public class Chessboard extends Rect{
 	private static Chessboard board;
 	
 	
-	public Chessboard(int x, int y, int width, int height, Color color) {
-		super(x,y,width,height,color);
+	public Chessboard() {
+		
 		createNodes();
 		createObstacles();
 	}
-	
-	
+
+
 	private void createObstacles() {
 		char[][] obs = Settings.getObstaclesArray();
 		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {

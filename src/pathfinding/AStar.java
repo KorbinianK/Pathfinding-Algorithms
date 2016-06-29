@@ -35,7 +35,7 @@ import thymio.Thymio;
  */
 
 public class AStar {
-	private static final int COST_TURN = 10;
+	private static final int COST_TURN = 3;
 	private static Chessboard board = Settings.getBoard();
 	private static List<Node> boardNodes = Settings.getBoardNodes();
 	private static Node start;
@@ -54,7 +54,7 @@ public class AStar {
 		start.setOrientation(thymio.getOrientation());
 		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
 			System.out.println("____________________________________________");
-		while(timeout < 200){
+		while(true){
 			
 			if(currentNode == null){
 				currentNode = start;
@@ -106,43 +106,38 @@ public class AStar {
 			for ( Entry<String, Node> entry : neighbours.entrySet()) {
 				
 			   String direction = entry.getKey();
-			   int id =  entry.getValue().getId();
-			   Node neighbour = boardNodes.get(id);
+//			   int id =  entry.getValue();
+			   Node neighbour = entry.getValue();
 			   neighbour.setOrientationByString(direction);
-			   int g_cost = calculateCostG(neighbour,direction);
-			   int h_cost = calculateCostH(neighbour);
-			   int f_cost = g_cost+h_cost;
-			  
 			   
-			   Node parent = neighbour.getParent();
-			   if(parent != null){
-				   
-				   neighbour.setGCost(parent.getGCost()+g_cost);
-				   System.out.println(parent.getGCost()+g_cost);
-			   }else{
-				   neighbour.setGCost(g_cost);
-			   }
-			  
-			    neighbour.setFCost(f_cost);
-			   
-			    if(neighbour.getId() == end.getId()){
+			   if(neighbour.getId() == end.getId()){
 			    	end.setParentNode(currentNode);
 				   currentNode = end;
 				   
 			   }
-			   else if(!closedList.contains(id) && !neighbour.isObstacle()){
+			   else if(!closedList.contains(neighbour.getId()) && !neighbour.isObstacle()){
 				   neighbour.setParentNode(currentNode);
-				   if(openList.contains(id)){
-					  Node fromOpen = boardNodes.get(id);
-					  if(fromOpen.getGCost() < g_cost){
-						  boardNodes.get(neighbour.getId()).setParentNode(currentNode);
-						  boardNodes.get(neighbour.getId()).setGCost(g_cost);
-					  }
-				   }else{
-					   neighbour.setColor(Color.GREEN);
-					   openList.add(id);
-   
+				   int g_cost = calculateCostG(neighbour,direction);
+				   int h_cost = calculateCostH(neighbour);
+				  
+				   
+				   
+				   Node parent = neighbour.getParent();
+				  
+				   if(parent != null){
+					   g_cost +=parent.getGCost();
 				   }
+   
+				  if(neighbour.getGCost() < g_cost){
+					  neighbour.setParentNode(currentNode);
+					  neighbour.setGCost(g_cost);
+				  }
+				   int f_cost = g_cost+h_cost;
+				   neighbour.setFCost(f_cost);
+				   
+				   neighbour.setHCost(h_cost);
+				   neighbour.setColor(Color.GREEN);
+				   openList.add(neighbour.getId());
 			   }
 			   			   
 			}
@@ -182,7 +177,7 @@ public class AStar {
 	    		currentlyCheapest_f = f_cost;
 	            currentlyCheapest_node = node;
 	    	}else if(f_cost == currentlyCheapest_f){
-	    		if(calculateCostH(node) < calculateCostH(currentlyCheapest_node)){
+	    		if(node.getHCost() < currentlyCheapest_node.getHCost()){
 	        		currentlyCheapest_node = node;
 	        	}
 	    	}
@@ -194,15 +189,15 @@ public class AStar {
 
 
 
-	private static int calculateCostH(Node node) {
+	public static int calculateCostH(Node node) {
 		
-		int mult = 3;
+		int mult = Settings.getHeuristicModifier();
 		int x1 = node.getXCoord();
-		int x2 = Settings.getEndX();
 		int y1 = node.getYCoord();
-		int y2 = Settings.getEndY();
-		int cost = Math.abs(x1 - x2)+Math.abs(y1-y2);
-		System.out.println("cost"+cost);
+		int x2 = Settings.getThymioEndField_X();
+		int y2 = Settings.getThymioEndField_Y();
+		int cost = Math.abs((x1 - x2) + (y1-y2));
+//		System.out.println("x1:"+x1+" x2:"+x2+" y1:"+y1+" y2:"+y2);
 		return mult*cost;
 	}
 
@@ -228,7 +223,7 @@ public class AStar {
 			return cost;
 		case "top":
 			if(orientation > top && orientation != bottom){
-				cost = COST_TURN;
+				cost = COST_TURN*2;
 			}else if(orientation == bottom){
 				cost = COST_TURN*3;
 			}else{
@@ -252,6 +247,7 @@ public class AStar {
 			}else{
 				cost =COST_TURN;
 			}
+			
 		return cost;
 		default:
 			return cost;

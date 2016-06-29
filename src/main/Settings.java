@@ -14,6 +14,7 @@ import pathfinding.Node;
  */
 public class Settings  {
 	
+
 	//	Awesome Thymio Image
 	private static final String THYMIO_IMG = "images/thymio.gif";
 	private static final String THYMIO_ROTATION = "east";
@@ -33,7 +34,7 @@ public class Settings  {
 	private static int FONT_SIZE_ENDPOINT = 22;
 	
 	//	Startfield (currently possible: 0-19)
-	private static int THYMIO_STARTFIELD_X = 2; 
+	private static int THYMIO_STARTFIELD_X = 1; 
 	private static int THYMIO_STARTFIELD_Y = 1;;
 	
 	//	Endfield (currently possible: 0-19)
@@ -46,7 +47,7 @@ public class Settings  {
 	 */
 	
 	private static boolean OVERWRITE = true;
-	private static int RANDOM_OBSTACLE_COUNT = 5;
+	private static int RANDOM_OBSTACLE_COUNT = 2;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
 	
@@ -60,9 +61,11 @@ public class Settings  {
 	private static final int FIELD_WIDTH = 50;
 	private static final String EMPTY_MAP_SRC = "empty_map.csv";
 	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
+	private static final int H_MODIFIER = 4;
+//	
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
-	private static Chessboard board = new Chessboard(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT, COLOR_CHESS_A);
+	private static Chessboard board = new Chessboard();
 
 	
 	private static CSVData getReader(){
@@ -78,16 +81,46 @@ public class Settings  {
 
 
 	public static int getStartX(){
-		return getThymioStartField_X() * getFieldHeight();
+		int x = getThymioStartField_X(); 
+		
+		if(x == 0){
+		
+    	}else{
+    	 x *= FIELD_HEIGHT;
+    	}
+    	
+		return x ;
 	}
 	public static int getStartY(){
-		return getThymioStartField_Y() * getFieldHeight();
+		int y = getThymioStartField_Y();
+		if(y == 0){
+    		
+    	}else{
+    		y *= FIELD_HEIGHT;
+    	}
+		return y;
 	}
 	public static int getEndX(){
-		return getThymioEndField_X() * getFieldHeight();
+		int x = getThymioEndField_X(); 
+		
+		if(x == 0){
+		
+    	}else{
+    	 x *= FIELD_HEIGHT;
+    	}
+    	
+	
+		return x;
 	}
 	public static int getEndY(){
-		return getThymioEndField_Y() * getFieldHeight();
+	int y = getThymioEndField_Y(); 
+		
+		if(y == 0){
+		
+    	}else{
+    	 y *= FIELD_HEIGHT;
+    	}
+		return y;
 	}
 	
 	public static int getThymioStartField_X() {
@@ -152,9 +185,7 @@ public class Settings  {
 	public static Chessboard getBoard() {
 		return board;
 	}
-	public static void setBoard(Chessboard board) {
-		Settings.board = board;
-	}
+
 	public static Color getColorChessA() {
 		return COLOR_CHESS_A;
 	}
@@ -256,6 +287,13 @@ public class Settings  {
 
 	public static boolean isOverwrite() {
 		return OVERWRITE;
+	}
+
+
+
+	public static int getHeuristicModifier() {
+		// TODO Auto-generated method stub
+		return H_MODIFIER;
 	}
 
 
