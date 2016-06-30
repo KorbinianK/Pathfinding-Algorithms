@@ -101,6 +101,8 @@ public class AStar {
 				closedList.add(currentNode.getId());
 				openList.remove((Integer)currentNode.getId());
 				
+			}if(openList.isEmpty() && timeout > 1){
+				break;
 			}
 			HashMap<Node, String> directions = board.getNeighbourDir(currentNode);
 			List<Integer> neighbourIDs = board.getNeighbourIDs(currentNode);
@@ -132,6 +134,7 @@ public class AStar {
 					   neighbour.setParentNode(currentNode);
 					   neighbour.setGCost(g_cost);
 					   neighbour.setFCost(f_cost);
+					   neighbour.setColor(Color.GREEN);
 					   openList.add(neighbour.getId());
 				   }
 				  
@@ -147,9 +150,9 @@ public class AStar {
 				e1.printStackTrace();
 			}
 		}
-		if(timeout == 200){
+		
 			System.out.println("No Route possible");
-		}
+		
 		
 	}
 
