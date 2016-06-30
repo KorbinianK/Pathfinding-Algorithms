@@ -35,7 +35,7 @@ import thymio.Thymio;
  */
 
 public class AStar {
-	private static final int COST_TURN = 3;
+	private static final int COST_TURN = Settings.getTurnCost();
 	private static Chessboard board = Settings.getBoard();
 	private static List<Node> boardNodes = Settings.getBoardNodes();
 	private static Node start;
@@ -143,7 +143,7 @@ public class AStar {
 			}
 			timeout++;
 			try {
-				Thread.sleep(Settings.getDelay());
+				Thread.sleep(50);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
