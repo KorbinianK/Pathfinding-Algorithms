@@ -47,10 +47,10 @@ public class Settings  {
 	 */
 	
 	private static boolean OVERWRITE = true;
-	private static int RANDOM_OBSTACLE_COUNT = 2;
+	private static int RANDOM_OBSTACLE_COUNT = 7;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
-	
+	private static final int H_MODIFIER = 3;
 	
 /*
  * 	No changes needed below this line. Canvas_Width could be increased in 50pixel steps.
@@ -61,7 +61,7 @@ public class Settings  {
 	private static final int FIELD_WIDTH = 50;
 	private static final String EMPTY_MAP_SRC = "empty_map.csv";
 	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
-	private static final int H_MODIFIER = 1;
+	
 //	
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();

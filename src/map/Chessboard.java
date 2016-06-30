@@ -107,6 +107,23 @@ public class Chessboard {
 		return nodes;	
 	}
 	
+	public HashMap<Node,String> getNeighbourDir(Node current) {
+		HashMap<Node,String> nodes = new HashMap<>();
+		if(leftNeighbourNode(current)!=null){
+			nodes.put(leftNeighbourNode(current),"left");
+		}
+		if(rightNeighbourNode(current) != null){
+			nodes.put(rightNeighbourNode(current),"right");
+		}
+		if(topNeighbourNode(current) != null){
+			nodes.put(topNeighbourNode(current),"top");
+		}
+		if(bottomNeighbourNode(current) != null){
+			nodes.put(bottomNeighbourNode(current), "bottom");
+		}
+		return nodes;	
+	}
+	
 	
 	
 	

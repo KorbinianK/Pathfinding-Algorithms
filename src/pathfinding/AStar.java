@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 import de.ur.mi.graphics.Color;
 import main.Controller;
@@ -101,38 +100,47 @@ public class AStar {
 				openList.remove((Integer)currentNode.getId());
 				
 			}
-			HashMap<String, Node> neighbours = board.getNeighbourNodes(currentNode);
+			HashMap<Node, String> directions = board.getNeighbourDir(currentNode);
 			List<Integer> neighbourIDs = board.getNeighbourIDs(currentNode);
-//			for ( Entry<String, Node> entry : neighbours.entrySet()) {
 			for(int id : neighbourIDs){
+
 				
-//			   String direction = entry.getKey();
 			   Node neighbour = board.getNodeByID(id);
-//			   neighbour.setOrientationByString(direction);
-			   
+			  String direction = directions.get(neighbour);
 			   if(neighbour.getId() == end.getId()){
 			    	end.setParentNode(currentNode);
 				   currentNode = end;
+			   } else if(!closedList.contains(neighbour.getId()) && !neighbour.isObstacle()){
 				   
-			   }
-			   
-			   else if(!closedList.contains(neighbour.getId()) && !neighbour.isObstacle()){
-				   int g_cost = 0;
-				   
-				   int h_cost = 0;
-				   int f_cost = g_cost+h_cost;
-				   
-				   neighbour.setFCost(f_cost);
-				   
+				   int h_cost = calculateCostH(neighbour);
 				   neighbour.setHCost(h_cost);
-				   neighbour.setColor(Color.GREEN);
-				   openList.add(neighbour.getId());
+				   int curr = currentNode.getGCost();
+				   int g_cost = calculateCostG(neighbour, direction)+curr;
+				   int f_cost = g_cost+h_cost;
+				   if(openList.contains(neighbour.getId())){
+					   //already open -> check if cheaper
+					   int previousF = neighbour.getFCost();
+					   if(f_cost < previousF){
+						   neighbour.setFCost(f_cost);
+						   neighbour.setFCost(g_cost);
+						   neighbour.setParentNode(currentNode);
+					   }
+				   }else{
+					   // not in open list
+					   neighbour.setParentNode(currentNode);
+					   neighbour.setGCost(g_cost);
+					   neighbour.setFCost(f_cost);
+					   openList.add(neighbour.getId());
+				   }
+				  
 			   }
 			   			   
 			}
+			
+			
 			timeout++;
 			try {
-				Thread.sleep(0);
+				Thread.sleep(50);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
