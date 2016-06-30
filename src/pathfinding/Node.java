@@ -21,6 +21,8 @@ public class Node {
 	private int originalOrientation;
 	private Node parent;
 	private boolean closed;
+
+
 	
 	public Node(int id, int xCoord, int yCoord, String chessCoord, int orientation){
 		this.id = id;
@@ -29,7 +31,7 @@ public class Node {
 		this.chessCoord = chessCoord;
 		this.isObstacle = false;
 		this.f_cost = Integer.MAX_VALUE;
-		
+		this.g_cost = 999;
 
 		this.parent = null;
 		this.closed = false;
@@ -163,8 +165,12 @@ public class Node {
 			f.setFontSize(15);
 			f.draw();
 		}
-		if(getGCost() < Integer.MAX_VALUE){
-			Label g = new Label(y,label_x-40,"G: "+Integer.toString(getGCost()), Color.BLACK);
+		if(getGCost() < 999){
+			int cost = getGCost();
+			if(parent.getGCost()< 999){
+				cost = parent.getGCost()+getGCost();
+			}
+			Label g = new Label(y,label_x-40,"G: "+Integer.toString(cost), Color.BLACK);
 			g.setFontSize(10);
 			g.draw();
 		}

@@ -35,7 +35,7 @@ import thymio.Thymio;
  */
 
 public class AStar {
-	private static final int COST_TURN = 3;
+	private static final int COST_TURN = 1;
 	private static Chessboard board = Settings.getBoard();
 	private static List<Node> boardNodes = Settings.getBoardNodes();
 	private static Node start;
@@ -102,37 +102,26 @@ public class AStar {
 				
 			}
 			HashMap<String, Node> neighbours = board.getNeighbourNodes(currentNode);
-			
-			for ( Entry<String, Node> entry : neighbours.entrySet()) {
+			List<Integer> neighbourIDs = board.getNeighbourIDs(currentNode);
+//			for ( Entry<String, Node> entry : neighbours.entrySet()) {
+			for(int id : neighbourIDs){
 				
-			   String direction = entry.getKey();
-//			   int id =  entry.getValue();
-			   Node neighbour = entry.getValue();
-			   neighbour.setOrientationByString(direction);
+//			   String direction = entry.getKey();
+			   Node neighbour = board.getNodeByID(id);
+//			   neighbour.setOrientationByString(direction);
 			   
 			   if(neighbour.getId() == end.getId()){
 			    	end.setParentNode(currentNode);
 				   currentNode = end;
 				   
 			   }
+			   
 			   else if(!closedList.contains(neighbour.getId()) && !neighbour.isObstacle()){
-				   neighbour.setParentNode(currentNode);
-				   int g_cost = calculateCostG(neighbour,direction);
-				   int h_cost = calculateCostH(neighbour);
-				  
+				   int g_cost = 0;
 				   
-				   
-				   Node parent = neighbour.getParent();
-				  
-				   if(parent != null){
-					   g_cost +=parent.getGCost();
-				   }
-   
-				  if(neighbour.getGCost() < g_cost){
-					  neighbour.setParentNode(currentNode);
-					  neighbour.setGCost(g_cost);
-				  }
+				   int h_cost = 0;
 				   int f_cost = g_cost+h_cost;
+				   
 				   neighbour.setFCost(f_cost);
 				   
 				   neighbour.setHCost(h_cost);
@@ -143,7 +132,7 @@ public class AStar {
 			}
 			timeout++;
 			try {
-				Thread.sleep(Settings.getDelay());
+				Thread.sleep(0);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}

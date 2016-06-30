@@ -178,5 +178,28 @@ public class Chessboard {
 	public List<Node> getNodes(){
 		return nodeList;
 	}
+
+
+	public List<Integer> getNeighbourIDs(Node current) {
+		List<Integer> ids = new ArrayList<Integer>();
+		HashMap<String, Node> neighbours = getNeighbourNodes(current);
+		for(Node node : neighbours.values()){
+			ids.add(node.getId());
+		}
+		return ids;
+	}
+
+
+	public Node getNodeByID(int id){
+          List<Node> nodes = getNodes();
+         for(Node node : nodes){
+              if(node.getId()==id){
+                  return node;
+             }
+          }
+          return null;
+      }
+      
+
 	
 }

@@ -61,7 +61,7 @@ public class Settings  {
 	private static final int FIELD_WIDTH = 50;
 	private static final String EMPTY_MAP_SRC = "empty_map.csv";
 	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
-	private static final int H_MODIFIER = 4;
+	private static final int H_MODIFIER = 1;
 //	
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
