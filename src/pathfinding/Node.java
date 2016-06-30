@@ -28,8 +28,8 @@ public class Node {
 		this.yCoord = yCoord;
 		this.chessCoord = chessCoord;
 		this.isObstacle = false;
-		this.f_cost = Integer.MAX_VALUE;
-		
+			this.f_cost = Integer.MAX_VALUE;
+			this.g_cost = 999;
 
 		this.parent = null;
 		this.closed = false;
@@ -151,10 +151,12 @@ public class Node {
 		 int label_x = x+Settings.getFieldHeight();
 		 Rect rect = new Rect(y, x, 50, 50,getColor());
 		rect.draw();
-		
-	 	Label chess = new Label(y+17,label_x-2, getChessCoord(), Color.BLACK);
-		chess.setFontSize(10);
-		chess.draw();
+		if(getParent() != null){
+			Label chess = new Label(y+17,label_x-2, getParent().getChessCoord(), Color.BLACK);
+			chess.setFontSize(10);
+			chess.draw();
+		}
+	 	
 		Label h = new Label(y+25,label_x-40, "H: "+Integer.toString(getHCost()), Color.BLACK);
 		h.setFontSize(10);
 		h.draw();
@@ -163,7 +165,7 @@ public class Node {
 			f.setFontSize(15);
 			f.draw();
 		}
-		if(getGCost() < Integer.MAX_VALUE){
+		if(getGCost() < 999){
 			Label g = new Label(y,label_x-40,"G: "+Integer.toString(getGCost()), Color.BLACK);
 			g.setFontSize(10);
 			g.draw();

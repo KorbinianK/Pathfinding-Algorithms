@@ -35,13 +35,13 @@ import thymio.Thymio;
  */
 
 public class AStar {
-	private static final int COST_TURN = 3;
+	private static final int COST_TURN = 1;
 	private static Chessboard board = Settings.getBoard();
 	private static List<Node> boardNodes = Settings.getBoardNodes();
 	private static Node start;
 	private static Node end  = Settings.getEndNode();
 	private static Thymio thymio = Controller.thymio;
-	private static Node currentNode = thymio.getPosAsNode();
+	private static Node currentNode;
 
 
 	public static void calculate(){
@@ -51,7 +51,7 @@ public class AStar {
 		
 		int timeout = 0;
 		start = thymio.getPosAsNode();
-		start.setOrientation(thymio.getOrientation());
+		
 		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
 			System.out.println("____________________________________________");
 		while(true){
@@ -101,13 +101,15 @@ public class AStar {
 				openList.remove((Integer)currentNode.getId());
 				
 			}
-			HashMap<String, Node> neighbours = board.getNeighbourNodes(currentNode);
+//			HashMap<String, Node> neighbours = board.getNeighbourNodes(currentNode);
+			HashMap<String,Integer> neighbours = board.getNeighbourIDs(currentNode);
 			
-			for ( Entry<String, Node> entry : neighbours.entrySet()) {
+			for ( Entry<String, Integer> entry : neighbours.entrySet()) {
 				
 			   String direction = entry.getKey();
-//			   int id =  entry.getValue();
-			   Node neighbour = entry.getValue();
+			   int id =  entry.getValue();
+//			   Node neighbour = entry.getValue();
+			   Node neighbour = board.getNodeByID(id);
 			   neighbour.setOrientationByString(direction);
 			   
 			   if(neighbour.getId() == end.getId()){
@@ -116,28 +118,39 @@ public class AStar {
 				   
 			   }
 			   else if(!closedList.contains(neighbour.getId()) && !neighbour.isObstacle()){
-				   neighbour.setParentNode(currentNode);
 				   int g_cost = calculateCostG(neighbour,direction);
-				   int h_cost = calculateCostH(neighbour);
-				  
-				   
-				   
+				   int h_cost = calculateCostH(neighbour);		   
 				   Node parent = neighbour.getParent();
 				  
 				   if(parent != null){
 					   g_cost +=parent.getGCost();
 				   }
+				   
+				   int alreadyHasG = neighbour.getGCost();
    
-				  if(neighbour.getGCost() < g_cost){
+				  if(openList.contains(neighbour.getId())){
+					  
 					  neighbour.setParentNode(currentNode);
 					  neighbour.setGCost(g_cost);
+					  int f_cost = g_cost+h_cost;
+					   neighbour.setFCost(f_cost);
+					   neighbour.setHCost(h_cost);
+					   neighbour.setColor(Color.GREEN);
+				  }else {
+					  neighbour.setParentNode(currentNode);
+					  neighbour.setGCost(g_cost);
+					  int f_cost = g_cost+h_cost;
+					   neighbour.setFCost(f_cost);
+					   neighbour.setHCost(h_cost);
+					   neighbour.setColor(Color.GREEN);
+					   openList.add(neighbour.getId());
 				  }
-				   int f_cost = g_cost+h_cost;
-				   neighbour.setFCost(f_cost);
+//				   int f_cost = g_cost+h_cost;
+//				   neighbour.setFCost(f_cost);
 				   
-				   neighbour.setHCost(h_cost);
-				   neighbour.setColor(Color.GREEN);
-				   openList.add(neighbour.getId());
+//				   neighbour.setHCost(h_cost);
+//				   neighbour.setColor(Color.GREEN);
+//				   openList.add(neighbour.getId());
 			   }
 			   			   
 			}

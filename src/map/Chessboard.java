@@ -107,7 +107,22 @@ public class Chessboard {
 		return nodes;	
 	}
 	
-	
+	public HashMap<String,Integer> getNeighbourIDs(Node current) {
+		HashMap<String,Integer> nodes = new HashMap<>();
+		if(leftNeighbourNode(current)!=null){
+			nodes.put("left",leftNeighbourNode(current).getId());
+		}
+		if(rightNeighbourNode(current) != null){
+			nodes.put("right",rightNeighbourNode(current).getId());
+		}
+		if(topNeighbourNode(current) != null){
+			nodes.put("top",topNeighbourNode(current).getId());
+		}
+		if(bottomNeighbourNode(current) != null){
+			nodes.put( "bottom",bottomNeighbourNode(current).getId());
+		}
+		return nodes;	
+	}
 	
 	
 	private Node leftNeighbourNode(Node current){
@@ -177,6 +192,16 @@ public class Chessboard {
 	
 	public List<Node> getNodes(){
 		return nodeList;
+	}
+	
+	public Node getNodeByID(int id){
+		List<Node> nodes = getNodes();
+		for(Node node : nodes){
+			if(node.getId()==id){
+				return node;
+			}
+		}
+		return null;
 	}
 	
 }
