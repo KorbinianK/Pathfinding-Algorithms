@@ -18,9 +18,9 @@ public class Node {
 	private int g_cost;
 	private Color color;
 	private Color originalColor;
-	private int originalOrientation;
 	private Node parent;
-	private boolean closed;
+	private boolean showLabels;
+
 
 
 	
@@ -32,9 +32,8 @@ public class Node {
 		this.isObstacle = false;
 		this.f_cost = Integer.MAX_VALUE;
 		this.g_cost = 0;
-
+		this.showLabels = Settings.showLabels();
 		this.parent = null;
-		this.closed = false;
 	}
 	
 	
@@ -45,10 +44,7 @@ public class Node {
 			
 	}
 	
-	public void close(){
-		this.closed = true;
-		
-	}
+	
 	public int getOrientation(){
 		return orientation;
 	}
@@ -122,9 +118,10 @@ public class Node {
 	}
 	
 	public void setColor(Color c){
-		if(c != color){
-			originalColor = color;	
+		if(color == null){
+			originalColor = c;
 		}
+		
 		
 		color = c;
 	}
@@ -151,31 +148,65 @@ public class Node {
 			 x *= Settings.getFieldHeight();
 		 }
 		 int label_x = x+Settings.getFieldHeight();
-		 Rect rect = new Rect(y, x, 50, 50,getColor());
-		rect.draw();
+		 drawTile(x,y);
+		 if(showLabels){
+			 drawLabels(label_x,y); 
+		 }
 		
-	 	Label chess = new Label(y+17,label_x-2, getChessCoord(), Color.BLACK);
-		chess.setFontSize(10);
-		chess.draw();
-		Label h = new Label(y+25,label_x-40, "H: "+Integer.toString(getHCost()), Color.BLACK);
-		h.setFontSize(10);
-		h.draw();
-		if(getFCost() < Integer.MAX_VALUE){
-			Label f = new Label(y+20,label_x-20, Integer.toString(getFCost()), Color.BLACK);
-			f.setFontSize(15);
-			f.draw();
-		}
-		if(getGCost() >0){
-			int cost = getGCost();
-			
-			Label g = new Label(y,label_x-40,"G: "+Integer.toString(cost), Color.BLACK);
-			g.setFontSize(10);
-			g.draw();
-		}
+
 		
 		
 	}
 	
+	private void drawLabels(int x, int y) {
+		this.h_cost = AStar.calculateCostH(this);
+		
+		Color labelColor;
+		if(color ==Settings.getColorChessA() && !isObstacle){
+			labelColor = Settings.getColorChessB();
+		}else if(color == Settings.getColorChessB() && !isObstacle){
+			labelColor = Settings.getColorChessA();
+		}else if(color == Settings.getColorMovement()){
+			labelColor = Color.BLACK;
+		}else if(isObstacle){
+			labelColor = Color.ORANGE;
+		}else{
+			labelColor = Color.WHITE;
+		}
+	 	Label chess = new Label(y+2,x-2, getChessCoord(),labelColor );
+		chess.setFontSize(Settings.getFontSizeChess());
+		chess.draw();
+		
+		Label h = new Label(y+35,x-35, Integer.toString(getHCost()), labelColor);
+		h.setFontSize(Settings.getFontSizeLabel());
+		h.draw();
+
+		
+		if(getFCost() < Integer.MAX_VALUE){
+			Label f = new Label(y+16,x-20, Integer.toString(getFCost()), Color.BLACK);
+			f.setFontSize(Settings.getFontSizeLabel());
+			f.draw();
+		}
+		
+		if(getGCost() >0){
+			Label g = new Label(y+2,x-35,Integer.toString(getGCost()), labelColor);
+			g.setFontSize(Settings.getFontSizeLabel());
+			g.draw();
+
+		}
+	}
+
+
+	private void drawTile(int x, int y) {
+		Rect rect = new Rect(y, x, Settings.getFieldHeight(), Settings.getFieldHeight(),getColor());
+		if(Settings.getBorder()){
+			rect.setBorder(Settings.getBorderColor(), 1);
+		}
+	
+		rect.draw();
+	}
+
+
 	public int getHCost() {
 		
 		return h_cost;

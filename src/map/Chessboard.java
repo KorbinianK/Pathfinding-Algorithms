@@ -18,11 +18,11 @@ public class Chessboard {
 	public Chessboard() {
 		
 		createNodes();
-		createObstacles();
+		createObstaclesArray();
 	}
 
 
-	private void createObstacles() {
+	private void createObstaclesArray() {
 		char[][] obs = Settings.getObstaclesArray();
 		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {

@@ -1,7 +1,7 @@
 package main;
 import de.ur.mi.graphicsapp.*;
 import map.Chessboard;
-import thymio.Thymio;
+import thymio.DefNotThymio;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -21,14 +21,14 @@ public class Controller extends GraphicsApp implements KeyListener {
 		private static int THYMIO_STARTFIELD_X = Settings.getStartX();
 		private static int THYMIO_STARTFIELD_Y = Settings.getStartY();;
 		private static Chessboard board = Settings.getBoard();
-		public static Thymio thymio ; 
+		public static DefNotThymio thymio ; 
 		
 		
 	// Basic setup
     public void setup() {
       	size(CANVAS_WIDTH,CANVAS_HEIGHT);   	 	
       	background(Settings.getColorBackground());
-      	thymio = new Thymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioRotation());
+      	thymio = new DefNotThymio(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioRotation());
     
     }
     
@@ -77,7 +77,8 @@ public class Controller extends GraphicsApp implements KeyListener {
 			break;
 
 		case'c':
-			AStar.calculate();
+			AStar a = new AStar();
+			a.calculate();
 			break;	
 		case 'r':
 			

@@ -14,45 +14,61 @@ import pathfinding.Node;
  */
 public class Settings  {
 	
+	// General Settings
+	private static final boolean OVERWRITE_MAP = true;
+	private static final int ANIMATION_DELAY = 100;
+	private static final boolean TILE_BORDER = true;
+	private static final boolean OBSTACLES = true;
+	private static final boolean SHOW_LABELS = true;
 
-	//	Awesome Thymio Image
-	private static final String THYMIO_IMG = "images/thymio.gif";
-	private static final String THYMIO_ROTATION = "east";
+	//A* Settings
+	private static final int H_MODIFIER = 2; // Best 2
+	private static final int TURN_COST = 1; // Best 1
+	
+	//Thymio Settings
+	private static final String THYMIO_IMG = "images/Robot_idle.gif"; 	//	Awesome Thymio Image
+	private static final String THYMIO_ROTATION = "North";
+	private static final int MAX_SPEED = 500;
+	private static final short AHEAD_SPEED = 100;
+	private static final short ROTATION_SPEED = 50;
 	
 	// Colors
-	private static Color COLOR_CHESS_A = Color.DARK_GRAY;
-	private static Color COLOR_CHESS_B = Color.LIGHT_GRAY;
-	private static Color COLOR_OBSTACLE = Color.RED;
-	private static Color COLOR_MOVEMENT = Color.YELLOW;
-	private static Color COLOR_BG = Color.WHITE;
-	private static Color COLOR_START = Color.GREEN;
-	private static Color COLOR_END = Color.BLUE;
+	private static final Color COLOR_CHESS_A = Color.DARK_GRAY;
+	private static final Color COLOR_CHESS_B = Color.LIGHT_GRAY;
+	private static final Color COLOR_OBSTACLE = Color.RED;
+	private static final Color COLOR_MOVEMENT = Color.YELLOW;
+	private static final Color COLOR_BG = Color.WHITE;
+	private static final Color COLOR_START = Color.GREEN;
+	private static final Color COLOR_END = Color.BLUE;
+	private static final Color COLOR_OPEN_NODE = Color.GREEN;
+	private static final Color COLOR_CLOSED_NODE = Color.MAGENTA;
+	private static final Color COLOR_BORDER = Color.WHITE;
 	
 	
-	// Fonts
-	private static int FONT_SIZE_STARTPOINT = 22;
-	private static int FONT_SIZE_ENDPOINT = 22;
+	// Font Sizes
+	private static final int FONT_SIZE_STARTPOINT = 22;
+	private static final int FONT_SIZE_ENDPOINT = 22;
+	private static final int FONT_SIZE_LABEL = 10;
+	private static final int FONT_SIZE_CHESS = 15;
 	
 	//	Startfield (currently possible: 0-19)
-	private static int THYMIO_STARTFIELD_X = 1; 
-	private static int THYMIO_STARTFIELD_Y = 1;;
+	private static final int THYMIO_STARTFIELD_X = 1; 
+	private static final int THYMIO_STARTFIELD_Y = 1;;
 	
 	//	Endfield (currently possible: 0-19)
-	private static int THYMIO_ENDFIELD_X = 16;
-	private static int THYMIO_ENDFIELD_Y = 6;
+	private static final int THYMIO_ENDFIELD_X = 16;
+	private static final int THYMIO_ENDFIELD_Y = 6;
 	
 	/*
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
+	private static final int RANDOM_OBSTACLE_COUNT = 2;
+	private static final int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	
-	private static boolean OVERWRITE = true;
-	private static int RANDOM_OBSTACLE_COUNT = 7;
-	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
-	private static final int DELAY = 100;
 	
 /*
- * 	No changes needed below this line. Canvas_Width could be increased in 50pixel steps.
+ * 	No changes below this line.
  */
 	private static final int CANVAS_HEIGHT = 400;
 	private static final int FIELD_HEIGHT = getFieldWidth();
@@ -66,9 +82,11 @@ public class Settings  {
 	private static List<String[]> csv_list = csv.getEntries();
 	private static Chessboard board = new Chessboard();
 
-	//A* Settings
-	private static final int H_MODIFIER = 4;
-	private static final int TURN_COST = 1;
+	
+	
+
+	
+	
 	
 	
 	
@@ -132,46 +150,33 @@ public class Settings  {
 	public static int getThymioStartField_X() {
 		return THYMIO_STARTFIELD_X;
 	}
-	public static int setThymioStartField_X(int x) {
-		THYMIO_STARTFIELD_X = x;
-		return THYMIO_STARTFIELD_X;
-	}
+
 	public static String getThymioImg() {
 		return THYMIO_IMG;
 	}
 	public static int getThymioStartField_Y() {
 		return THYMIO_STARTFIELD_Y;
 	}
-	public static int setThymioStartField_Y(int y) {
-		THYMIO_STARTFIELD_Y = y;
-		return THYMIO_STARTFIELD_Y;
-	}
+
 	public static int getThymioEndField_X() {
 		return THYMIO_ENDFIELD_X;
 	}
-	public static int setThymioEndField_X(int x) {
-		THYMIO_ENDFIELD_X = x;
-		return x;
-	}
+
 	public static int getThymioEndField_Y() {
 		return THYMIO_ENDFIELD_Y;
 	}
-	public static int setThymioEndField_Y(int y) {
-		THYMIO_ENDFIELD_Y = y;
-		return y;
-	}
+	
 	public static int getObstacleProbability() {
-		return RANDOM_OBSTACLE_COUNT;
+		if(OBSTACLES){
+			return RANDOM_OBSTACLE_COUNT;
+		}
+		return 0;
 	}
-	public static void setObstacleProbability(int prob) {
-		RANDOM_OBSTACLE_COUNT = prob;
-	}
+	
 	public static int getObstacleProbabilityRange() {
 		return RANDOM_OBSTACLE_PROBABILITY_RANGE;
 	}
-	public static void setObstacleProbabilityRange(int range) {
-		RANDOM_OBSTACLE_PROBABILITY_RANGE = range;
-	}
+	
 	public static int getCanvasWidth() {
 		return CANVAS_WIDTH;
 	}
@@ -185,7 +190,7 @@ public class Settings  {
 		return FIELD_HEIGHT;
 	}
 	public static int getDelay() {
-		return DELAY;
+		return ANIMATION_DELAY;
 	}
 
 	public static Chessboard getBoard() {
@@ -195,46 +200,28 @@ public class Settings  {
 	public static Color getColorChessA() {
 		return COLOR_CHESS_A;
 	}
-	public static void setColorChessA(Color color) {
-		COLOR_CHESS_A = color;
-	}
+	
 	public static Color getColorChessB() {
 		return COLOR_CHESS_B;
 	}
-	public static void setColorChessB(Color color) {
-		COLOR_CHESS_B = color;
-	}
+	
 	public static Color getColorObstacle() {
 		return COLOR_OBSTACLE;
 	}
-	public static void setColorObstacle(Color cOLOR_OBSTACLE) {
-		COLOR_OBSTACLE = cOLOR_OBSTACLE;
-	}
+	
 	public static Color getStartFieldColor() {
 		return COLOR_START;
 	}
-	public static void setStartFieldColor(Color startFieldColor) {
-		COLOR_START = startFieldColor;
-	}
+	
 	public static Color getEndFieldColor() {
 		return COLOR_END;
 	}
-	public static void setEndFieldColor(Color endFieldColor) {
-		COLOR_END = endFieldColor;
-	}
-
-
+	
 	public static int getFontSizeEndpoint() {
 		return FONT_SIZE_ENDPOINT;
 	}
-	public static void setFontSizeEndpoint(int size) {
-		FONT_SIZE_ENDPOINT = size;
-	}
 	public static int getFontSizeStartpoint() {
 		return FONT_SIZE_STARTPOINT;
-	}
-	public static void setFontSizeStartpoint(int size) {
-		FONT_SIZE_STARTPOINT = size;
 	}
 	public static String getThymioRotation() {
 		return THYMIO_ROTATION;
@@ -270,14 +257,9 @@ public class Settings  {
 	public static List<Node> getBoardNodes() {
 		return getBoard().getNodes();
 	}
-
-
-
 	public static char[][] getObstaclesArray() {
 		return Obstacles.getObstaclesArray();
 	}
-
-
 
 	public static Color getColorMovement() {
 		return COLOR_MOVEMENT;
@@ -292,21 +274,79 @@ public class Settings  {
 
 
 	public static boolean isOverwrite() {
-		return OVERWRITE;
+		return OVERWRITE_MAP;
 	}
 
 
 
 	public static int getHeuristicModifier() {
-		// TODO Auto-generated method stub
 		return H_MODIFIER;
 	}
 
 
 
 	public static int getTurnCost() {
-		// TODO Auto-generated method stub
 		return TURN_COST;
+	}
+
+
+
+	public static int getSpeedMax() {
+		return MAX_SPEED;
+	}
+
+
+
+	public static short getSpeedAhead() {
+		return AHEAD_SPEED;
+	}
+
+
+
+	public static short getSpeedRotation() {
+		return ROTATION_SPEED;
+	}
+
+
+
+	public static boolean getBorder() {
+		return TILE_BORDER;
+	}
+
+
+
+	public static Color getBorderColor() {
+		return COLOR_BORDER;
+	}
+
+
+
+	public static int getFontSizeLabel() {
+		return FONT_SIZE_LABEL;
+	}
+
+
+
+	public static int getFontSizeChess() {
+		return FONT_SIZE_CHESS;
+	}
+
+
+
+	public static boolean showLabels() {
+		return SHOW_LABELS;
+	}
+
+
+
+	public static Color getColorOpenNode() {
+		return COLOR_OPEN_NODE;
+	}
+
+
+
+	public static Color getColorClosedNode() {
+		return COLOR_CLOSED_NODE;
 	}
 
 

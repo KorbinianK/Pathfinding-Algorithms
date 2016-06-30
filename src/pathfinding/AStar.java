@@ -10,7 +10,7 @@ import main.Controller;
 import main.Helper;
 import main.Settings;
 import map.Chessboard;
-import thymio.Thymio;
+import thymio.DefNotThymio;
 
 /*
  * x
@@ -41,25 +41,22 @@ public class AStar {
 	private static List<Node> boardNodes = Settings.getBoardNodes();
 	private static Node start;
 	private static Node end  = Settings.getEndNode();
-	private static Thymio thymio = Controller.thymio;
-	private static Node currentNode = thymio.getPosAsNode();
+	private static DefNotThymio thymio = Controller.thymio;
+	private static Node currentNode;
 
 
-	public static void calculate(){
+	public void calculate(){
 		List<Edge> edges = new ArrayList<Edge>();
 		List<Integer> openList = new ArrayList<Integer>();
 		List<Integer> closedList = new ArrayList<Integer>();
-		
+		boolean finished = false;
 		int timeout = 0;
-		start = thymio.getPosAsNode();
-		start.setOrientation(thymio.getOrientation());
-		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
-			System.out.println("____________________________________________");
+		initAStar();
 		while(true){
 			
 			if(currentNode == null){
 				currentNode = start;
-				start.setParentNode(currentNode);
+				
 			}
 			if(currentNode == end){
 			
@@ -78,6 +75,7 @@ public class AStar {
 					currentNode = parent;
 					
 					if(currentNode  == start){
+						finished = true;
 						break;
 					}
 				
@@ -95,29 +93,30 @@ public class AStar {
 				System.out.println("done");
 				break;
 			}
-			if(openList.isEmpty() == false){
-				currentNode = getNextNode(openList);
-				currentNode.setColor(Color.MAGENTA);
-				closedList.add(currentNode.getId());
-				openList.remove((Integer)currentNode.getId());
-				
-			}if(openList.isEmpty() && timeout > 1){
+			if(openList.isEmpty() && timeout > 1){
 				break;
+			}else if(openList.isEmpty() == false){
+				closedList.add(currentNode.getId());
+				currentNode.setColor(Settings.getColorClosedNode());
+				currentNode = getNextNode(openList);
+				openList.remove((Integer)currentNode.getId());
 			}
+			
+			
+			
 			HashMap<Node, String> directions = board.getNeighbourDir(currentNode);
 			List<Integer> neighbourIDs = board.getNeighbourIDs(currentNode);
 			for(int id : neighbourIDs){
-
 				
-			   Node neighbour = board.getNodeByID(id);
+				
+			  Node neighbour = board.getNodeByID(id);
 			  String direction = directions.get(neighbour);
 			   if(neighbour.getId() == end.getId()){
 			    	end.setParentNode(currentNode);
 				   currentNode = end;
 			   } else if(!closedList.contains(neighbour.getId()) && !neighbour.isObstacle()){
-				   
-				   int h_cost = calculateCostH(neighbour);
-				   neighbour.setHCost(h_cost);
+				  
+				   int h_cost = neighbour.getHCost();
 				   int curr = currentNode.getGCost();
 				   int g_cost = calculateCostG(neighbour, direction)+curr;
 				   int f_cost = g_cost+h_cost;
@@ -125,16 +124,18 @@ public class AStar {
 					   //already open -> check if cheaper
 					   int previousF = neighbour.getFCost();
 					   if(f_cost < previousF){
+						   neighbour.setOrientationByString(direction);
 						   neighbour.setFCost(f_cost);
 						   neighbour.setFCost(g_cost);
 						   neighbour.setParentNode(currentNode);
 					   }
 				   }else{
 					   // not in open list
+					   neighbour.setOrientationByString(direction);
 					   neighbour.setParentNode(currentNode);
 					   neighbour.setGCost(g_cost);
 					   neighbour.setFCost(f_cost);
-					   neighbour.setColor(Color.GREEN);
+					   neighbour.setColor(Settings.getColorOpenNode());
 					   openList.add(neighbour.getId());
 				   }
 				  
@@ -145,20 +146,36 @@ public class AStar {
 			
 			timeout++;
 			try {
-				Thread.sleep(50);
+				Thread.sleep(11);
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
 		}
 		
-			System.out.println("No Route possible");
-		
-		
+			if(!finished){
+				System.out.println("No route possible");
+			}
+
 	}
 
 	
 
 	
+
+
+	private void initAStar() {
+		start = thymio.getPosAsNode();
+		start.setOrientation(thymio.getOrientation());
+		currentNode = start;
+		start.setParentNode(currentNode);
+		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
+		System.out.println("____________________________________________");
+		
+	}
+
+
+
+
 
 
 	private static Node getNextNode(List<Integer> open) {
@@ -199,7 +216,6 @@ public class AStar {
 		int x2 = Settings.getThymioEndField_X();
 		int y2 = Settings.getThymioEndField_Y();
 		int cost = Math.abs((x1 - x2) + (y1-y2));
-//		System.out.println("x1:"+x1+" x2:"+x2+" y1:"+y1+" y2:"+y2);
 		return mult*cost;
 	}
 
@@ -216,38 +232,38 @@ public class AStar {
 		switch (direction) {
 		case "bottom":
 			if((orientation > bottom || orientation < bottom)  && orientation != top){
-				cost = COST_TURN*2;
+				cost = COST_TURN+5;
 			}else if(orientation == top){
-				cost = COST_TURN*3;
+				cost = COST_TURN+8;
 			}else{
-				cost =COST_TURN;
+				cost =COST_TURN+2;
 			}
 			return cost;
 		case "top":
 			if(orientation > top && orientation != bottom){
-				cost = COST_TURN*2;
+				cost = COST_TURN+5;
 			}else if(orientation == bottom){
-				cost = COST_TURN*3;
+				cost = COST_TURN+8;
 			}else{
-				cost =COST_TURN;
+				cost =COST_TURN+2;
 			}
 		return cost;
 		case "left":
 			if((orientation == top || orientation == bottom)){
-				cost = COST_TURN*2;
+				cost = COST_TURN+5;
 			}else if(orientation == right){
-				cost = COST_TURN*3;
+				cost = COST_TURN+8;
 			}else{
-				cost =COST_TURN;
+				cost = COST_TURN+2;
 			}
 		return cost;
 		case "right":
 			if((orientation == top || orientation == bottom)){
-				cost = COST_TURN*2;
+				cost = COST_TURN+5;
 			}else if(orientation == left){
-				cost = COST_TURN*3;
+				cost = COST_TURN+8;
 			}else{
-				cost =COST_TURN;
+				cost =COST_TURN+2;
 			}
 			
 		return cost;

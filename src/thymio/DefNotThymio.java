@@ -4,24 +4,32 @@ import pathfinding.Node;
 import java.util.HashMap;
 
 import de.ur.mi.graphics.Image;
+import iw.ur.thymio.Thymio.Thymio;
 import main.Helper;
 import main.Settings;
 
 
 
 
-public class Thymio extends Image{
+public class DefNotThymio extends Image{
 	
 	// Fixed, don't change, adjustments in Settings Class
 	private static final int DISTANCE = Settings.getFieldWidth();
 	private static final int CANVAS_HEIGHT = Settings.getCanvasHeight();
 	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
-
+	private static final short SPEED_AHEAD = Settings.getSpeedAhead();
+	private static final short SPEED_ROTATION = Settings.getSpeedRotation();
+	private static final int MAX_SPEED = Settings.getSpeedMax();
+	
 	private static int CURRENT_ROTATION = 0;
+	private static Thymio t;
+	
 	
 //	Constructor
-	public Thymio(double xPos, double yPos,double width, double height, String src, String orientation){
+	public DefNotThymio(double xPos, double yPos,double width, double height, String src, String orientation){
 		super(xPos,yPos,width,height,src);
+		
+//		thymioSpeeds(t);
 		switch (orientation) {
 		case "north":
 			setOrientation("up");
@@ -39,6 +47,13 @@ public class Thymio extends Image{
 		}
 	}
 	
+private void thymioSpeeds(Thymio t) {
+	 t = new Thymio("192.168.10.1");
+	t.setSpeed("max", MAX_SPEED);
+	t.setSpeed("rotation", SPEED_ROTATION);
+	t.setSpeed("ahead", MAX_SPEED);
+}
+
 /* 	Sets rotation based on command sent to Thymio
 * 	getPixelArray turns the Image into an array, flips it X-times and setPixelArray turns it back into an image
 *	North / Up = 0

@@ -18,7 +18,6 @@ public class MapGenerator {
 	private static Random r = new Random();
 	private static String source;
 	
-	private static List<Node> nodes = new ArrayList<Node>();
 	private static boolean randomObs = true;
 
 	
@@ -29,23 +28,10 @@ public class MapGenerator {
 		
 		System.out.println("No map found, created map");
 		generateMap(source);
-//		generateNodes();
+
 	}
 
 	
-////	Generates the Nodes for the Map
-//	private static void generateNodes() {
-//		for (int i = 0; i < Settings.getCanvasHeight(); i++) {
-//			  for (int j = 0; j < Settings.getCanvasWidth(); j++) {
-//
-//					int mult = (int) (j*Settings.getCanvasWidth());
-//					int id = i+mult;
-//					Node node = new Node(id, i, j, null, 0);
-//					nodes.add(node);
-//			  }
-//		}
-//
-//	}
 
 //	If no CSV file exists, a new Map will be generated
 	private static void generateMap(String src) {
@@ -95,9 +81,6 @@ public class MapGenerator {
 	public static String getSource(){
 		return source;
 	}
-	
-//	public List<Node> getNodes(){
-//		return nodes;
-//	}
+
 
 }
