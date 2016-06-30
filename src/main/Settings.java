@@ -50,7 +50,6 @@ public class Settings  {
 	private static int RANDOM_OBSTACLE_COUNT = 7;
 	private static int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	private static final int DELAY = 100;
-	private static final int H_MODIFIER = 3;
 	
 /*
  * 	No changes needed below this line. Canvas_Width could be increased in 50pixel steps.
@@ -62,11 +61,18 @@ public class Settings  {
 	private static final String EMPTY_MAP_SRC = "empty_map.csv";
 	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
 	
-//	
+
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
 	private static Chessboard board = new Chessboard();
 
+	//A* Settings
+	private static final int H_MODIFIER = 4;
+	private static final int TURN_COST = 1;
+	
+	
+	
+	
 	
 	private static CSVData getReader(){
 		CSVData test = null;
@@ -294,6 +300,13 @@ public class Settings  {
 	public static int getHeuristicModifier() {
 		// TODO Auto-generated method stub
 		return H_MODIFIER;
+	}
+
+
+
+	public static int getTurnCost() {
+		// TODO Auto-generated method stub
+		return TURN_COST;
 	}
 
 

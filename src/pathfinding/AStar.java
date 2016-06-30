@@ -34,7 +34,9 @@ import thymio.Thymio;
  */
 
 public class AStar {
-	private static final int COST_TURN = 1;
+
+	private static final int COST_TURN = Settings.getTurnCost();
+
 	private static Chessboard board = Settings.getBoard();
 	private static List<Node> boardNodes = Settings.getBoardNodes();
 	private static Node start;
