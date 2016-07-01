@@ -35,6 +35,7 @@ public class Chessboard {
 							node.getId() != end_id
 						){
 						node.setObstacle(true);
+						node.setColor(Settings.getColorObstacle());
 					}
 					
 				}
@@ -184,7 +185,14 @@ public class Chessboard {
 		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
 				int id = Helper.calculateID(j, i);
+				boolean white = (i % 2 == 0) == (j % 2 == 0);
 				Node node = new Node(id,i,j,chessArray[j][i],0);
+	       		if(white && node.getColor()==null){
+	       			node.setColor(Settings.getColorChessA());
+	       		}else if(node.getColor()==null){
+	       			node.setColor(Settings.getColorChessB());
+	       		}
+				
 				
 				nodeList.add(node);			
 			}

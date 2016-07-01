@@ -7,6 +7,15 @@ import main.Settings;
 
 public class Node {
 	
+	private static final int FONT_CHESS = Settings.getFontSizeChess();
+	private static final int FONT_LABEL = Settings.getFontSizeLabel();
+	private static final int FIELD_SIZE = Settings.getFieldHeight();
+	private static final boolean hasBorder = Settings.getBorder();
+	private static final Color BORDER_COLOR = Settings.getBorderColor();
+	private static final Color COLOR_A = Settings.getColorChessA();
+	private static final Color COLOR_B = Settings.getColorChessB();
+	private static final Color COLOR_MOVE = Settings.getColorMovement();
+	
 	private int h_cost;
 	private int id;
 	private int xCoord;
@@ -20,6 +29,9 @@ public class Node {
 	private Color originalColor;
 	private Node parent;
 	private boolean showLabels;
+	private int label_x;
+	private int x;
+	private int y;
 
 
 
@@ -29,11 +41,25 @@ public class Node {
 		this.xCoord = xCoord;
 		this.yCoord = yCoord;
 		this.chessCoord = chessCoord;
+		if(chessCoord == null){
+			this.chessCoord = "x";
+		}
 		this.isObstacle = false;
 		this.f_cost = Integer.MAX_VALUE;
 		this.g_cost = 0;
+		this.h_cost = 0;
 		this.showLabels = Settings.showLabels();
 		this.parent = null;
+		
+		 y = getYCoord(); 
+		 x = getXCoord();
+		 if(y != 0){
+			 y *= Settings.getFieldHeight();
+		 }
+		 if(x != 0){
+			 x *= Settings.getFieldHeight();
+		 }
+		  label_x = x+Settings.getFieldHeight();
 	}
 	
 	
@@ -137,17 +163,9 @@ public class Node {
 	}
 	
 	public void draw(){
-	
-		
-		int y = getYCoord(); 
-		int x = getXCoord();
-		 if(y != 0){
-			 y *= Settings.getFieldHeight();
-		 }
-		 if(x != 0){
-			 x *= Settings.getFieldHeight();
-		 }
-		 int label_x = x+Settings.getFieldHeight();
+		if(h_cost == 0){
+			this.h_cost = AStar.calculateCostH(this);
+		}
 		 drawTile(x,y);
 		 if(showLabels){
 			 drawLabels(label_x,y); 
@@ -159,48 +177,50 @@ public class Node {
 	}
 	
 	private void drawLabels(int x, int y) {
-		this.h_cost = AStar.calculateCostH(this);
+		
 		
 		Color labelColor;
-		if(color ==Settings.getColorChessA() && !isObstacle){
-			labelColor = Settings.getColorChessB();
-		}else if(color == Settings.getColorChessB() && !isObstacle){
-			labelColor = Settings.getColorChessA();
-		}else if(color == Settings.getColorMovement()){
+		if(color ==COLOR_A && !isObstacle){
+			labelColor = COLOR_B;
+		}else if(color == COLOR_B && !isObstacle){
+			labelColor = COLOR_A;
+		}else if(color == COLOR_MOVE){
 			labelColor = Color.BLACK;
 		}else if(isObstacle){
 			labelColor = Color.ORANGE;
 		}else{
 			labelColor = Color.WHITE;
 		}
-	 	Label chess = new Label(y+2,x-2, getChessCoord(),labelColor );
-		chess.setFontSize(Settings.getFontSizeChess());
-		chess.draw();
+	 	Label chess = new Label(y+2,x-2, chessCoord,labelColor );
+		chess.setFontSize(FONT_CHESS);
 		
-		Label h = new Label(y+35,x-35, Integer.toString(getHCost()), labelColor);
-		h.setFontSize(Settings.getFontSizeLabel());
-		h.draw();
+		
+		Label h = new Label(y+35,x-35, Integer.toString(h_cost), labelColor);
+		h.setFontSize(FONT_LABEL);
+		
 
 		
-		if(getFCost() < Integer.MAX_VALUE){
-			Label f = new Label(y+16,x-20, Integer.toString(getFCost()), Color.BLACK);
-			f.setFontSize(Settings.getFontSizeLabel());
+		if(f_cost < Integer.MAX_VALUE){
+			Label f = new Label(y+16,x-20, Integer.toString(f_cost), Color.BLACK);
+			f.setFontSize(FONT_LABEL);
 			f.draw();
 		}
 		
-		if(getGCost() >0){
-			Label g = new Label(y+2,x-35,Integer.toString(getGCost()), labelColor);
-			g.setFontSize(Settings.getFontSizeLabel());
+		if(g_cost >0){
+			Label g = new Label(y+2,x-35,Integer.toString(g_cost), labelColor);
+			g.setFontSize(FONT_LABEL);
 			g.draw();
 
 		}
+		chess.draw();
+		h.draw();
 	}
 
 
 	private void drawTile(int x, int y) {
-		Rect rect = new Rect(y, x, Settings.getFieldHeight(), Settings.getFieldHeight(),getColor());
-		if(Settings.getBorder()){
-			rect.setBorder(Settings.getBorderColor(), 1);
+		Rect rect = new Rect(y, x, FIELD_SIZE, FIELD_SIZE,color);
+		if(hasBorder){
+			rect.setBorder(BORDER_COLOR, 1);
 		}
 	
 		rect.draw();

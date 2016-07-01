@@ -16,7 +16,7 @@ public class Settings  {
 	
 	// General Settings
 	private static final boolean OVERWRITE_MAP = true;
-	private static final int ANIMATION_DELAY = 100;
+	private static final int ANIMATION_DELAY = 50;
 	private static final boolean TILE_BORDER = true;
 	private static final boolean OBSTACLES = true;
 	private static final boolean SHOW_LABELS = true;

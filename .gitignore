@@ -12,3 +12,5 @@
 hs_err_pid*
 src/pathfinding/AStar_TEST.java
 *.csv
+.idea/
+*.iml

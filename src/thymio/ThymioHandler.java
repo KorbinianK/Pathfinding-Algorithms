@@ -11,7 +11,7 @@ import main.Settings;
 
 
 
-public class DefNotThymio extends Image{
+public class ThymioHandler extends Image{
 	
 	// Fixed, don't change, adjustments in Settings Class
 	private static final int DISTANCE = Settings.getFieldWidth();
@@ -26,7 +26,7 @@ public class DefNotThymio extends Image{
 	
 	
 //	Constructor
-	public DefNotThymio(double xPos, double yPos,double width, double height, String src, String orientation){
+	public ThymioHandler(double xPos, double yPos,int width, int height, String src, String orientation){
 		super(xPos,yPos,width,height,src);
 		
 //		thymioSpeeds(t);

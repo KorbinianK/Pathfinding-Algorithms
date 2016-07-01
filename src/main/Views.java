@@ -10,12 +10,12 @@ public class Views {
 	
 	private static final int FIELD_WIDTH = Settings.getFieldWidth();;
 	private static final int FIELD_HEIGHT = Settings.getFieldHeight();
-	static List<Node> nodes = Settings.getBoardNodes();
+	private static final List<Node> nodes = Settings.getBoardNodes();
+
 		
 		// Draws the Start
 	    static void drawStartPoint(int startX, int startY) {
 	    	Rect start = new Rect(startX,startY, FIELD_WIDTH, FIELD_HEIGHT, Settings.getStartFieldColor());
-//			start.setBorder(Settings.getColorChessA(), 2);
 	    	start.draw();
 			Label starttext = new Label(Settings.getStartX()+20,Settings.getStartY()+5+Settings.getFieldHeight()/2,"S",Color.WHITE);
 			starttext.setFontSize(Settings.getFontSizeStartpoint());
@@ -26,7 +26,6 @@ public class Views {
 	    // Draws the End
 	     static void drawEndPoint(int endX, int endY){
 	    	Rect end = new Rect(endX,endY, FIELD_WIDTH, FIELD_HEIGHT, Settings.getEndFieldColor());
-//	    	end.setBorder(Settings.getColorChessA(), 2);
 	    	end.draw();
 	    	Label endtext = new Label(Settings.getEndX()+20,Settings.getEndY()+5+Settings.getFieldHeight()/2,"E",Color.WHITE);
 		       
@@ -36,6 +35,7 @@ public class Views {
 	    }
 	     
 	     // Checks if a field is an obstacle and if so, draws it
+	     
 	 	static void drawObstacles() {
 	 		List<Node> nodes = Settings.getBoardNodes();
 	 		for(Node node : nodes){
@@ -43,14 +43,13 @@ public class Views {
 	 				node.setColor(Settings.getColorObstacle());
 	 			}
 			
-				}
+			}
 	 	}
 
 
 //	 	Draw method to draw the individual elements
 		public static void draw() {
 			drawBoard();
-	    	drawObstacles();
 	    	drawStartPoint(Settings.getStartX(),Settings.getStartY());
 	    	drawEndPoint(Settings.getEndX(),Settings.getEndY());		
 		}
@@ -59,23 +58,10 @@ public class Views {
 
 
 	public static void drawBoard() {
-		List<Node> nodes = Settings.getBoardNodes();
-		for (int i = 0; i < Settings.getBoardArrayWidth(); i++) {
-	       	for (int j = 0; j < Settings.getBoardArrayHeight(); j++) {     	
-	       		Node node = nodes.get(Helper.calculateID(i,j));
-	       		boolean white = (i % 2 == 0) == (j % 2 == 0);
-	       		if(white && node.getColor()==null){
-	       			node.setColor(Settings.getColorChessA());
-	       		}else if(node.getColor()==null){
-	       			node.setColor(Settings.getColorChessB());
-	       		}if(node.isObstacle()){
-	       			node.setColor(Settings.getColorObstacle());
-	       		}
+		for(Node node : nodes){
 	       		node.draw();
-				}
+			}
 		}
-		
-	}
 
 }
 

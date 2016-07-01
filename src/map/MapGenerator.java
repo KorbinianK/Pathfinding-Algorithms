@@ -1,7 +1,5 @@
 package map;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -35,12 +33,12 @@ public class MapGenerator {
 
 //	If no CSV file exists, a new Map will be generated
 	private static void generateMap(String src) {
-		
+
 		boolean alreadyExists = new File(src).exists();
-		
+
 		try{
 			if(!alreadyExists  ){
-				
+
 				File file = new File(src);
 				
 				  FileWriter writer = new FileWriter(file,true);
@@ -50,7 +48,7 @@ public class MapGenerator {
 						  	int rnd = r.nextInt(prob_range);
 						  	if(randomObs ){
 								if(rnd < probability){
-									writer.append("1");	
+									writer.append("1");
 								}else{
 									writer.append("0");
 								}

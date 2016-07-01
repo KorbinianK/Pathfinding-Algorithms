@@ -10,7 +10,7 @@ import main.Controller;
 import main.Helper;
 import main.Settings;
 import map.Chessboard;
-import thymio.DefNotThymio;
+import thymio.ThymioHandler;
 
 /*
  * x
@@ -41,7 +41,7 @@ public class AStar {
 	private static List<Node> boardNodes = Settings.getBoardNodes();
 	private static Node start;
 	private static Node end  = Settings.getEndNode();
-	private static DefNotThymio thymio = Controller.thymio;
+	private static ThymioHandler thymio = Controller.thymio;
 	private static Node currentNode;
 
 
