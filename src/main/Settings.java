@@ -27,12 +27,12 @@ public class Settings  {
 	// General Settings
 	private static final boolean OVERWRITE_MAP = true;
 	private static final int ANIMATION_DELAY = 50;
-	private static final boolean DELAY_ANIMATIONS = false;
+	private static final boolean DELAY_ANIMATIONS = true;
 	private static final boolean TILE_BORDER = true;
 	private static final boolean OBSTACLES = true;
 	private static boolean SHOW_LABELS = false;
-	private static final boolean SHOW_OPEN_LIST = false;
-	private static final boolean SHOW_CLOSED_LIST = false;
+	private static final boolean SHOW_OPEN_LIST = true;
+	private static final boolean SHOW_CLOSED_LIST = true;
 	
 	//A* Settings
 	private static final int H_MODIFIER = 2; // Best 2
@@ -76,7 +76,7 @@ public class Settings  {
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static final int RANDOM_OBSTACLE_COUNT = 6;
+	private static final int RANDOM_OBSTACLE_COUNT = 3;
 	private static final int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	
 	

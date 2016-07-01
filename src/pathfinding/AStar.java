@@ -59,12 +59,8 @@ public class AStar {
 		initAStar();
 		while(true){
 			
-			if(currentNode == null){
-				currentNode = start;
-				
-			}
 			if(currentNode == end){
-			
+				
 				while(true){
 					if(currentNode.getParent() == null){
 						break;
@@ -82,10 +78,7 @@ public class AStar {
 			if(openList.isEmpty() && timeout > 1){
 				break;
 			}else if(openList.isEmpty() == false){
-				closedList.add(currentNode.getId());
-				if(Settings.showClosedList()){
-					currentNode.close();
-				}
+				addToClosedList(currentNode);
 				currentNode = getNextNode(openList);
 				openList.remove((Integer)currentNode.getId());
 			}
@@ -99,10 +92,7 @@ public class AStar {
 				
 			  Node neighbour = board.getNodeByID(id);
 			  String direction = directions.get(neighbour);
-			   if(neighbour.getId() == end.getId()){
-			    	end.setParentNode(currentNode);
-				   currentNode = end;
-			   } else if(!closedList.contains(neighbour.getId()) && !neighbour.isObstacle()){
+			 if(!closedList.contains(neighbour.getId()) && !neighbour.isObstacle()){
 				  
 				   int h_cost = neighbour.getHCost();
 				   int curr = currentNode.getGCost();
@@ -142,6 +132,21 @@ public class AStar {
 	
 
 	
+	/**
+	 * Adds the node to the closed list, updates the color if activated in Settings Class 
+	 * @param currentNode
+	 */
+	private void addToClosedList(Node currentNode) {
+		closedList.add(currentNode.getId());
+		if(Settings.showClosedList()){
+			currentNode.close();
+		}
+		
+	}
+
+
+
+
 
 	/**
 	 * Delays the Thread
@@ -241,10 +246,7 @@ public class AStar {
 	    for(int id : open){
 	    	
 	    	Node node = boardNodes.get(id);
-	    	if(node == end){
-	    		return node;
-	    	}
-	    	
+	    		    	
 	    	int f_cost = node.getFCost();
 	    	
 	    	if(f_cost < currentlyCheapest_node.getFCost() ){
