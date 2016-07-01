@@ -7,9 +7,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
-
 /**
- * Created by Jan on 21.06.2016.
+ * <h1> CSV Reader Class for the Thymio project</h1>
+ * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
+ * 
+ * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
+ * 
+ * 
+ * Generates a new CSV File if necessary and starts the Map Generator
+ * Has some Getter for the Nodes
+ * 
+ * @version 1.0
+ * @author Jan Durry: jan.durry@stud.uni-regensburg.de
  */
 public class CSVData {
 
@@ -17,6 +26,13 @@ public class CSVData {
     private static List<String[]> entries;
     private static CSVReader reader;
 
+    /**
+     * Constructor
+     * 
+     * Deletes CSV File if it's set to Overwrite in Settings Class
+     * 
+     * @throws IOException
+     */
     public CSVData () throws IOException {
     	boolean alreadyExists = new File(csvPath).exists();
     	if(!alreadyExists){
@@ -33,10 +49,18 @@ public class CSVData {
         entries = reader.readAll();
     }
 
+    /**
+     * Returns the entries of the CSV file
+     * @return List<String[]>
+     */
     public List<String[]> getEntries() {        
     	return entries;
     }
 
+    /**
+     *  Returns the reader
+     * @return CSVreader
+     */
     public static CSVReader getReader() {       
     	return reader;
     }

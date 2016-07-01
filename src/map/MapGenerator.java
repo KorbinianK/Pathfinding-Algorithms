@@ -3,32 +3,45 @@ import java.io.*;
 import java.util.Random;
 
 import main.Settings;
-
+/**
+ * <h1>MapGenerator Class for the Thymio project</h1>
+ * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
+ * 
+ * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
+ * 
+ * 
+ * Takes generates the CSV File and creates the obstacles (if set: random)
+ * 
+ * @version 1.0
+ * @author Korbinian Kasberger: korbinian1.kasberger@stud.uni-regensburg.de
+ */
 
 public class MapGenerator {
 	
 	
-	private static int probability = Settings.getObstacleProbability();
-	private static int prob_range = Settings.getObstacleProbabilityRange();
-	private static Random r = new Random();
-	private static String source;
-	
-	private static boolean randomObs = true;
+	private static final int probability = Settings.getObstacleProbability();
+	private static final int prob_range = Settings.getObstacleProbabilityRange();
+	private static final Random r = new Random();
+	private static final String source = Settings.getObstacleSrc();
+	private static final boolean randomObs = true;
 
 	
-//	Constructor
+/**
+ * Constructor
+ */
 	public MapGenerator(){
-		
-		source = Settings.getObstacleSrc();
-		
 		System.out.println("No map found, created map");
 		generateMap(source);
-
 	}
 
 	
 
-//	If no CSV file exists, a new Map will be generated
+/**
+ * Generates the Map as CSV file
+ * 
+ * Adds random obstacles if set in Settings Class
+ * @param src: File name defined in Settings
+ */
 	private static void generateMap(String src) {
 
 		boolean alreadyExists = new File(src).exists();
@@ -68,14 +81,8 @@ public class MapGenerator {
 		catch(IOException e){
 		     e.printStackTrace();
 		} 
-}
-
-	
-	
-	
-	public static String getSource(){
-		return source;
 	}
+
 
 
 }

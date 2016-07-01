@@ -9,7 +9,19 @@ import iw.ur.thymio.Thymio.Thymio;
 import main.Helper;
 import main.Settings;
 
-
+/**
+ * <h1> ThymioHandler Class for the Thymio project</h1>
+ * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
+ * 
+ * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
+ * 
+ * 
+ * Handles the Movement of the "Fake-Thymio"
+ * 
+ * 
+ * @version 1.0
+ * @author Korbinian Kasberger: korbinian1.kasberger@stud.uni-regensburg.de
+ */
 
 
 public class ThymioHandler extends Image{
@@ -30,7 +42,16 @@ public class ThymioHandler extends Image{
 //	private static Thymio t;
 	
 	
-//	Constructor
+/**
+ * Constructor
+ * 
+ * @param xPos
+ * @param yPos
+ * @param width
+ * @param height
+ * @param src: Image
+ * @param orientation
+ */
 	public ThymioHandler(double xPos, double yPos,int width, int height, String src, String orientation){
 		super(xPos,yPos,width,height,src);
 		
@@ -39,7 +60,10 @@ public class ThymioHandler extends Image{
 	}
 	
 
-
+/**
+ * Sets the Speeds of the Real Thymio
+ * @param t
+ */
 @SuppressWarnings("unused")
 private void thymioSpeeds(Thymio t) {
 	 t = new Thymio("192.168.10.1");
@@ -48,13 +72,16 @@ private void thymioSpeeds(Thymio t) {
 	t.setSpeed("ahead", SPEED_AHEAD);
 }
 
-/* 	Sets rotation based on command sent to Thymio
-* 	getPixelArray turns the Image into an array, flips it X-times and setPixelArray turns it back into an image
-*	North / Up = 0
-*	East / Right = 90
-*	South / Down = 180
-*	West / Left = 270
-*/
+/**
+ * Sets the Orientation of Thymio and flips the Image
+ * 
+ * 	North / Up = 0
+ *	East / Right = 90
+ *	South / Down = 180
+ *	West / Left = 270
+ *
+ * @param movement
+ */
 	public void setOrientation(String movement) {
 
 		switch (movement) {
@@ -105,6 +132,11 @@ private void thymioSpeeds(Thymio t) {
 		
 	}
 	
+	
+	/**
+	 * Mpves Thymio
+	 * @param direction
+	 */
 	public void move(String direction){
 		switch (direction) {
 		case TOP:
@@ -124,128 +156,131 @@ private void thymioSpeeds(Thymio t) {
 		}
 	}
 	
-	// Moves Thymio left
+	/**
+	 *  Moves Thymio left
+	 */
 	public void moveLeft() {	
 	
-		if(super.getX()>0  && collision(getPosAsNode(),"left") == false) {
+		if(super.getX()>0  && collision(getPosAsNode(),LEFT) == false) {
 			super.move(-DISTANCE, 0);
-			setOrientation("left");	
+			setOrientation(LEFT);	
 			System.out.println("Thymio is at ["+getPosAsNode().getChessCoord()+"]");
 			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
-			currentNode.updateNode(currentNode,270);
-			try {
-				Thread.sleep(Settings.getDelay());
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
+			currentNode.updateNode(270);
+			if(Settings.delayed()){
+				delay();
 			}
 		}
 	}
 	
 	
 
-	// Moves Thymio right
+	/**
+	 *  Moves Thymio right
+	 */
 	public void moveRight() {
-		if(super.getX() < CANVAS_WIDTH-DISTANCE && collision(getPosAsNode(),"right") == false){
+		if(super.getX() < CANVAS_WIDTH-DISTANCE && collision(getPosAsNode(),RIGHT) == false){
 			super.move(DISTANCE, 0);
-			setOrientation("right");
+			setOrientation(RIGHT);
 			System.out.println("Thymio is at ["+getPosAsNode().getChessCoord()+"]");
 			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
-			currentNode.updateNode(currentNode,90);
-			try {
-				Thread.sleep(Settings.getDelay());
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			currentNode.updateNode(90);
+			if(Settings.delayed()){
+				delay();
 			}
 		}
 		
 	}
 	
-	// Moves Thymio up
+	/**
+	 *  Moves Thymio up
+	 */
 	public void moveUp() {
-		if(super.getY()>0 && collision(getPosAsNode(),"top") == false){
+		if(super.getY()>0 && collision(getPosAsNode(),TOP) == false){
 			super.move(0, -DISTANCE);
-			setOrientation("up");
+			setOrientation(TOP);
 			System.out.println("Thymio at "+getPosAsNode().getChessCoord());
 			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
-			currentNode.updateNode(currentNode,0);
-			try {
-				Thread.sleep(Settings.getDelay());
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			currentNode.updateNode(0);
+			if(Settings.delayed()){
+				delay();
 			}
 		}
 	}
 
-	// Moves Thymio down
+
+
+	/**
+	 *  Moves Thymio down
+	 */
 	public void moveDown() {
-		if(super.getY() < CANVAS_HEIGHT-DISTANCE && collision(getPosAsNode(),"bottom") == false){
+		if(super.getY() < CANVAS_HEIGHT-DISTANCE && collision(getPosAsNode(),BOTTOM) == false){
 			super.move(0, DISTANCE);
-			setOrientation("down");
+			setOrientation(BOTTOM);
 			System.out.println("Thymio is at ["+getPosAsNode().getChessCoord()+"]");
 			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
-			currentNode.updateNode(currentNode,180);
-			try {
-				Thread.sleep(Settings.getDelay());
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			currentNode.updateNode(180);
+			if(Settings.delayed()){
+				delay();
 			}
 		}
 	}
 	
 
 	
-	// check for Collisions/Obstacles
+	/**
+	 *  Check for Collisions/Obstacles
+	 *  
+	 * @param currentNode
+	 * @param direction: Direction to check for obstacle
+	 * @return boolean
+	 */
 	private boolean collision(Node current, String direction) {
 		HashMap<String, Node> neighbours = Settings.getBoard().getNeighbourNodes(current);
-		
-			
-			//  Check if surrounding contains an obstacle
 			switch (direction) {
-				case "top":
-					if(neighbours.get(direction).isObstacle()){
-						System.out.println("Collision");
-						return true;
-					}else{
+				case TOP:
+					if(!neighbours.get(direction).isObstacle()){	
 						return false;
 					}
-				case "bottom":
-					if(neighbours.get(direction).isObstacle()){
-						System.out.println("Collision");
-						return true;
-					}else{
+				case BOTTOM:
+					if(!neighbours.get(direction).isObstacle()){
 						return false;
 					}
 					
-				case "left":
-					if(neighbours.get(direction).isObstacle()){
-						System.out.println("Collision");
-						return true;
-					}else{
+				case LEFT:
+					if(!neighbours.get(direction).isObstacle()){
 						return false;
 					}
-							
-					
-				case "right":
-					if(neighbours.get(direction).isObstacle()){
-						System.out.println("Collision");
-						return true;
-					}else{
+				
+				case RIGHT:
+					if(!neighbours.get(direction).isObstacle()){
 						return false;
 					}
 					
 				default:
-					return false;
+					System.out.println("Collision");
+					return true;
 			}
-
-	
-		
 	}
 	
 	
-	// rotate Image to the right
+	/**
+	 * Delays the Thread
+	 */
+	private void delay() {
+		try {
+			Thread.sleep(Settings.getDelay());
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	/**
+	 *  rotate Image to the right
+	 * @param matrix of the Image
+	 * @return flipped Matrix
+	 */
 	public int[][] rotateMatrixRight(int[][] matrix)
 	{
 
@@ -261,7 +296,11 @@ private void thymioSpeeds(Thymio t) {
 	}
 
 
-	// rotate Image to the left
+	/**
+	 *  rotate Image to the left
+	 * @param matrix of the Image
+	 * @return flipped Matrix
+	 */
 	public int[][] rotateMatrixLeft(int[][] matrix)
 	{
 	    int w = matrix.length;
@@ -276,30 +315,55 @@ private void thymioSpeeds(Thymio t) {
 	}
 	
 	
+	/**
+	 * Returns the current Position as ID
+	 * 
+	 * @return ID
+	 */
 	public int getPosAsID(){
 		
 		return Helper.calculateID(getXPosAsField(), getYPosAsField());
 	}
 	
+	
+	/**
+	 * Returns current Position as Node
+	 * 
+	 * @return Node
+	 */
 	public Node getPosAsNode(){
 		return Settings.getBoard().getNodes().get(getPosAsID());
 	}
 	
-	// Draws Thymio
+	/**
+	 * Draws Thymio
+	 */
 	public void draw() {
 		super.draw();
 	}
 	
-	// Return Thymios X Coord as Field  (0, 1, 2 etc)
+	/**
+	 * Return Thymios X Coord as Field  (0, 1, 2 etc)
+	 * @return x-coordinate
+	 */
 	public int getXPosAsField(){
 		return (int)super.getX()/Settings.getFieldHeight();
 	}
-	// Return Thymios Y Coord as Field
+	
+	
+	/**
+	 * Return Thymios Y Coord as Field  (0, 1, 2 etc)
+	 * @return y-coordinate
+	 */
 	public int getYPosAsField(){
 		return (int)super.getY()/Settings.getFieldHeight();
 	}
 	
-//	Returns Orientation
+	/**
+	 * Returns the current orientation
+	 * 
+	 * @return orientation
+	 */
 	public int getOrientation(){
 		return CURRENT_ROTATION;
 	}

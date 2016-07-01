@@ -14,3 +14,4 @@ src/pathfinding/AStar_TEST.java
 *.csv
 .idea/
 *.iml
+doc/

@@ -10,7 +10,18 @@ import java.util.HashMap;
 import pathfinding.AStar;
 import pathfinding.Node;
 
-
+/**
+ * <h1>Controller Class for the Thymio project</h1>
+ * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
+ * 
+ * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
+ * 
+ * 
+ * This Class handles the Interaction between the User and the "Game"
+ * 
+ * @version 1.0
+ * @author Korbinian Kasberger:korbinian1.kasberger@stud.uni-regensburg.de
+ */
 public class Controller extends GraphicsApp implements KeyListener {
 
 
@@ -18,12 +29,16 @@ public class Controller extends GraphicsApp implements KeyListener {
 		private static final int FIELD_HEIGHT = Settings.getFieldHeight();
 		private static final int CANVAS_HEIGHT = Settings.getCanvasHeight();
 		private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
-		private static int THYMIO_STARTFIELD_X = Settings.getStartX();
-		private static int THYMIO_STARTFIELD_Y = Settings.getStartY();;
+		private static int THYMIO_STARTFIELD_X = Settings.getStartXCoordinate();
+		private static int THYMIO_STARTFIELD_Y = Settings.getStartYCoordinate();;
 		private static Chessboard board = Settings.getBoard();
 		public static ThymioHandler thymio ; 
 	
-	// Basic setup
+	/**
+	 * Basic setup method 
+	 * 
+	 * This method sets the Canvas size and initializes the ThymioHandler
+	 */
     public void setup() {
     	 size(CANVAS_WIDTH,CANVAS_HEIGHT);   
       	background(Settings.getColorBackground());
@@ -32,7 +47,9 @@ public class Controller extends GraphicsApp implements KeyListener {
     }
     
     
-   // Draws the Views 
+   /**
+    * Draws the views
+    */
 	public void draw(){
 		Views.draw();
 		thymio.draw();
@@ -40,7 +57,11 @@ public class Controller extends GraphicsApp implements KeyListener {
 
 
     
-    // Handles the keypresses to move Thymio accordingly
+    /**
+     * Key Listener to move the Thymio by Hand or start the Calculation
+     * 
+     * @param e: KeyEvent
+     */
 	@Override
 	public void keyPressed(KeyEvent e) {
     	
@@ -99,7 +120,9 @@ public class Controller extends GraphicsApp implements KeyListener {
 	}
 
 
-//	Checks if Thymio has reached the destination
+/*
+ * Checks if Thymio has reached his destination
+ */
 	private boolean reachedDest() {
 		if(thymio.getPosAsNode() == Settings.getEndNode()) {
 			return true;
