@@ -83,7 +83,9 @@ public class AStar {
 				break;
 			}else if(openList.isEmpty() == false){
 				closedList.add(currentNode.getId());
-				currentNode.setColor(Settings.getColorClosedNode());
+				if(Settings.showClosedList()){
+					currentNode.close();
+				}
 				currentNode = getNextNode(openList);
 				openList.remove((Integer)currentNode.getId());
 			}
@@ -158,7 +160,9 @@ public class AStar {
 	 * @param node
 	 */
 	private void addTopOpen(Node node) {
-		node.setColor(Settings.getColorOpenNode());
+		if(Settings.showOpenList()){
+			node.open();
+		}		
 	    openList.add(node.getId());
 	}
 
@@ -201,8 +205,6 @@ public class AStar {
 	
 		int parent_id = currentNode.getParent().getId();
 		Node parent = boardNodes.get(parent_id);
-		parent.setColor(Settings.getColorMovement());
-	
 		Edge e = new Edge(edges.size(), parent, currentNode);
 		edges.add(e);
 		currentNode = parent;

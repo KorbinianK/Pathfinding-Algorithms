@@ -27,18 +27,20 @@ public class Settings  {
 	// General Settings
 	private static final boolean OVERWRITE_MAP = true;
 	private static final int ANIMATION_DELAY = 50;
-	private static final boolean DELAY_ANIMATIONS = true;
+	private static final boolean DELAY_ANIMATIONS = false;
 	private static final boolean TILE_BORDER = true;
 	private static final boolean OBSTACLES = true;
-	private static  boolean SHOW_LABELS = true;
-
+	private static boolean SHOW_LABELS = false;
+	private static final boolean SHOW_OPEN_LIST = false;
+	private static final boolean SHOW_CLOSED_LIST = false;
+	
 	//A* Settings
 	private static final int H_MODIFIER = 2; // Best 2
 	private static final int TURN_COST = 1; // Best 1
 	
 	//Thymio Settings
 	private static final String THYMIO_IMG = "images/Robot_idle.gif"; 	//	Awesome Thymio Image
-	private static final String THYMIO_START_ROTATION = "North";
+	private static final String THYMIO_START_ROTATION = "north";
 	private static final int MAX_SPEED = 500;
 	private static final short AHEAD_SPEED = 100;
 	private static final short ROTATION_SPEED = 50;
@@ -601,10 +603,31 @@ public class Settings  {
 		return RIGHT;
 	}
 
-
+	/**
+	 * 
+	 * @return
+	 */
 	public static boolean delayed() {
 		return DELAY_ANIMATIONS;
 	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static boolean showOpenList() {
+		return SHOW_OPEN_LIST;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static boolean showClosedList() {
+		return SHOW_CLOSED_LIST;
+	}
+
+
 
 	
 }

@@ -364,4 +364,21 @@ public class Node {
 	public Node getParent(){
 		return parent;
 	}
+
+
+	/**
+	 * Closes the Node (A*) and sets the color
+	 */
+	public void close() {
+		setColor(Settings.getColorClosedNode());
+	}
+
+
+	/**
+	 * Opens the Node (A*) and sets the color
+	 */
+	public void open() {
+		setColor(Settings.getColorOpenNode());
+
+	}
 }
