@@ -3,6 +3,7 @@ package thymio;
 import pathfinding.Node;
 import java.util.HashMap;
 
+
 import de.ur.mi.graphics.Image;
 import iw.ur.thymio.Thymio.Thymio;
 import main.Helper;
@@ -20,9 +21,13 @@ public class ThymioHandler extends Image{
 	private static final short SPEED_AHEAD = Settings.getSpeedAhead();
 	private static final short SPEED_ROTATION = Settings.getSpeedRotation();
 	private static final int MAX_SPEED = Settings.getSpeedMax();
+	private static final String TOP = "north";
+	private static final String BOTTOM ="south";
+	private static final String LEFT = "west";
+	private static final String RIGHT = "east";
 	
 	private static int CURRENT_ROTATION = 0;
-	private static Thymio t;
+//	private static Thymio t;
 	
 	
 //	Constructor
@@ -30,28 +35,17 @@ public class ThymioHandler extends Image{
 		super(xPos,yPos,width,height,src);
 		
 //		thymioSpeeds(t);
-		switch (orientation) {
-		case "north":
-			setOrientation("up");
-			break;
-		case "south":
-			setOrientation("down");
-			break;
-			
-		case "west":
-			setOrientation("left");
-			break;
-		case "east":
-			setOrientation("right");
-			break;
-		}
+		setOrientation(orientation);
 	}
 	
+
+
+@SuppressWarnings("unused")
 private void thymioSpeeds(Thymio t) {
 	 t = new Thymio("192.168.10.1");
 	t.setSpeed("max", MAX_SPEED);
 	t.setSpeed("rotation", SPEED_ROTATION);
-	t.setSpeed("ahead", MAX_SPEED);
+	t.setSpeed("ahead", SPEED_AHEAD);
 }
 
 /* 	Sets rotation based on command sent to Thymio
@@ -64,7 +58,7 @@ private void thymioSpeeds(Thymio t) {
 	public void setOrientation(String movement) {
 
 		switch (movement) {
-		case "left":
+		case LEFT:
 			
 			if(CURRENT_ROTATION == 0){
 				super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
@@ -75,7 +69,7 @@ private void thymioSpeeds(Thymio t) {
 			}
 			CURRENT_ROTATION = 270 ;
 			break;
-		case "right":
+		case RIGHT:
 			if(CURRENT_ROTATION == 0){
 				super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
 			}else if(CURRENT_ROTATION == 270){
@@ -85,7 +79,7 @@ private void thymioSpeeds(Thymio t) {
 			}
 			CURRENT_ROTATION = 90;
 			break;
-		case "up":
+		case "north":
 			if(CURRENT_ROTATION == 90){
 				super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
 			}else if(CURRENT_ROTATION == 270){
@@ -95,7 +89,7 @@ private void thymioSpeeds(Thymio t) {
 			}
 			CURRENT_ROTATION = 0;
 			break;
-		case "down":
+		case "south":
 			if(CURRENT_ROTATION == 90){
 				super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
 			}else if(CURRENT_ROTATION == 270){
@@ -113,16 +107,16 @@ private void thymioSpeeds(Thymio t) {
 	
 	public void move(String direction){
 		switch (direction) {
-		case "top":
+		case TOP:
 			moveUp();
 			break;
-		case "bottom":
+		case BOTTOM:
 			moveDown();
 			break;
-		case "left":
+		case LEFT:
 			moveLeft();
 			break;
-		case "right":
+		case RIGHT:
 			moveRight();
 			break;
 		default:

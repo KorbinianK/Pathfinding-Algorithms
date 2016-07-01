@@ -167,7 +167,7 @@ public class Node {
 			this.h_cost = AStar.calculateCostH(this);
 		}
 		 drawTile(x,y);
-		 if(showLabels){
+		 if(showLabels && x != Settings.getEndX()*FIELD_SIZE && y != Settings.getEndY()*FIELD_SIZE){
 			 drawLabels(label_x,y); 
 		 }
 		

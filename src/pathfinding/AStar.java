@@ -5,33 +5,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import de.ur.mi.graphics.Color;
 import main.Controller;
 import main.Helper;
 import main.Settings;
 import map.Chessboard;
 import thymio.ThymioHandler;
 
-/*
- * x
- * loop
-    current = node in OPEN with the lowest f_cost
-    remove current from OPEN
-    add current to CLOSED
 
-    if current is the target node //path has been found
-        return
-
-    foreach neighbour of the current node
-        if neighbour is not traversable or neighbour is in CLOSED
-            skip to the next neighbour
-
-        if new path to neighbour is shorter OR neighbour is not in OPEN
-            set f_cost of neighbour
-            set parent of neighbour to current 
-            if neighbour is not in OPEN
-                add neighbour to OPEN
- */
 
 public class AStar {
 
@@ -43,7 +23,11 @@ public class AStar {
 	private static Node end  = Settings.getEndNode();
 	private static ThymioHandler thymio = Controller.thymio;
 	private static Node currentNode;
-
+	private static final String TOP = "north";
+	private static final String BOTTOM ="south";
+	private static final String LEFT = "west";
+	private static final String RIGHT = "east";
+	
 
 	public void calculate(){
 		List<Edge> edges = new ArrayList<Edge>();
@@ -104,7 +88,7 @@ public class AStar {
 			
 			
 			
-			HashMap<Node, String> directions = board.getNeighbourDir(currentNode);
+			HashMap<Node, String> directions = board.getNeighbourDirection(currentNode);
 			List<Integer> neighbourIDs = board.getNeighbourIDs(currentNode);
 			for(int id : neighbourIDs){
 				
@@ -230,7 +214,7 @@ public class AStar {
 		int left = 270;
 		int right = 90;
 		switch (direction) {
-		case "bottom":
+		case BOTTOM:
 			if((orientation > bottom || orientation < bottom)  && orientation != top){
 				cost = COST_TURN+5;
 			}else if(orientation == top){
@@ -239,7 +223,7 @@ public class AStar {
 				cost =COST_TURN+2;
 			}
 			return cost;
-		case "top":
+		case TOP:
 			if(orientation > top && orientation != bottom){
 				cost = COST_TURN+5;
 			}else if(orientation == bottom){
@@ -248,7 +232,7 @@ public class AStar {
 				cost =COST_TURN+2;
 			}
 		return cost;
-		case "left":
+		case LEFT:
 			if((orientation == top || orientation == bottom)){
 				cost = COST_TURN+5;
 			}else if(orientation == right){
@@ -257,7 +241,7 @@ public class AStar {
 				cost = COST_TURN+2;
 			}
 		return cost;
-		case "right":
+		case RIGHT:
 			if((orientation == top || orientation == bottom)){
 				cost = COST_TURN+5;
 			}else if(orientation == left){

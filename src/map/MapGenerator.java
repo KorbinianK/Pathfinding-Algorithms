@@ -1,11 +1,8 @@
 package map;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import main.Settings;
-import pathfinding.Node;
 
 
 public class MapGenerator {

@@ -5,7 +5,6 @@ import java.util.List;
 import de.ur.mi.graphics.Color;
 import map.CSVData;
 import map.Chessboard;
-import map.Obstacles;
 import pathfinding.Node;
 
 
@@ -19,7 +18,7 @@ public class Settings  {
 	private static final int ANIMATION_DELAY = 50;
 	private static final boolean TILE_BORDER = true;
 	private static final boolean OBSTACLES = true;
-	private static final boolean SHOW_LABELS = true;
+	private static  boolean SHOW_LABELS = true;
 
 	//A* Settings
 	private static final int H_MODIFIER = 2; // Best 2
@@ -27,7 +26,7 @@ public class Settings  {
 	
 	//Thymio Settings
 	private static final String THYMIO_IMG = "images/Robot_idle.gif"; 	//	Awesome Thymio Image
-	private static final String THYMIO_ROTATION = "North";
+	private static final String THYMIO_START_ROTATION = "North";
 	private static final int MAX_SPEED = 500;
 	private static final short AHEAD_SPEED = 100;
 	private static final short ROTATION_SPEED = 50;
@@ -63,7 +62,7 @@ public class Settings  {
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static final int RANDOM_OBSTACLE_COUNT = 2;
+	private static final int RANDOM_OBSTACLE_COUNT = 6;
 	private static final int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	
 	
@@ -76,7 +75,10 @@ public class Settings  {
 	private static final int FIELD_WIDTH = 50;
 	private static final String EMPTY_MAP_SRC = "empty_map.csv";
 	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
-	
+	private static final String TOP = "north";
+	private static final String BOTTOM = "south";
+	private static final String LEFT = "west";
+	private static final String RIGHT = "east";
 
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
@@ -223,8 +225,8 @@ public class Settings  {
 	public static int getFontSizeStartpoint() {
 		return FONT_SIZE_STARTPOINT;
 	}
-	public static String getThymioRotation() {
-		return THYMIO_ROTATION;
+	public static String getThymioStartRotation() {
+		return THYMIO_START_ROTATION;
 	}
 	public static int getBoardArrayWidth() {
 		return CANVAS_WIDTH/FIELD_HEIGHT;
@@ -257,9 +259,9 @@ public class Settings  {
 	public static List<Node> getBoardNodes() {
 		return getBoard().getNodes();
 	}
-	public static char[][] getObstaclesArray() {
-		return Obstacles.getObstaclesArray();
-	}
+//	public static char[][] getObstaclesArray() {
+//		return Obstacles.getObstaclesArray();
+//	}
 
 	public static Color getColorMovement() {
 		return COLOR_MOVEMENT;
@@ -347,6 +349,38 @@ public class Settings  {
 
 	public static Color getColorClosedNode() {
 		return COLOR_CLOSED_NODE;
+	}
+
+
+
+	public static void disableLabels() {
+		SHOW_LABELS = false;
+		Views.draw();
+		
+	}
+
+
+
+	public static String strTop() {
+		return TOP;
+	}
+
+
+
+	public static String strBottom() {
+		return BOTTOM;
+	}
+
+
+
+	public static String strLeft() {
+		return LEFT;
+	}
+
+
+
+	public static String strRight() {
+		return RIGHT;
 	}
 
 

@@ -11,8 +11,16 @@ public class Chessboard {
 	
 	// Fixed, don't change, adjustments in Settings Class
 	protected List<Node> nodeList = new ArrayList<Node>();
+	private static char[][] obs = new char[Settings.getBoardArrayWidth()][Settings.getBoardArrayHeight()];
+
 	private String[][] chessArray = boardAsStringArray();
 	private static Chessboard board;
+	private static List<Node> obstacleList = new ArrayList<Node>();
+	private static final String TOP = Settings.strTop();
+	private static final String BOTTOM = Settings.strBottom();
+	private static final String LEFT = Settings.strLeft();
+	private static final String RIGHT = Settings.strRight();
+	
 	
 	
 	public Chessboard() {
@@ -23,7 +31,7 @@ public class Chessboard {
 
 
 	private void createObstaclesArray() {
-		char[][] obs = Settings.getObstaclesArray();
+		char[][] obs = createFixedObstacles();
 		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
 				int id = Helper.calculateID(j, i);
@@ -43,7 +51,50 @@ public class Chessboard {
 		}	
 		
 	}
+	public static char[][] createFixedObstacles() {
+		
+		int x = 0;
+		List<String[]> csv = Settings.getCsv();
+		for(String[] row : csv){
+			
+			for (int i = 0; i < row.length; i++) {
+				String t = row[i];
+				char[] arr = t.toCharArray();
+				for (int j = 0; j < arr.length; j++) {
+					
+					obs[i][x] = arr[j];	
+				}
+			}
+			x++;	
+		}
+		if(obs.length <1){
+			return obs;
+		}
+		return freeImportantFields(obs);
+	}
 
+
+	
+	
+//	 Removes Thymios Start field as well as the End to avoid some impossible cases
+	private static char[][] freeImportantFields(char[][] obs) {
+		
+		
+		for(Node node : obstacleList){
+			if(node == Settings.getStartNode()){
+				node.setObstacle(false);
+				obstacleList.remove(node);
+				obs[node.getXCoord()][node.getYCoord()] = 0;
+			}
+			if(node == Settings.getEndNode()){
+				node.setObstacle(false);
+				obstacleList.remove(node);
+				obs[node.getXCoord()][node.getYCoord()] = 0;
+			}
+		}
+		
+		return obs;
+	}
 	
 	// Creates the basic Chessboard
 	public static Chessboard get_board(){
@@ -51,13 +102,13 @@ public class Chessboard {
 	}
    
 //	Returns the Board as Array with Chess-like Coordinates (A1,A2....B6 etc.)
-	public String[][] boardAsStringArray(){
+	private String[][] boardAsStringArray(){
 		chessArray = new String[Settings.getBoardArrayWidth()][Settings.getBoardArrayHeight()];
 		return fillCoordinatesString(chessArray);
 	}
 	
 // Returns the Boardas Array with Coordinates (0,0; 0,1; ... 5,8 etc)	
-	public String[][] boardAsArray(){
+	private String[][] boardAsArray(){
 		String[][] board_array = new String[Settings.getBoardArrayWidth()][Settings.getBoardArrayHeight()];
 		return fillCoordinates(board_array);
 	}
@@ -108,19 +159,19 @@ public class Chessboard {
 		return nodes;	
 	}
 	
-	public HashMap<Node,String> getNeighbourDir(Node current) {
+	public HashMap<Node,String> getNeighbourDirection(Node current) {
 		HashMap<Node,String> nodes = new HashMap<>();
 		if(leftNeighbourNode(current)!=null){
-			nodes.put(leftNeighbourNode(current),"left");
+			nodes.put(leftNeighbourNode(current),LEFT);
 		}
 		if(rightNeighbourNode(current) != null){
-			nodes.put(rightNeighbourNode(current),"right");
+			nodes.put(rightNeighbourNode(current),RIGHT);
 		}
 		if(topNeighbourNode(current) != null){
-			nodes.put(topNeighbourNode(current),"top");
+			nodes.put(topNeighbourNode(current),TOP);
 		}
 		if(bottomNeighbourNode(current) != null){
-			nodes.put(bottomNeighbourNode(current), "bottom");
+			nodes.put(bottomNeighbourNode(current), BOTTOM);
 		}
 		return nodes;	
 	}
@@ -181,7 +232,7 @@ public class Chessboard {
 
 	
 //	Create a node for each field of the board
-	public void createNodes(){
+	private void createNodes(){
 		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
 				int id = Helper.calculateID(j, i);

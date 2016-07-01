@@ -27,7 +27,7 @@ public class Controller extends GraphicsApp implements KeyListener {
     public void setup() {
     	 size(CANVAS_WIDTH,CANVAS_HEIGHT);   
       	background(Settings.getColorBackground());
-      	thymio = new ThymioHandler(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioRotation());
+      	thymio = new ThymioHandler(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioStartRotation());
     
     }
     
@@ -80,14 +80,14 @@ public class Controller extends GraphicsApp implements KeyListener {
 			a.calculate();
 			break;	
 		case 'r':
-			
+			thymio.setPosition(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y);
+			thymio.setOrientation(Settings.getThymioStartRotation());
 			for(Node node : Settings.getBoardNodes()){
 				node.resetColor();
 			}
 			break;
 		case'n':
-			int x = AStar.calculateCostH(thymio.getPosAsNode());
-			System.out.println(x);
+			Settings.disableLabels();
 			break;
     	}
     	
