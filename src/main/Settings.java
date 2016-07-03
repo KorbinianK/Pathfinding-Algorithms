@@ -20,16 +20,16 @@ import pathfinding.Node;
  * A lot of the Settings can be adjusted without causing any problems
  * 
  * @version 1.0
- * @author Korbinian Kasberger:korbinian1.kasberger@stud.uni-regensburg.de
+ * @author Korbinian Kasberger: korbinian1.kasberger@stud.uni-regensburg.de
  */
 public class Settings  {
 	
 	// General Settings
-	private static final boolean OVERWRITE_MAP = true;
+	private static final boolean OVERWRITE_MAP = false;
 	private static final int ANIMATION_DELAY = 50;
-	private static final boolean DELAY_ANIMATIONS = true;
+	private static final boolean DELAY_ANIMATIONS = false;
 	private static final boolean TILE_BORDER = true;
-	private static final boolean OBSTACLES = true;
+	private static final boolean SHOW_OBSTACLES = true;
 	private static boolean SHOW_LABELS = false;
 	private static final boolean SHOW_OPEN_LIST = true;
 	private static final boolean SHOW_CLOSED_LIST = true;
@@ -39,7 +39,7 @@ public class Settings  {
 	private static final int TURN_COST = 1; // Best 1
 	
 	//Thymio Settings
-	private static final String THYMIO_IMG = "images/Robot_idle.gif"; 	//	Awesome Thymio Image
+	private static final String THYMIO_IMG = "images/thymio.gif"; 	//	Awesome Thymio Image
 	private static final String THYMIO_START_ROTATION = "north";
 	private static final int MAX_SPEED = 500;
 	private static final short AHEAD_SPEED = 100;
@@ -57,7 +57,6 @@ public class Settings  {
 	private static final Color COLOR_CLOSED_NODE = Color.MAGENTA;
 	private static final Color COLOR_BORDER = Color.WHITE;
 	
-	
 	// Font Sizes
 	private static final int FONT_SIZE_STARTPOINT = 22;
 	private static final int FONT_SIZE_ENDPOINT = 22;
@@ -70,7 +69,7 @@ public class Settings  {
 	
 	//	Endfield (currently possible: 0-19)
 	private static final int THYMIO_ENDFIELD_X = 16;
-	private static final int THYMIO_ENDFIELD_Y = 6;
+	private static final int THYMIO_ENDFIELD_Y = 5;
 	
 	/*
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
@@ -79,33 +78,23 @@ public class Settings  {
 	private static final int RANDOM_OBSTACLE_COUNT = 3;
 	private static final int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	
-	
 
  // No changes below this line.
- 
-	private static final int CANVAS_HEIGHT = 400;
+	private static final int CANVAS_HEIGHT = 400; // 400 / 900
 	private static final int FIELD_HEIGHT = getFieldWidth();
-	private static final int CANVAS_WIDTH  = 1000;
-	private static final int FIELD_WIDTH = 50;
-	private static final String EMPTY_MAP_SRC = "empty_map.csv";
-	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
+	private static final int CANVAS_WIDTH  = 1000; // 1000 / 1170
+	private static final int FIELD_WIDTH = 50; //50 / 30
+
+	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv"; // maze.csv
 	private static final String TOP = "north";
 	private static final String BOTTOM = "south";
 	private static final String LEFT = "west";
 	private static final String RIGHT = "east";
-
-
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
 	private static Chessboard board = new Chessboard();
 
-	
-	
 
-	
-	
-	
-	
 	
 	
 	/**
@@ -166,8 +155,7 @@ public class Settings  {
     	}else{
     	 x *= FIELD_HEIGHT;
     	}
-    	
-	
+
 		return x;
 	}
 	
@@ -231,7 +219,7 @@ public class Settings  {
 	 * @return probability
 	 */
 	public static int getObstacleProbability() {
-		if(OBSTACLES){
+		if(SHOW_OBSTACLES){
 			return RANDOM_OBSTACLE_COUNT;
 		}
 		return 0;
@@ -374,13 +362,7 @@ public class Settings  {
 		return CANVAS_HEIGHT/FIELD_HEIGHT;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public static String getEmptySrc() {
-		return EMPTY_MAP_SRC;
-	}
+
 
 	/**
 	 * 
@@ -625,6 +607,14 @@ public class Settings  {
 	 */
 	public static boolean showClosedList() {
 		return SHOW_CLOSED_LIST;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static boolean showObstacle() {
+		return SHOW_OBSTACLES;
 	}
 
 

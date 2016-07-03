@@ -246,17 +246,14 @@ private void thymioSpeeds(Thymio t) {
 					if(!neighbours.get(direction).isObstacle()){
 						return false;
 					}
-					
 				case LEFT:
 					if(!neighbours.get(direction).isObstacle()){
 						return false;
-					}
-				
+					}				
 				case RIGHT:
 					if(!neighbours.get(direction).isObstacle()){
 						return false;
-					}
-					
+					}				
 				default:
 					System.out.println("Collision");
 					return true;
@@ -281,9 +278,7 @@ private void thymioSpeeds(Thymio t) {
 	 * @param matrix of the Image
 	 * @return flipped Matrix
 	 */
-	public int[][] rotateMatrixRight(int[][] matrix)
-	{
-
+	public int[][] rotateMatrixRight(int[][] matrix){
 	    int w = matrix.length;
 	    int h = matrix[0].length;
 	    int[][] ret = new int[h][w];
@@ -301,8 +296,7 @@ private void thymioSpeeds(Thymio t) {
 	 * @param matrix of the Image
 	 * @return flipped Matrix
 	 */
-	public int[][] rotateMatrixLeft(int[][] matrix)
-	{
+	public int[][] rotateMatrixLeft(int[][] matrix){
 	    int w = matrix.length;
 	    int h = matrix[0].length;   
 	    int[][] ret = new int[h][w];
@@ -320,8 +314,7 @@ private void thymioSpeeds(Thymio t) {
 	 * 
 	 * @return ID
 	 */
-	public int getPosAsID(){
-		
+	public int getPosAsID(){	
 		return Helper.calculateID(getXPosAsField(), getYPosAsField());
 	}
 	

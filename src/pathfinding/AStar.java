@@ -141,7 +141,6 @@ public class AStar {
 		if(Settings.showClosedList()){
 			currentNode.close();
 		}
-		
 	}
 
 
@@ -185,7 +184,6 @@ public class AStar {
 		node.setParentNode(currentNode);
 		node.setGCost(g_cost);
 		node.setFCost(f_cost);
-		   
 	}
 
 
@@ -228,8 +226,7 @@ public class AStar {
 		currentNode = start;
 		start.setParentNode(currentNode);
 		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
-		System.out.println("____________________________________________");
-		
+		System.out.println("____________________________________________");	
 	}
 
 
@@ -245,10 +242,8 @@ public class AStar {
 	    int currentlyCheapest_f = Integer.MAX_VALUE;
 	    for(int id : open){
 	    	
-	    	Node node = boardNodes.get(id);
-	    		    	
-	    	int f_cost = node.getFCost();
-	    	
+	    	Node node = boardNodes.get(id);	    		    	
+	    	int f_cost = node.getFCost();	    	
 	    	if(f_cost < currentlyCheapest_node.getFCost() ){
 	    		
 	    		currentlyCheapest_f = f_cost;
@@ -258,8 +253,7 @@ public class AStar {
 	        		currentlyCheapest_node = node;
 	        	}
 	    	}
-	    }
-	 
+	    }	 
 		return currentlyCheapest_node;
 	}
 
@@ -271,7 +265,6 @@ public class AStar {
 	 * @return distance
 	 */
 	public static int calculateCostH(Node node) {
-		
 		int mult = Settings.getHeuristicModifier();
 		int x1 = node.getXCoord();
 		int y1 = node.getYCoord();
@@ -333,8 +326,7 @@ public class AStar {
 				cost = COST_TURN+8;
 			}else{
 				cost =COST_TURN+2;
-			}
-			
+			}		
 		return cost;
 		default:
 			return cost;

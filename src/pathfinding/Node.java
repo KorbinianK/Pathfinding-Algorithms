@@ -1,5 +1,9 @@
 package pathfinding;
 
+
+import java.util.List;
+
+import acmx.export.java.util.ArrayList;
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Label;
 import de.ur.mi.graphics.Rect;
@@ -35,6 +39,7 @@ public class Node {
 	private static final String BOTTOM = "south";
 	private static final String LEFT = "west";
 	private static final String RIGHT = "east";
+	private static ArrayList fixedColors = new ArrayList();
 	
 	private int h_cost;
 	private int id;
@@ -52,8 +57,8 @@ public class Node {
 	private int label_x;
 	private int x;
 	private int y;
-
-
+	private boolean isStart;
+	private boolean isEnd;
 
 	/**
 	 * Constructor
@@ -78,16 +83,20 @@ public class Node {
 		this.h_cost = 0;
 		this.showLabels = Settings.showLabels();
 		this.parent = null;
-		
-		 y = getYCoord(); 
-		 x = getXCoord();
+		this.isStart = false;
+		this.isEnd = false;
+		this.y = getYCoord(); 
+		this.x = getXCoord();
 		 if(y != 0){
 			 y *= Settings.getFieldHeight();
 		 }
 		 if(x != 0){
 			 x *= Settings.getFieldHeight();
 		 }
-		  label_x = x+Settings.getFieldHeight();
+	    label_x = x+Settings.getFieldHeight();
+	    fixedColors.add(Settings.getColorObstacle());
+		fixedColors.add(Settings.getStartFieldColor());
+		fixedColors.add(Settings.getEndFieldColor());
 	}
 	
 	
@@ -257,7 +266,7 @@ public class Node {
 	 * Resets the color to the original Color
 	 */
 	public void resetColor(){
-		if(color != Settings.getColorObstacle()){
+		if(!fixedColors.contains(color)){
 			color = originalColor;
 		}
 		
@@ -285,8 +294,6 @@ public class Node {
 	 * @param y
 	 */
 	private void drawLabels(int x, int y) {
-		
-		
 		Color labelColor;
 		if(color ==COLOR_A && !isObstacle){
 			labelColor = COLOR_B;
@@ -310,12 +317,10 @@ public class Node {
 			f.setFontSize(FONT_LABEL);
 			f.draw();
 		}
-		
 		if(g_cost >0){
 			Label g = new Label(y+2,x-35,Integer.toString(g_cost), labelColor);
 			g.setFontSize(FONT_LABEL);
 			g.draw();
-
 		}
 		chess.draw();
 		h.draw();
@@ -331,8 +336,7 @@ public class Node {
 		Rect rect = new Rect(y, x, FIELD_SIZE, FIELD_SIZE,color);
 		if(hasBorder){
 			rect.setBorder(BORDER_COLOR, 1);
-		}
-	
+		}	
 		rect.draw();
 	}
 
@@ -370,7 +374,9 @@ public class Node {
 	 * Closes the Node (A*) and sets the color
 	 */
 	public void close() {
-		setColor(Settings.getColorClosedNode());
+		if(!isEnd && !isStart){
+			setColor(Settings.getColorClosedNode());
+		}
 	}
 
 
@@ -378,7 +384,27 @@ public class Node {
 	 * Opens the Node (A*) and sets the color
 	 */
 	public void open() {
-		setColor(Settings.getColorOpenNode());
+		if(!isEnd && !isStart){
+			setColor(Settings.getColorOpenNode());
+		}
+	}
 
+
+
+	/**
+	 * Sets the Node as Start
+	 * @param isStart
+	 */
+	public void setStart() {
+		isStart = true;
+	}
+
+
+	/**
+	 * Sets the node as end
+	 * @param isEnd
+	 */
+	public void setEnd() {
+		isEnd = true;
 	}
 }

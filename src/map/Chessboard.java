@@ -55,7 +55,7 @@ public class Chessboard {
 			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
 				int id = Helper.calculateID(j, i);
 				Node node = nodeList.get(id);
-				if(obs[j][i]== '1'){
+				if(obs[j][i]== '1' && Settings.showObstacle()){
 					int start_id = Helper.calculateID(Settings.getThymioStartField_X(), Settings.getThymioStartField_Y());
 					int end_id = Helper.calculateID(Settings.getThymioEndField_X(), Settings.getThymioEndField_Y());
 					if(		node.getId() != start_id &&
@@ -79,7 +79,7 @@ public class Chessboard {
 		int x = 0;
 		List<String[]> csv = Settings.getCsv();
 		for(String[] row : csv){
-			
+
 			for (int i = 0; i < row.length; i++) {
 				String t = row[i];
 				char[] arr = t.toCharArray();
@@ -139,7 +139,7 @@ public class Chessboard {
 	 */
 	private static String[][] boardAsChessArray() {
 		chessArray = new String[Settings.getBoardArrayWidth()][Settings.getBoardArrayHeight()];
-		char[] letters = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+		char[] letters = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n'};
 		for (int i = 0; i < chessArray[0].length; i++) {
 			
 			for (int j = 0; j < chessArray.length; j++) {
@@ -271,16 +271,24 @@ public class Chessboard {
 	 * Creates a Node Object representing each Tile of the Chessboard
 	 */
 	private void createNodes(){
-		for (int i = 0; i < Settings.getBoardArrayHeight(); i++) {
-			for (int j = 0; j < Settings.getBoardArrayWidth(); j++) {
-				int id = Helper.calculateID(j, i);
-				boolean white = (i % 2 == 0) == (j % 2 == 0);
-				Node node = new Node(id,i,j,chessArray[j][i],0);
+		for (int y = 0; y < Settings.getBoardArrayHeight(); y++) {
+			for (int x = 0; x < Settings.getBoardArrayWidth(); x++) {
+				int id = Helper.calculateID(x, y);
+				boolean white = (y % 2 == 0) == (x % 2 == 0);
+				Node node = new Node(id,y,x,chessArray[x][y],0);
+
 	       		if(white && node.getColor()==null){
 	       			node.setColor(Settings.getColorChessA());
 	       		}else if(node.getColor()==null){
 	       			node.setColor(Settings.getColorChessB());
-	       		}		
+	       		}
+				if(y == Settings.getThymioEndField_Y() && x == Settings.getThymioEndField_X()){
+					node.setEnd();
+					node.setColor(Settings.getEndFieldColor());
+				}if(y == Settings.getThymioStartField_Y() && x == Settings.getThymioStartField_X()){
+					node.setStart();
+					node.setColor(Settings.getStartFieldColor());
+				}
 				nodeList.add(node);			
 			}
 		}	

@@ -21,39 +21,35 @@ import pathfinding.Node;
 
 public class Views {
 	
-	private static final int FIELD_WIDTH = Settings.getFieldWidth();;
-	private static final int FIELD_HEIGHT = Settings.getFieldHeight();
-	private static final List<Node> nodes = Settings.getBoardNodes();
 
-		
+	private static final List<Node> nodes = Settings.getBoardNodes();
+	private static final int start_x = Settings.getStartXCoordinate()+17;
+	private static final int start_y = Settings.getStartYCoordinate()+30;
+	private static final int start_fontsize = Settings.getFontSizeStartpoint();
+	private static final int end_x = Settings.getEndXCoordinate()+17;
+	private static final int end_y = Settings.getEndYCoordinate()+30;
+	private static final int end_fontsize = Settings.getFontSizeEndpoint();
+	private static final String endtext = "X";
+	private static final String starttext = "O";
 		/**
 		 * Draws the Start Field
-		 * 
-		 * @param startX: X-Coordinate
-		 * @param startY: Y-Coordinate
 		 */
-		private static void drawStartPoint(int startX, int startY) {
-	    	Rect start = new Rect(startX,startY, FIELD_WIDTH, FIELD_HEIGHT, Settings.getStartFieldColor());
-	    	start.draw();
-			Label starttext = new Label(Settings.getStartXCoordinate()+20,Settings.getStartYCoordinate()+5+Settings.getFieldHeight()/2,"S",Color.WHITE);
-			starttext.setFontSize(Settings.getFontSizeStartpoint());
-			starttext.draw();
+		private static void drawStartLabel() {
+	    	
+	    	
+			Label start = new Label(start_x,start_y,starttext,Color.WHITE,start_fontsize);
+			
+	    	Label end = new Label(end_x,end_y,endtext,Color.WHITE,end_fontsize);
+	    	end.draw();
+			start.draw();
 		}
 	    
 	    
 	    /**
 	     * Draws the End Field
-	     * @param endX: X-Coordinate
-	     * @param endY: Y-Coordinate
 	     */
-	    private static void drawEndPoint(int endX, int endY){
-	    	Rect end = new Rect(endX,endY, FIELD_WIDTH, FIELD_HEIGHT, Settings.getEndFieldColor());
-	    	end.draw();
-	    	Label endtext = new Label(Settings.getEndXCoordinate()+20,Settings.getEndYCoordinate()+5+Settings.getFieldHeight()/2,"E",Color.WHITE);
-		       
-	    	endtext.setFontSize(Settings.getFontSizeEndpoint());
+	    private static void drawEndLabel(){
 	    	
-	    	endtext.draw();
 	    }
 	     
 	  
@@ -62,8 +58,11 @@ public class Views {
 	 	 */
 		public static void draw() {
 			drawBoard();
-	    	drawStartPoint(Settings.getStartXCoordinate(),Settings.getStartYCoordinate());
-	    	drawEndPoint(Settings.getEndXCoordinate(),Settings.getEndYCoordinate());		
+			if(Settings.showLabels()){
+				drawStartLabel();
+		    	drawEndLabel();		
+			}
+	    	
 		}
 		
 	
