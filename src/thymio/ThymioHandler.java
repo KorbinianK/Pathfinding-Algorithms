@@ -38,7 +38,7 @@ public class ThymioHandler extends Image{
 	private static final String LEFT = "west";
 	private static final String RIGHT = "east";
 	ThymioController tc = Settings.tc;
-	Thymio t = Settings.t;
+	
 	private static int CURRENT_ROTATION = 0;
 	
 	
@@ -74,88 +74,62 @@ public class ThymioHandler extends Image{
 		case LEFT:
 			
 			if(CURRENT_ROTATION == 0){
-				if(Settings.useThymio()){
-					t.rotate(-90);
-				}
+				
 				super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
 			}else if(CURRENT_ROTATION == 90){
-				if(Settings.useThymio()){
-					t.rotate(180);
-				}
+				
 				super.setPixelArray(rotateMatrixLeft(rotateMatrixLeft(super.getPixelArray())));
 			}else if(CURRENT_ROTATION == 180){
-				if(Settings.useThymio()){
-					t.rotate(90);
-				}
+				
 				super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
 			}
 			CURRENT_ROTATION = 270 ;
 			break;
 		case RIGHT:
 			if(CURRENT_ROTATION == 0){
-				if(Settings.useThymio()){
-					t.rotate(90);
-				}else{
+				
 					super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
 
-				}
 			}else if(CURRENT_ROTATION == 270){
-				if(Settings.useThymio()){
-					t.rotate(180);
-				}else{
+				
 					super.setPixelArray(rotateMatrixRight(rotateMatrixRight(super.getPixelArray())));
 
-				}
 			}else if(CURRENT_ROTATION == 180){
-				if(Settings.useThymio()){
-					t.rotate(-90);
-				}else{
+				
 					super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
-				}
+				
 			}
 			CURRENT_ROTATION = 90;
 			break;
 		case "north":
 			if(CURRENT_ROTATION == 90){
-				if(Settings.useThymio()){
-					t.rotate(-90);
-				}else{
+				
 					super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
-				}
+				
 			}else if(CURRENT_ROTATION == 270){
-				if(Settings.useThymio()){
-					t.rotate(90);
-				}else{
+				
 					super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
-				}
+				
 			}else if(CURRENT_ROTATION == 180){
-				if(Settings.useThymio()){
-					t.rotate(270);
-				}else{
+				
 					super.setPixelArray(rotateMatrixLeft(rotateMatrixLeft(super.getPixelArray())));
-				}
+				
 			}
 			CURRENT_ROTATION = 0;
 			break;
 		case "south":
 			if(CURRENT_ROTATION == 90){
-				if(Settings.useThymio()){
-					t.rotate(90);
-				}else{
+				
 					super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
-				}
+				
 			}else if(CURRENT_ROTATION == 270){
-				if(Settings.useThymio()){
-					t.rotate(-90);
-				}else{
+				
 					super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
-				}
+				
 			}else if(CURRENT_ROTATION == 0){
-				if(Settings.useThymio()){
-					t.rotate(180);
-				}else{
+				
 					super.setPixelArray(rotateMatrixLeft(rotateMatrixLeft(super.getPixelArray())));
-				}
+				
 			}
 			CURRENT_ROTATION = 180;
 			break;

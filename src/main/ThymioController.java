@@ -18,6 +18,7 @@ public class ThymioController {
 	public ThymioController(){
 		t = new Thymio("192.168.10.1");
     	t.setSpeed("ahead", 1000);
+    	t.setSpeed("rotation", 300);
     	
 	}
 
@@ -56,6 +57,9 @@ public class ThymioController {
 						t.rotate(90);
 					}
 				}
+				
+				delayedDrive();
+				
 				CURRENT_ROTATION = 270 ;
 				
 				break;
@@ -73,6 +77,7 @@ public class ThymioController {
 						t.rotate(-90);
 					}
 				}
+				delayedDrive();
 				CURRENT_ROTATION = 90;
 				break;
 			case "north":
@@ -86,9 +91,10 @@ public class ThymioController {
 					}
 				}else if(CURRENT_ROTATION == 180){
 					if(Settings.useThymio()){
-						t.rotate(270);
+						t.rotate(180);
 					}
 				}
+				delayedDrive();
 				CURRENT_ROTATION = 0;
 				break;
 			case "south":
@@ -105,6 +111,7 @@ public class ThymioController {
 						t.rotate(180);
 					}
 				}
+				delayedDrive();
 				CURRENT_ROTATION = 180;
 				break;
 			default:
@@ -190,7 +197,16 @@ public class ThymioController {
 	
 	
 	
-	
+		private static void delayedDrive() {
+			t.drive(SPEED_AHEAD, SPEED_AHEAD);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			t.stop();
+		}
+
 	
 	
 	

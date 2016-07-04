@@ -45,7 +45,7 @@ public class Settings  {
 	private static final String THYMIO_IMG = "images/thymio.gif"; 	//	Awesome Thymio Image
 	private static final String THYMIO_START_ROTATION = "north";
 	private static final int MAX_SPEED = 500;
-	private static final short AHEAD_SPEED = 100;
+	private static final short AHEAD_SPEED = 1000;
 	private static final short ROTATION_SPEED = 50;
 	
 	// Colors
