@@ -1,5 +1,6 @@
 package main;
 import de.ur.mi.graphicsapp.*;
+import iw.ur.thymio.Thymio.Thymio;
 import map.Chessboard;
 import thymio.ThymioHandler;
 
@@ -31,8 +32,12 @@ public class Controller extends GraphicsApp implements KeyListener {
 		private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
 		private static int THYMIO_STARTFIELD_X = Settings.getStartXCoordinate();
 		private static int THYMIO_STARTFIELD_Y = Settings.getStartYCoordinate();;
+		private static final short SPEED_AHEAD = Settings.getSpeedAhead();
+		private static final short SPEED_ROTATION = Settings.getSpeedRotation();
+		private static final int MAX_SPEED = Settings.getSpeedMax();
 		private static Chessboard board = Settings.getBoard();
-		public static ThymioHandler thymio ; 
+		public static ThymioHandler thymioHandler ;
+		public static Thymio thymio;
 	
 	/**
 	 * Basic setup method 
@@ -40,23 +45,37 @@ public class Controller extends GraphicsApp implements KeyListener {
 	 * This method sets the Canvas size and initializes the ThymioHandler
 	 */
     public void setup() {
-    	 size(CANVAS_WIDTH,CANVAS_HEIGHT);   
+    	size(CANVAS_WIDTH,CANVAS_HEIGHT);   
       	background(Settings.getColorBackground());
-      	thymio = new ThymioHandler(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioStartRotation());
-    
+      	thymioHandler = new ThymioHandler(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioStartRotation());
+      	if(Settings.useThymio()){
+      		thymio = new Thymio("192.168.10.1");
+      		setThymioSpeed(thymio);
+      	}
     }
     
+    /**
+     * Sets the Speeds of the Real Thymio
+     * @param t
+     */
+    private void setThymioSpeed(Thymio t) {
+    	
+    	t.setSpeed("max", MAX_SPEED);
+    	t.setSpeed("rotation", SPEED_ROTATION);
+    	t.setSpeed("ahead", SPEED_AHEAD);
+    }
     
    /**
     * Draws the views
     */
 	public void draw(){
+		
 		Views.draw();
-		thymio.draw();
+		thymioHandler.draw();
     }
 
 
-    
+   
     /**
      * Key Listener to move the Thymio by Hand or start the Calculation
      * 
@@ -67,24 +86,24 @@ public class Controller extends GraphicsApp implements KeyListener {
     	
     	switch (e.getKeyChar()) {
 		case 'd':
-			thymio.moveRight();		
+			thymioHandler.moveRight();		
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 'w':
-			thymio.moveUp();	
+			thymioHandler.moveUp();	
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 'a':
-			thymio.moveLeft();	
+			thymioHandler.moveLeft();	
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 's':
-			thymio.moveDown();
+			thymioHandler.moveDown();
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		
 		case 't': // Only for testing/debugging purposes
-			Node current = board.getNodes().get(thymio.getPosAsID());
+			Node current = board.getNodes().get(thymioHandler.getPosAsID());
 			HashMap<String,Node> neighbours = board.getNeighbourNodes(current);
 			
 			System.out.print("Possible Destinations:");
@@ -101,8 +120,8 @@ public class Controller extends GraphicsApp implements KeyListener {
 			a.calculate();
 			break;	
 		case 'r':
-			thymio.setPosition(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y);
-			thymio.setOrientation(Settings.getThymioStartRotation());
+			thymioHandler.setPosition(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y);
+			thymioHandler.setOrientation(Settings.getThymioStartRotation());
 			for(Node node : Settings.getBoardNodes()){
 				node.resetColor();
 			}
@@ -124,7 +143,7 @@ public class Controller extends GraphicsApp implements KeyListener {
  * Checks if Thymio has reached his destination
  */
 	private boolean reachedDest() {
-		if(thymio.getPosAsNode() == Settings.getEndNode()) {
+		if(thymioHandler.getPosAsNode() == Settings.getEndNode()) {
 			return true;
 		}
 		return false;

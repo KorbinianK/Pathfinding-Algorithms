@@ -6,8 +6,10 @@ import java.util.HashMap;
 
 import de.ur.mi.graphics.Image;
 import iw.ur.thymio.Thymio.Thymio;
+import main.Controller;
 import main.Helper;
 import main.Settings;
+import main.ThymioController;
 
 /**
  * <h1> ThymioHandler Class for the Thymio project</h1>
@@ -30,16 +32,13 @@ public class ThymioHandler extends Image{
 	private static final int DISTANCE = Settings.getFieldWidth();
 	private static final int CANVAS_HEIGHT = Settings.getCanvasHeight();
 	private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
-	private static final short SPEED_AHEAD = Settings.getSpeedAhead();
-	private static final short SPEED_ROTATION = Settings.getSpeedRotation();
-	private static final int MAX_SPEED = Settings.getSpeedMax();
+	
 	private static final String TOP = "north";
 	private static final String BOTTOM ="south";
 	private static final String LEFT = "west";
 	private static final String RIGHT = "east";
-	
+	Thymio t = ThymioController.t;
 	private static int CURRENT_ROTATION = 0;
-//	private static Thymio t;
 	
 	
 /**
@@ -54,23 +53,9 @@ public class ThymioHandler extends Image{
  */
 	public ThymioHandler(double xPos, double yPos,int width, int height, String src, String orientation){
 		super(xPos,yPos,width,height,src);
-		
-//		thymioSpeeds(t);
 		setOrientation(orientation);
 	}
 	
-
-/**
- * Sets the Speeds of the Real Thymio
- * @param t
- */
-@SuppressWarnings("unused")
-private void thymioSpeeds(Thymio t) {
-	 t = new Thymio("192.168.10.1");
-	t.setSpeed("max", MAX_SPEED);
-	t.setSpeed("rotation", SPEED_ROTATION);
-	t.setSpeed("ahead", SPEED_AHEAD);
-}
 
 /**
  * Sets the Orientation of Thymio and flips the Image
@@ -88,41 +73,88 @@ private void thymioSpeeds(Thymio t) {
 		case LEFT:
 			
 			if(CURRENT_ROTATION == 0){
+				if(Settings.useThymio()){
+					t.rotate(-90);
+				}
 				super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
 			}else if(CURRENT_ROTATION == 90){
+				if(Settings.useThymio()){
+					t.rotate(180);
+				}
 				super.setPixelArray(rotateMatrixLeft(rotateMatrixLeft(super.getPixelArray())));
 			}else if(CURRENT_ROTATION == 180){
+				if(Settings.useThymio()){
+					t.rotate(90);
+				}
 				super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
 			}
 			CURRENT_ROTATION = 270 ;
 			break;
 		case RIGHT:
 			if(CURRENT_ROTATION == 0){
-				super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
+				if(Settings.useThymio()){
+					t.rotate(90);
+				}else{
+					super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
+
+				}
 			}else if(CURRENT_ROTATION == 270){
-				super.setPixelArray(rotateMatrixRight(rotateMatrixRight(super.getPixelArray())));
+				if(Settings.useThymio()){
+					t.rotate(180);
+				}else{
+					super.setPixelArray(rotateMatrixRight(rotateMatrixRight(super.getPixelArray())));
+
+				}
 			}else if(CURRENT_ROTATION == 180){
-				super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
+				if(Settings.useThymio()){
+					t.rotate(-90);
+				}else{
+					super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
+				}
 			}
 			CURRENT_ROTATION = 90;
 			break;
 		case "north":
 			if(CURRENT_ROTATION == 90){
-				super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
+				if(Settings.useThymio()){
+					t.rotate(-90);
+				}else{
+					super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
+				}
 			}else if(CURRENT_ROTATION == 270){
-				super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
+				if(Settings.useThymio()){
+					t.rotate(90);
+				}else{
+					super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
+				}
 			}else if(CURRENT_ROTATION == 180){
-				super.setPixelArray(rotateMatrixLeft(rotateMatrixLeft(super.getPixelArray())));
+				if(Settings.useThymio()){
+					t.rotate(270);
+				}else{
+					super.setPixelArray(rotateMatrixLeft(rotateMatrixLeft(super.getPixelArray())));
+				}
 			}
 			CURRENT_ROTATION = 0;
 			break;
 		case "south":
 			if(CURRENT_ROTATION == 90){
-				super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
+				if(Settings.useThymio()){
+					t.rotate(90);
+				}else{
+					super.setPixelArray(rotateMatrixRight(super.getPixelArray()));
+				}
 			}else if(CURRENT_ROTATION == 270){
-				super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
+				if(Settings.useThymio()){
+					t.rotate(-90);
+				}else{
+					super.setPixelArray(rotateMatrixLeft(super.getPixelArray()));
+				}
 			}else if(CURRENT_ROTATION == 0){
-				super.setPixelArray(rotateMatrixLeft(rotateMatrixLeft(super.getPixelArray())));
+				if(Settings.useThymio()){
+					t.rotate(180);
+				}else{
+					super.setPixelArray(rotateMatrixLeft(rotateMatrixLeft(super.getPixelArray())));
+				}
 			}
 			CURRENT_ROTATION = 180;
 			break;
@@ -138,6 +170,7 @@ private void thymioSpeeds(Thymio t) {
 	 * @param direction
 	 */
 	public void move(String direction){
+		
 		switch (direction) {
 		case TOP:
 			moveUp();
@@ -160,13 +193,13 @@ private void thymioSpeeds(Thymio t) {
 	 *  Moves Thymio left
 	 */
 	public void moveLeft() {	
-	
 		if(super.getX()>0  && collision(getPosAsNode(),LEFT) == false) {
 			super.move(-DISTANCE, 0);
 			setOrientation(LEFT);	
 			System.out.println("Thymio is at ["+getPosAsNode().getChessCoord()+"]");
 			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
 			currentNode.updateNode(270);
+			
 			if(Settings.delayed()){
 				delay();
 			}
@@ -202,6 +235,7 @@ private void thymioSpeeds(Thymio t) {
 			System.out.println("Thymio at "+getPosAsNode().getChessCoord());
 			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
 			currentNode.updateNode(0);
+			
 			if(Settings.delayed()){
 				delay();
 			}

@@ -25,6 +25,8 @@ import pathfinding.Node;
 public class Settings  {
 	
 	// General Settings
+	private static final boolean USE_THYMIO =false;
+
 	private static final boolean OVERWRITE_MAP = false;
 	private static final int ANIMATION_DELAY = 50;
 	private static final boolean DELAY_ANIMATIONS = false;
@@ -388,7 +390,7 @@ public class Settings  {
 	public static Node getStartNode() {
 		int id = Helper.calculateID(THYMIO_STARTFIELD_X,THYMIO_STARTFIELD_Y);
 		Node node = getBoard().getNodes().get(id);
-		node.setOrientation(Controller.thymio.getOrientation());
+		node.setOrientationByString(getThymioStartRotation());
 		return node;
 	}
 
@@ -615,6 +617,12 @@ public class Settings  {
 	 */
 	public static boolean showObstacle() {
 		return SHOW_OBSTACLES;
+	}
+
+
+	public static boolean useThymio() {
+		// TODO Auto-generated method stub
+		return USE_THYMIO;
 	}
 
 

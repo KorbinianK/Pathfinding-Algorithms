@@ -6,9 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import iw.ur.thymio.Thymio.Thymio;
 import main.Controller;
 import main.Helper;
 import main.Settings;
+import main.ThymioController;
 import map.Chessboard;
 import thymio.ThymioHandler;
 /**
@@ -33,7 +35,7 @@ public class AStar {
 	private static final List<Node> boardNodes = Settings.getBoardNodes();
 
 	private static final Node end  = Settings.getEndNode();
-	private static final ThymioHandler thymio = Controller.thymio;
+	private static final ThymioHandler thymio = Controller.thymioHandler;
 
 	private static final String TOP = "north";
 	private static final String BOTTOM ="south";
@@ -42,17 +44,19 @@ public class AStar {
 
 	private static Node currentNode;
 	private static Node start;
-	private boolean finished = false;
-	private int timeout = 0;
+	private static boolean finished = false;
+	private static int timeout = 0;
 
 	private static List<Edge> edges;
 	private static List<Integer> openList;
 	private static List<Integer> closedList;
+
+	private static List<Edge> path = null;
 	
 	/**
 	 * Calculation of A*
 	 */
-	public void calculate(){
+	public static void calculate(){
 		
 		
 		
@@ -136,7 +140,7 @@ public class AStar {
 	 * Adds the node to the closed list, updates the color if activated in Settings Class 
 	 * @param currentNode
 	 */
-	private void addToClosedList(Node currentNode) {
+	private static void addToClosedList(Node currentNode) {
 		closedList.add(currentNode.getId());
 		if(Settings.showClosedList()){
 			currentNode.close();
@@ -144,13 +148,20 @@ public class AStar {
 	}
 
 
+	public List<Edge> getPath(){
+		if(path != null){
+			return path;
+		}else{
+			return edges;
+		}
+	}
 
 
 
 	/**
 	 * Delays the Thread
 	 */
-	private void delay() {
+	private static void delay() {
 		try {
 			Thread.sleep(Settings.getDelay());
 		} catch (InterruptedException e1) {
@@ -163,7 +174,7 @@ public class AStar {
 	 * Takes a node and adds its ID to the open List
 	 * @param node
 	 */
-	private void addTopOpen(Node node) {
+	private static void addTopOpen(Node node) {
 		if(Settings.showOpenList()){
 			node.open();
 		}		
@@ -179,7 +190,7 @@ public class AStar {
 	 * @param f_cost: The total Cost to get here
 	 * @param g_cost: The movement cos to get here
 	 */
-	private void updateNeighbour(Node node,String direction, int f_cost, int g_cost) {
+	private static void updateNeighbour(Node node,String direction, int f_cost, int g_cost) {
 		node.setOrientationByString(direction);
 		node.setParentNode(currentNode);
 		node.setGCost(g_cost);
@@ -190,21 +201,24 @@ public class AStar {
 	/**
 	 * If A* successfully finished, this method moves Thymio along the route
 	 */
-	private void moveThymio() {
+	private static void moveThymio() {
+		
 		Collections.reverse(edges);
-		for(Edge e : edges){
+		path  = edges;
+		for(Edge e : path){
 			System.out.println(e.print());
 			thymio.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
 		}
 		System.out.println("done");
 	}
 
+	
 
 
 	/**
 	 * A* finished, creates the Path by checking the parent Nodes
 	 */
-	private void calculatePath() {
+	private static void calculatePath() {
 	
 		int parent_id = currentNode.getParent().getId();
 		Node parent = boardNodes.get(parent_id);
@@ -217,12 +231,13 @@ public class AStar {
 	/**
 	 * Initialization for A*, emtpies all Lists
 	 */
-	private void initAStar() {
+	private static void initAStar() {
 		edges = new ArrayList<Edge>();
 		openList = new ArrayList<Integer>();
 		closedList = new ArrayList<Integer>();
-		start = thymio.getPosAsNode();
-		start.setOrientation(thymio.getOrientation());
+//		start = thymio.getPosAsNode();
+		start = Settings.getStartNode();
+//		start.setOrientation(thymio.getOrientation());
 		currentNode = start;
 		start.setParentNode(currentNode);
 		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
