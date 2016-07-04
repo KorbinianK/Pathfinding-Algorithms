@@ -35,7 +35,8 @@ public class AStar {
 	private static final List<Node> boardNodes = Settings.getBoardNodes();
 
 	private static final Node end  = Settings.getEndNode();
-	private static final ThymioHandler thymio = Controller.thymioHandler;
+	private static final ThymioHandler thymioImage = Controller.thymioHandler;
+	private static final ThymioController thymio = Settings.tc;
 
 	private static final String TOP = "north";
 	private static final String BOTTOM ="south";
@@ -205,6 +206,7 @@ public class AStar {
 		path  = edges;
 		for(Edge e : path){
 			System.out.println(e.print());
+			thymioImage.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
 			thymio.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
 		}
 		System.out.println("done");
@@ -233,9 +235,9 @@ public class AStar {
 		edges = new ArrayList<Edge>();
 		openList = new ArrayList<Integer>();
 		closedList = new ArrayList<Integer>();
-		start = thymio.getPosAsNode();
+		start = thymioImage.getPosAsNode();
 		start = Settings.getStartNode();
-		start.setOrientation(thymio.getOrientation());
+		start.setOrientation(thymioImage.getOrientation());
 		currentNode = start;
 		start.setParentNode(currentNode);
 		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
