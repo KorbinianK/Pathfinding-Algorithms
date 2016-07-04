@@ -10,8 +10,7 @@ public class ThymioController {
 	public ThymioController(){
 		t = new Thymio("192.168.10.1");
     	t.setSpeed("ahead", 1000);
-    	Controller c = new Controller();
-    	AStar.calculate();
+    	
 	}
 
 	public Thymio getThymio() {

@@ -37,7 +37,8 @@ public class ThymioHandler extends Image{
 	private static final String BOTTOM ="south";
 	private static final String LEFT = "west";
 	private static final String RIGHT = "east";
-	Thymio t = ThymioController.t;
+	ThymioController tc = Settings.tc;
+	Thymio t = Settings.t;
 	private static int CURRENT_ROTATION = 0;
 	
 	

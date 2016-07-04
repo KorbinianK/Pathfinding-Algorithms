@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.List;
 
 import de.ur.mi.graphics.Color;
+import iw.ur.thymio.Thymio.Thymio;
 import map.CSVData;
 import map.Chessboard;
 import pathfinding.Node;
@@ -95,7 +96,8 @@ public class Settings  {
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
 	private static Chessboard board = new Chessboard();
-
+	public static ThymioController tc = new ThymioController();
+	public static Thymio t = tc.getThymio();
 
 	
 	

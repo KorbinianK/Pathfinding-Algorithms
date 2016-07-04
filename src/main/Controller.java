@@ -37,7 +37,8 @@ public class Controller extends GraphicsApp implements KeyListener {
 		private static final int MAX_SPEED = Settings.getSpeedMax();
 		private static Chessboard board = Settings.getBoard();
 		public static ThymioHandler thymioHandler ;
-		public static Thymio thymio;
+		public static Thymio thymio =  Settings.t;
+		public static ThymioController tc = Settings.tc;
 	
 	/**
 	 * Basic setup method 
@@ -49,9 +50,7 @@ public class Controller extends GraphicsApp implements KeyListener {
       	background(Settings.getColorBackground());
       	thymioHandler = new ThymioHandler(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioStartRotation());
       	if(Settings.useThymio()){
-      		 noLoop();
-      		ThymioController tc = new ThymioController();
-      		thymio = tc.getThymio();
+      		
 //      		setThymioSpeed(thymio);
       	}
     }
@@ -129,7 +128,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 			}
 			break;
 		case'n':
-			Settings.disableLabels();
+			thymio.drive(1000, 1000);
 			break;
     	}
     	
