@@ -1,12 +1,10 @@
 package pathfinding;
 
-import java.awt.Container;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import iw.ur.thymio.Thymio.Thymio;
 import main.Controller;
 import main.Helper;
 import main.Settings;
@@ -30,13 +28,11 @@ import thymio.ThymioHandler;
 public class AStar {
 
 	private static final int COST_TURN = Settings.getTurnCost();
-
 	private static final Chessboard board = Settings.getBoard();
 	private static final List<Node> boardNodes = Settings.getBoardNodes();
-
 	private static final Node end  = Settings.getEndNode();
 	private static final ThymioHandler thymioImage = Controller.thymioHandler;
-	private static final ThymioController thymio = Settings.tc;
+	private static final ThymioController thymio = Settings.getThymioController();
 
 	private static final String TOP = "north";
 	private static final String BOTTOM ="south";
@@ -46,8 +42,6 @@ public class AStar {
 	private static Node currentNode;
 	private static Node start;
 	private static boolean finished = false;
-	
-
 	private static List<Edge> edges;
 	private static List<Integer> openList;
 	private static List<Integer> closedList;
@@ -57,7 +51,7 @@ public class AStar {
 	/**
 	 * Calculation of A*
 	 */
-	public static void calculate(){	
+	public void calculate(){	
 		int timeout = 0;
 		initAStar();
 		while(true){
@@ -147,6 +141,10 @@ public class AStar {
 	}
 
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Edge> getPath(){
 		if(path != null){
 			return path;
@@ -207,7 +205,9 @@ public class AStar {
 		for(Edge e : path){
 			System.out.println(e.print());
 			thymioImage.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
-			thymio.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
+			if(Settings.useThymio()){
+				thymio.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
+			}
 		}
 		System.out.println("done");
 	}

@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="opencsv-3.8.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_91"/>
-	<classpathentry kind="lib" path="speedyThymio.jar"/>
 	<classpathentry kind="lib" path="ProcessingOO-2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

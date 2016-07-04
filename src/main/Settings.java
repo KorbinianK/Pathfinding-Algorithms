@@ -26,7 +26,7 @@ import pathfinding.Node;
 public class Settings  {
 	
 	// General Settings
-	private static final boolean USE_THYMIO =true;
+	private static final boolean USE_THYMIO =false;
 
 	private static final boolean OVERWRITE_MAP = false;
 	private static final int ANIMATION_DELAY = 50;
@@ -44,13 +44,15 @@ public class Settings  {
 	//Thymio Settings
 	private static final String THYMIO_IMG = "images/thymio.gif"; 	//	Awesome Thymio Image
 	private static final String THYMIO_START_ROTATION = "north";
+	// Real Thymio
 	private static final int MAX_SPEED = 500;
 	private static final short AHEAD_SPEED = 1000;
 	private static final short ROTATION_SPEED = 50;
+	private static final long MOVE_BIAS = 3000;
 	
 	// Colors
-	private static final Color COLOR_CHESS_A = Color.DARK_GRAY;
-	private static final Color COLOR_CHESS_B = Color.LIGHT_GRAY;
+	private static final Color COLOR_CHESS_A = Color.LIGHT_GRAY; // Black
+	private static final Color COLOR_CHESS_B = Color.DARK_GRAY; // White
 	private static final Color COLOR_OBSTACLE = Color.RED;
 	private static final Color COLOR_MOVEMENT = Color.YELLOW;
 	private static final Color COLOR_BG = Color.WHITE;
@@ -93,11 +95,13 @@ public class Settings  {
 	private static final String BOTTOM = "south";
 	private static final String LEFT = "west";
 	private static final String RIGHT = "east";
+
+
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
 	private static Chessboard board = new Chessboard();
-	public static ThymioController tc = new ThymioController();
-	public static Thymio t = tc.getThymio();
+	private static ThymioController tc = new ThymioController();
+	private static Thymio t = tc.getThymio();
 
 	
 	
@@ -623,11 +627,32 @@ public class Settings  {
 
 
 	public static boolean useThymio() {
-		// TODO Auto-generated method stub
 		return USE_THYMIO;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public static Thymio getThymio() {
+		return t;
+	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public static ThymioController getThymioController() {
+		return tc;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static long getMoveBias() {
+		return MOVE_BIAS;
+	}
 
 	
 }

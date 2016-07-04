@@ -5,11 +5,8 @@ import java.util.HashMap;
 
 
 import de.ur.mi.graphics.Image;
-import iw.ur.thymio.Thymio.Thymio;
-import main.Controller;
 import main.Helper;
 import main.Settings;
-import main.ThymioController;
 
 /**
  * <h1> ThymioHandler Class for the Thymio project</h1>
@@ -37,7 +34,6 @@ public class ThymioHandler extends Image{
 	private static final String BOTTOM ="south";
 	private static final String LEFT = "west";
 	private static final String RIGHT = "east";
-	ThymioController tc = Settings.tc;
 	
 	private static int CURRENT_ROTATION = 0;
 	
@@ -174,7 +170,6 @@ public class ThymioHandler extends Image{
 			System.out.println("Thymio is at ["+getPosAsNode().getChessCoord()+"]");
 			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
 			currentNode.updateNode(270);
-			
 			if(Settings.delayed()){
 				delay();
 			}
@@ -210,7 +205,6 @@ public class ThymioHandler extends Image{
 			System.out.println("Thymio at "+getPosAsNode().getChessCoord());
 			Node currentNode = Settings.getBoardNodes().get(getPosAsID());
 			currentNode.updateNode(0);
-			
 			if(Settings.delayed()){
 				delay();
 			}
@@ -277,7 +271,6 @@ public class ThymioHandler extends Image{
 		try {
 			Thread.sleep(Settings.getDelay());
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}

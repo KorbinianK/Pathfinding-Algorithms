@@ -1,8 +1,5 @@
 package pathfinding;
 
-
-import java.util.List;
-
 import acmx.export.java.util.ArrayList;
 import de.ur.mi.graphics.Color;
 import de.ur.mi.graphics.Label;

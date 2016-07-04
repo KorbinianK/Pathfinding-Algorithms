@@ -35,10 +35,11 @@ public class Controller extends GraphicsApp implements KeyListener {
 		private static final short SPEED_AHEAD = Settings.getSpeedAhead();
 		private static final short SPEED_ROTATION = Settings.getSpeedRotation();
 		private static final int MAX_SPEED = Settings.getSpeedMax();
+		private static final long MOVE_BIAS = Settings.getMoveBias();
 		private static Chessboard board = Settings.getBoard();
 		public static ThymioHandler thymioHandler ;
-		public static Thymio thymio =  Settings.t;
-		public static ThymioController tc = Settings.tc;
+		public static Thymio thymio =  Settings.getThymio();
+		public static ThymioController tc = Settings.getThymioController();
 	
 	/**
 	 * Basic setup method 
@@ -48,22 +49,30 @@ public class Controller extends GraphicsApp implements KeyListener {
     public void setup() {
     	size(CANVAS_WIDTH,CANVAS_HEIGHT);   
       	background(Settings.getColorBackground());
-      	thymioHandler = new ThymioHandler(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioStartRotation());
+    	thymioHandler = new ThymioHandler(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioStartRotation());
       	if(Settings.useThymio()){
-      		
-//      		setThymioSpeed(thymio);
+      		setupThymio(thymio);
       	}
+
     }
     
     /**
      * Sets the Speeds of the Real Thymio
      * @param t
      */
-    private void setThymioSpeed(Thymio t) {
+    private void setupThymio(Thymio t) {
     	
     	t.setSpeed("max", MAX_SPEED);
     	t.setSpeed("rotation", SPEED_ROTATION);
     	t.setSpeed("ahead", SPEED_AHEAD);
+    	t.setMoveSensitivity(MOVE_BIAS);
+    	t.setLED(32, 0, 0);
+    	if(Settings.getStartFieldColor() == Settings.getColorChessA()){
+        	t.setStartField(1);
+    	}else{
+    		t.setStartField(0);
+    	}
+
     }
     
    /**
@@ -88,22 +97,30 @@ public class Controller extends GraphicsApp implements KeyListener {
     	switch (e.getKeyChar()) {
 		case 'd':
 			thymioHandler.moveRight();		
-			tc.moveRight();
+			if(Settings.useThymio()){
+				tc.moveRight();
+			}
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 'w':
 			thymioHandler.moveUp();	
-			tc.moveUp();
+			if(Settings.useThymio()){
+				tc.moveUp();
+			}
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 'a':
 			thymioHandler.moveLeft();	
-			tc.moveLeft();
+			if(Settings.useThymio()){
+				tc.moveLeft();
+			}
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 's':
 			thymioHandler.moveDown();
-			tc.moveDown();
+			if(Settings.useThymio()){
+				tc.moveDown();
+			}
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		
