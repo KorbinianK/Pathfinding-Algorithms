@@ -13,6 +13,7 @@ public class ThymioController {
 
 	 public static Thymio t;
 	private int CURRENT_ROTATION;
+	private boolean disableDrive = true;
 
 	public ThymioController(){
 		t = new Thymio("192.168.10.1");
@@ -143,7 +144,10 @@ public class ThymioController {
 		public void moveLeft() {	
 			
 				setOrientation(LEFT);	
-				t.drive(SPEED_AHEAD, SPEED_AHEAD);
+				if(!disableDrive){
+					t.drive(SPEED_AHEAD, SPEED_AHEAD);
+				}
+			
 		}
 		
 		
@@ -154,7 +158,9 @@ public class ThymioController {
 		public void moveRight() {
 		
 				setOrientation(RIGHT);
-				t.drive(SPEED_AHEAD, SPEED_AHEAD);
+				if(!disableDrive){
+					t.drive(SPEED_AHEAD, SPEED_AHEAD);
+				}
 		}
 		
 		/**
@@ -163,7 +169,9 @@ public class ThymioController {
 		public void moveUp() {
 			
 				setOrientation(TOP);
-				t.drive(SPEED_AHEAD, SPEED_AHEAD);
+				if(!disableDrive){
+					t.drive(SPEED_AHEAD, SPEED_AHEAD);
+				}
 		}
 
 
@@ -173,7 +181,9 @@ public class ThymioController {
 		 */
 		public void moveDown() {
 			setOrientation(BOTTOM);
-			t.drive(SPEED_AHEAD, SPEED_AHEAD);
+			if(!disableDrive ){
+				t.drive(SPEED_AHEAD, SPEED_AHEAD);
+			}
 		}
 	
 	

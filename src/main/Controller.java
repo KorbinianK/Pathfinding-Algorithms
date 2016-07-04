@@ -88,18 +88,22 @@ public class Controller extends GraphicsApp implements KeyListener {
     	switch (e.getKeyChar()) {
 		case 'd':
 			thymioHandler.moveRight();		
+			tc.moveRight();
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 'w':
 			thymioHandler.moveUp();	
+			tc.moveUp();
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 'a':
 			thymioHandler.moveLeft();	
+			tc.moveLeft();
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		case 's':
 			thymioHandler.moveDown();
+			tc.moveDown();
 			System.out.println("Reached destination: "+reachedDest());
 			break;
 		
