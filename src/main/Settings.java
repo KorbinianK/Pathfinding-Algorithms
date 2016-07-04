@@ -26,7 +26,7 @@ import pathfinding.Node;
 public class Settings  {
 	
 	// General Settings
-	private static final boolean USE_THYMIO =false;
+	private static final boolean USE_THYMIO =true;
 
 	private static final boolean OVERWRITE_MAP = false;
 	private static final int ANIMATION_DELAY = 50;

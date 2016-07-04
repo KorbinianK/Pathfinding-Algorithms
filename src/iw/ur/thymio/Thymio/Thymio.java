@@ -81,16 +81,6 @@ public class Thymio {
 	}
 	
 	
-	public void setLED(int r, int g, int b){
-		List<Short> color = new ArrayList<Short>();
-		color.add((short) r);
-		color.add((short) g);
-		color.add((short) b);
-		
-		connection.setSpeed(color);		
-	}
-	
-	
 	/**
 	 * Generates "new" Thymio with given IP 
 	 * Inits Thymio Connection 

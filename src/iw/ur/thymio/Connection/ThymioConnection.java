@@ -129,27 +129,6 @@ public class ThymioConnection {
 	}
 	
 	
-	public synchronized void setLed(List<Short> data){
-		synchronized (this) {
-			try {
-				String msg = "leds.top";
-
-				for (int i = 0; i < data.size(); i++) {
-					msg += " ";
-					msg += data.get(i).toString();
-				}
-
-				write(msg);
-				msg = read();
-				if (!msg.startsWith("ok: "))
-					System.out.println(msg);
-			} catch (IOException e) {
-				System.out.println("error while led: " + e);
-				e.printStackTrace();
-			}
-			
-		}
-	}
 
 	
 	/**

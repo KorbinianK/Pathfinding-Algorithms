@@ -66,7 +66,7 @@ public class Controller extends GraphicsApp implements KeyListener {
     	t.setSpeed("rotation", SPEED_ROTATION);
     	t.setSpeed("ahead", SPEED_AHEAD);
     	t.setMoveSensitivity(MOVE_BIAS);
-    	t.setLED(32, 0, 0);
+    	
     	if(Settings.getStartFieldColor() == Settings.getColorChessA()){
         	t.setStartField(1);
     	}else{
