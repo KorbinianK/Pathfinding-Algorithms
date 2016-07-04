@@ -25,7 +25,7 @@ import pathfinding.Node;
 public class Settings  {
 	
 	// General Settings
-	private static final boolean USE_THYMIO =false;
+	private static final boolean USE_THYMIO =true;
 
 	private static final boolean OVERWRITE_MAP = false;
 	private static final int ANIMATION_DELAY = 50;
@@ -53,7 +53,7 @@ public class Settings  {
 	private static final Color COLOR_OBSTACLE = Color.RED;
 	private static final Color COLOR_MOVEMENT = Color.YELLOW;
 	private static final Color COLOR_BG = Color.WHITE;
-	private static final Color COLOR_START = Color.GREEN;
+	private static final Color COLOR_START = Color.CYAN;
 	private static final Color COLOR_END = Color.BLUE;
 	private static final Color COLOR_OPEN_NODE = Color.GREEN;
 	private static final Color COLOR_CLOSED_NODE = Color.MAGENTA;

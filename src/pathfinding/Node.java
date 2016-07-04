@@ -97,6 +97,7 @@ public class Node {
 	    fixedColors.add(Settings.getColorObstacle());
 		fixedColors.add(Settings.getStartFieldColor());
 		fixedColors.add(Settings.getEndFieldColor());
+		
 	}
 	
 	
@@ -248,7 +249,7 @@ public class Node {
 	 * @param c: Color
 	 */
 	public void setColor(Color c){
-		if(color == null){
+		if(color == null || fixedColors.contains(c)){
 			originalColor = c;
 		}
 		color = c;
@@ -407,4 +408,6 @@ public class Node {
 	public void setEnd() {
 		isEnd = true;
 	}
+
+
 }

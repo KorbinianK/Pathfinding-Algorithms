@@ -49,8 +49,10 @@ public class Controller extends GraphicsApp implements KeyListener {
       	background(Settings.getColorBackground());
       	thymioHandler = new ThymioHandler(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioStartRotation());
       	if(Settings.useThymio()){
-      		thymio = new Thymio("192.168.10.1");
-      		setThymioSpeed(thymio);
+      		 noLoop();
+      		ThymioController tc = new ThymioController();
+      		thymio = tc.getThymio();
+//      		setThymioSpeed(thymio);
       	}
     }
     

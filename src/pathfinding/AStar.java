@@ -45,7 +45,7 @@ public class AStar {
 	private static Node currentNode;
 	private static Node start;
 	private static boolean finished = false;
-	private static int timeout = 0;
+	
 
 	private static List<Edge> edges;
 	private static List<Integer> openList;
@@ -56,10 +56,8 @@ public class AStar {
 	/**
 	 * Calculation of A*
 	 */
-	public static void calculate(){
-		
-		
-		
+	public static void calculate(){	
+		int timeout = 0;
 		initAStar();
 		while(true){
 			
@@ -235,9 +233,9 @@ public class AStar {
 		edges = new ArrayList<Edge>();
 		openList = new ArrayList<Integer>();
 		closedList = new ArrayList<Integer>();
-//		start = thymio.getPosAsNode();
+		start = thymio.getPosAsNode();
 		start = Settings.getStartNode();
-//		start.setOrientation(thymio.getOrientation());
+		start.setOrientation(thymio.getOrientation());
 		currentNode = start;
 		start.setParentNode(currentNode);
 		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");
