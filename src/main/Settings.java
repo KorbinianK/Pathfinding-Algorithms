@@ -26,11 +26,11 @@ import pathfinding.Node;
 public class Settings  {
 	
 	// General Settings
-	private static final boolean USE_THYMIO =true;
+	private static final boolean USE_THYMIO =false;
 
 	private static final boolean OVERWRITE_MAP = false;
 	private static final int ANIMATION_DELAY = 50;
-	private static final boolean DELAY_ANIMATIONS = false;
+	private static final boolean DELAY_ANIMATIONS = true;
 	private static final boolean TILE_BORDER = true;
 	private static final boolean SHOW_OBSTACLES = true;
 	private static boolean SHOW_LABELS = false;
