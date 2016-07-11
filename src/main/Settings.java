@@ -26,7 +26,7 @@ import pathfinding.Node;
 public class Settings  {
 	
 	// General Settings
-	private static final boolean USE_THYMIO =false;
+	private static final boolean USE_THYMIO =true;
 
 	private static final boolean OVERWRITE_MAP = false;
 	private static final int ANIMATION_DELAY = 50;
@@ -38,7 +38,7 @@ public class Settings  {
 	private static final boolean SHOW_CLOSED_LIST = true;
 	
 	//A* Settings
-	private static final int H_MODIFIER = 2; // Best 2
+	private static final int H_MODIFIER = 5; // Best 5
 	private static final int TURN_COST = 1; // Best 1
 	
 	//Thymio Settings
@@ -46,7 +46,7 @@ public class Settings  {
 	private static final String THYMIO_START_ROTATION = "north";
 	// Real Thymio
 	private static final int MAX_SPEED = 500;
-	private static final short AHEAD_SPEED = 1000;
+	private static final short AHEAD_SPEED = 800;
 	private static final short ROTATION_SPEED = 50;
 	private static final long MOVE_BIAS = 3000;
 	
