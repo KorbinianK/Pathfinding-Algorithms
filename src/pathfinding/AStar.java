@@ -90,10 +90,16 @@ public class AStar {
 			  Node neighbour = board.getNodeByID(id);
 			  String direction = directions.get(neighbour);
 			 if(!closedList.contains(neighbour.getId()) && !neighbour.isObstacle()){
-				  
-				   int h_cost = neighbour.getHCost();
+				 int h_cost;
+				 if(Settings.useDijkstra()){
+					 h_cost = 0;
+				 }else{
+					 h_cost = neighbour.getHCost();
+					
+				 }
 				   int curr = currentNode.getGCost();
 				   int g_cost = calculateCostG(neighbour, direction)+curr;
+				   
 				   int f_cost = g_cost+h_cost;
 				   
 				   if(openList.contains(neighbour.getId())){

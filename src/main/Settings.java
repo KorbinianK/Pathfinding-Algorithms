@@ -27,7 +27,7 @@ import pathfinding.Node;
 public class Settings  {
 	
 	// General Settings
-	private static final boolean USE_THYMIO =true;
+	private static final boolean USE_THYMIO =false;
 
 	private static final boolean OVERWRITE_MAP = false;
 	private static final int ANIMATION_DELAY = 0;
@@ -41,6 +41,7 @@ public class Settings  {
 	//A* Settings
 	private static final int H_MODIFIER = 5; // Best 5
 	private static final int TURN_COST = 1; // Best 1
+	private static boolean DIJKSTRA = false;
 	
 	//Thymio Settings
 	private static final String THYMIO_IMG = "images/thymio.gif"; 	//	Awesome Thymio Image
@@ -70,18 +71,18 @@ public class Settings  {
 	private static final int FONT_SIZE_CHESS = 15;
 	
 	//	Startfield (currently possible: 0-19)
-	private static final int THYMIO_STARTFIELD_X = 13; 
-	private static final int THYMIO_STARTFIELD_Y = 7;
+	private static final int THYMIO_STARTFIELD_X = 1; 
+	private static final int THYMIO_STARTFIELD_Y = 1;
 	
 	//	Endfield (currently possible: 0-19)
-	private static final int THYMIO_ENDFIELD_X = 6;
+	private static final int THYMIO_ENDFIELD_X = 15;
 	private static final int THYMIO_ENDFIELD_Y = 5;
 	
 	/*
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static final int RANDOM_OBSTACLE_COUNT = 3;
+	private static final int RANDOM_OBSTACLE_COUNT = 5;
 	private static final int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	
 
@@ -654,6 +655,12 @@ public class Settings  {
 	public static long getMoveBias() {
 		return MOVE_BIAS;
 	}
+
+
+	public static boolean useDijkstra() {
+		return DIJKSTRA;
+	}
+
 
 	
 }
