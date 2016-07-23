@@ -2,8 +2,6 @@ package thymio;
 
 import pathfinding.Node;
 import java.util.HashMap;
-
-
 import de.ur.mi.graphics.Image;
 import main.Helper;
 import main.Settings;

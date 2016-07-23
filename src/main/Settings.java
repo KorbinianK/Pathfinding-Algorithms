@@ -3,7 +3,8 @@ import java.io.IOException;
 import java.util.List;
 
 import de.ur.mi.graphics.Color;
-import iw.ur.thymio.Thymio.Thymio;
+import iw.ur.thymio.Thymio2.Thymio;
+//import iw.ur.thymio.Thymio.Thymio;
 import map.CSVData;
 import map.Chessboard;
 import pathfinding.Node;
@@ -29,7 +30,7 @@ public class Settings  {
 	private static final boolean USE_THYMIO =true;
 
 	private static final boolean OVERWRITE_MAP = false;
-	private static final int ANIMATION_DELAY = 50;
+	private static final int ANIMATION_DELAY = 0;
 	private static final boolean DELAY_ANIMATIONS = true;
 	private static final boolean TILE_BORDER = true;
 	private static final boolean SHOW_OBSTACLES = true;
@@ -45,8 +46,8 @@ public class Settings  {
 	private static final String THYMIO_IMG = "images/thymio.gif"; 	//	Awesome Thymio Image
 	private static final String THYMIO_START_ROTATION = "north";
 	// Real Thymio
-	private static final int MAX_SPEED = 500;
-	private static final short AHEAD_SPEED = 800;
+	private static final int MAX_SPEED = 1000;
+	private static final short AHEAD_SPEED = 500;
 	private static final short ROTATION_SPEED = 50;
 	private static final long MOVE_BIAS = 3000;
 	
@@ -69,11 +70,11 @@ public class Settings  {
 	private static final int FONT_SIZE_CHESS = 15;
 	
 	//	Startfield (currently possible: 0-19)
-	private static final int THYMIO_STARTFIELD_X = 1; 
-	private static final int THYMIO_STARTFIELD_Y = 1;;
+	private static final int THYMIO_STARTFIELD_X = 13; 
+	private static final int THYMIO_STARTFIELD_Y = 7;
 	
 	//	Endfield (currently possible: 0-19)
-	private static final int THYMIO_ENDFIELD_X = 16;
+	private static final int THYMIO_ENDFIELD_X = 6;
 	private static final int THYMIO_ENDFIELD_Y = 5;
 	
 	/*

@@ -1,15 +1,15 @@
 package main;
-import de.ur.mi.graphicsapp.*;
-import iw.ur.thymio.Thymio.Thymio;
-import map.Chessboard;
-import thymio.ThymioHandler;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 
+import de.ur.mi.graphicsapp.GraphicsApp;
+import iw.ur.thymio.Thymio2.Thymio;
+//import iw.ur.thymio.Thymio2.Thymio;
+import map.Chessboard;
 import pathfinding.AStar;
 import pathfinding.Node;
+import thymio.ThymioHandler;
 
 /**
  * <h1>Controller Class for the Thymio project</h1>
@@ -62,9 +62,9 @@ public class Controller extends GraphicsApp implements KeyListener {
      */
     private void setupThymio(Thymio t) {
     	
-    	t.setSpeed("max", MAX_SPEED);
-    	t.setSpeed("rotation", SPEED_ROTATION);
-    	t.setSpeed("ahead", SPEED_AHEAD);
+//    	t.setSpeed("max", MAX_SPEED);
+//    	t.setSpeed("rotation", SPEED_ROTATION);
+//    	t.setSpeed("ahead", SPEED_AHEAD);
     	t.setMoveSensitivity(MOVE_BIAS);
     	
     	if(Settings.getStartFieldColor() == Settings.getColorChessA()){

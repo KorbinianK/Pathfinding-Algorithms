@@ -1,7 +1,6 @@
 package main;
 
-import iw.ur.thymio.Thymio.Thymio;
-
+import iw.ur.thymio.Thymio2.Thymio;
 
 public class ThymioController {
 	
@@ -18,8 +17,8 @@ public class ThymioController {
 	public ThymioController(){
 		if(Settings.useThymio()){
 			t = new Thymio("192.168.10.1");
-	    	t.setSpeed("ahead", 800);
-	    	t.setSpeed("rotation", 300);
+//	    	t.setSpeed("ahead", 800);
+//	    	t.setSpeed("rotation", 300);
 		}
 	}
 

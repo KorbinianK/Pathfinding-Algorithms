@@ -1,4 +1,4 @@
-package iw.ur.thymio.Thymio;
+package iw.ur.thymio.Thymio2;
 
 import iw.ur.thymio.Connection.ThymioConnection;
 
@@ -24,16 +24,16 @@ import java.util.List;
 
 public class Thymio {
 	
-	private static int MAX_SPEED = 500;
+	private static int MAX_SPEED = 100;
 	private final static double BASE_WIDTH = 95;     
 	private final static double SPEED_COEF = 2.93;	
-	private static short SPEED_ROTATION = 100;
+	private static short SPEED_ROTATION = 50;
 	private static short SPEED_AHEAD = 100;
 	
 	private final static double DEFAULT_WHITE_FIELD = 900;
 	private final static double DEFAULT_BLACK_FIELD = 250;
 	private final static double FIELD_BIAS = 100;
-	private final static long DRIVE_BIAS = 4000;
+	private final static long DRIVE_BIAS = 6000;
 	private final static int MOVE_FIELD_BIAS = 350;
 	
 	private final static int WHITE_FIELD = 1;
@@ -156,13 +156,10 @@ public class Thymio {
 	 */
 	public void drive(int motorLeft, int motorRight){
 		List<Short> driveList = new ArrayList<Short>();
-		driveList.add((short) ((short) motorLeft-10));
+		driveList.add((short) ((short) motorLeft));
 		driveList.add((short) ((short) motorRight));
 		
 		connection.setSpeed(driveList);
-//		List<Short> driveList2 = new ArrayList<Short>();
-//		driveList2.add((short) ((short) motorLeft-15));
-//		connection.setSpeed(driveList);
 	}
 	
 	/**
@@ -186,23 +183,23 @@ public class Thymio {
 
 		
 		while(!arrived){
-//			while(!hasCorrected){
-//				leftGround = getGroundReflected()[0];
-//				rightGround = getGroundReflected()[1];
-//				drive(50,50);
-//				if(startField != onField()){
-//					if(leftGround > startLeftGround + MOVE_FIELD_BIAS || leftGround < startLeftGround - MOVE_FIELD_BIAS
-//							|| rightGround > startRightGround + MOVE_FIELD_BIAS || rightGround < startRightGround - MOVE_FIELD_BIAS){
-//						correct(startField, leftGround, rightGround);
-//						correctCount++;
-//						System.out.println("Corrected: " + correctCount + "mal!");
-//						if(correctCount == CORRECT_TIME){
-//							hasCorrected = true;
-//						}
-//					}
-//					System.out.println("in !hascorrected");
-//				}
-//			}
+			while(!hasCorrected){
+				leftGround = getGroundReflected()[0];
+				rightGround = getGroundReflected()[1];
+				drive(50,50);
+				if(startField != onField()){
+					if(leftGround > startLeftGround + MOVE_FIELD_BIAS || leftGround < startLeftGround - MOVE_FIELD_BIAS
+							|| rightGround > startRightGround + MOVE_FIELD_BIAS || rightGround < startRightGround - MOVE_FIELD_BIAS){
+						correct(startField, leftGround, rightGround);
+						correctCount++;
+						System.out.println("Corrected: " + correctCount + "mal!");
+						if(correctCount == CORRECT_TIME){
+							hasCorrected = true;
+						}
+					}
+					System.out.println("in !hascorrected");
+				}
+			}
 			
 			drive(SPEED_AHEAD,SPEED_AHEAD);
 			
@@ -297,7 +294,7 @@ public class Thymio {
 		}
 		
 		dt = (BASE_WIDTH*SPEED_COEF)/(2*SPEED_ROTATION)*Math.abs(rad);
-		milli = (long)(830*dt);
+		milli = (long)(860*dt);
 		
 
 		
