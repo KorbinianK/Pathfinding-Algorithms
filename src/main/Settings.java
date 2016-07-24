@@ -3,11 +3,12 @@ import java.io.IOException;
 import java.util.List;
 
 import de.ur.mi.graphics.Color;
-import iw.ur.thymio.Thymio2.Thymio;
 //import iw.ur.thymio.Thymio.Thymio;
 import map.CSVData;
 import map.Chessboard;
 import pathfinding.Node;
+import thymio.Thymio;
+import thymio.ThymioController;
 
 
 /**
@@ -44,7 +45,7 @@ public class Settings  {
 	private static boolean DIJKSTRA = false;
 	
 	//Thymio Settings
-	private static final String THYMIO_IMG = "images/thymio.gif"; 	//	Awesome Thymio Image
+	private static final String THYMIO_IMG = "images/robot.gif"; 	//	Awesome Thymio Image
 	private static final String THYMIO_START_ROTATION = "north";
 	// Real Thymio
 	private static final int MAX_SPEED = 1000;

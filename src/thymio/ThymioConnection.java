@@ -1,4 +1,4 @@
-package iw.ur.thymio.Connection;
+package thymio;
 
 import java.io.BufferedReader;
 import java.io.IOException;

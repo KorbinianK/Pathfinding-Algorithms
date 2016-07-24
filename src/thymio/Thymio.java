@@ -1,6 +1,4 @@
-package iw.ur.thymio.Thymio2;
-
-import iw.ur.thymio.Connection.ThymioConnection;
+package thymio;
 
 import java.util.ArrayList;
 import java.util.List;

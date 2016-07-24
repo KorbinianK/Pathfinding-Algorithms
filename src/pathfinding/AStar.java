@@ -8,9 +8,9 @@ import java.util.List;
 import main.Controller;
 import main.Helper;
 import main.Settings;
-import main.ThymioController;
 import map.Chessboard;
-import thymio.ThymioHandler;
+import thymio.ThymioController;
+import thymio.ThymioVisualController;
 /**
  * <h1> A* Reader Class for the Thymio project</h1>
  * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
@@ -31,7 +31,7 @@ public class AStar {
 	private static final Chessboard board = Settings.getBoard();
 	private static final List<Node> boardNodes = Settings.getBoardNodes();
 	private static final Node end  = Settings.getEndNode();
-	private static final ThymioHandler thymioImage = Controller.thymioHandler;
+	private static final ThymioVisualController fThymio = Controller.thymioHandler;
 	private static final ThymioController thymio = Settings.getThymioController();
 
 	private static final String TOP = "north";
@@ -210,7 +210,7 @@ public class AStar {
 		path  = edges;
 		for(Edge e : path){
 			System.out.println(e.print());
-			thymioImage.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
+			fThymio.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
 			if(Settings.useThymio()){
 				thymio.move(Helper.isPositionedTo(e.getSource(), e.getDestination()));
 			}
@@ -241,9 +241,8 @@ public class AStar {
 		edges = new ArrayList<Edge>();
 		openList = new ArrayList<Integer>();
 		closedList = new ArrayList<Integer>();
-		start = thymioImage.getPosAsNode();
-		start = Settings.getStartNode();
-		start.setOrientation(thymioImage.getOrientation());
+		start = fThymio.getPosAsNode();
+		start.setOrientation(fThymio.getOrientation());
 		currentNode = start;
 		start.setParentNode(currentNode);
 		System.out.println("##### Calculating Route from "+start.getChessCoord()+" to "+end.getChessCoord()+" #####");

@@ -7,7 +7,7 @@ import main.Helper;
 import main.Settings;
 
 /**
- * <h1> ThymioHandler Class for the Thymio project</h1>
+ * <h1> Thymio Controller Class for the Thymio project</h1>
  * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
  * 
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
@@ -21,7 +21,7 @@ import main.Settings;
  */
 
 
-public class ThymioHandler extends Image{
+public class ThymioVisualController extends Image{
 	
 	// Fixed, don't change, adjustments in Settings Class
 	private static final int DISTANCE = Settings.getFieldWidth();
@@ -46,7 +46,7 @@ public class ThymioHandler extends Image{
  * @param src: Image
  * @param orientation
  */
-	public ThymioHandler(double xPos, double yPos,int width, int height, String src, String orientation){
+	public ThymioVisualController(double xPos, double yPos,int width, int height, String src, String orientation){
 		super(xPos,yPos,width,height,src);
 		setOrientation(orientation);
 	}

@@ -4,12 +4,13 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 
 import de.ur.mi.graphicsapp.GraphicsApp;
-import iw.ur.thymio.Thymio2.Thymio;
 //import iw.ur.thymio.Thymio2.Thymio;
 import map.Chessboard;
 import pathfinding.AStar;
 import pathfinding.Node;
-import thymio.ThymioHandler;
+import thymio.Thymio;
+import thymio.ThymioController;
+import thymio.ThymioVisualController;
 
 /**
  * <h1>Controller Class for the Thymio project</h1>
@@ -37,7 +38,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 		private static final int MAX_SPEED = Settings.getSpeedMax();
 		private static final long MOVE_BIAS = Settings.getMoveBias();
 		private static Chessboard board = Settings.getBoard();
-		public static ThymioHandler thymioHandler ;
+		public static ThymioVisualController thymioHandler ;
 		public static Thymio thymio =  Settings.getThymio();
 		public static ThymioController tc = Settings.getThymioController();
 	
@@ -49,7 +50,7 @@ public class Controller extends GraphicsApp implements KeyListener {
     public void setup() {
     	size(CANVAS_WIDTH,CANVAS_HEIGHT);   
       	background(Settings.getColorBackground());
-    	thymioHandler = new ThymioHandler(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioStartRotation());
+    	thymioHandler = new ThymioVisualController(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y, FIELD_HEIGHT, FIELD_HEIGHT, Settings.getThymioImg(),Settings.getThymioStartRotation());
       	if(Settings.useThymio()){
       		setupThymio(thymio);
       	}

@@ -1,6 +1,6 @@
-package main;
+package thymio;
 
-import iw.ur.thymio.Thymio2.Thymio;
+import main.Settings;
 
 public class ThymioController {
 	
