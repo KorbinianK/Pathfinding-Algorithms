@@ -5,17 +5,16 @@
 * In Eclipse importieren
 * Controller Klasse als Applet starten
 
-### Aktuelle Funktionen
+### Funktionen
 
    - Schachbrett mit randomisierten Hindernissen (anpassbar)
-   - Feste 20x8 Map wird aus CSV erstellt und gespeichert
+   - Feste 20x8 Map wird aus CSV erstellt und gespeichert bzw neu erstellt (Größe anpassbar)
    - Steuerung von Thymio (grafisch) mit W A S D Tasten
-   - Settings-Klasse in der einige Einstellungen angepasst werden können (Start/Endpunkt, Größe, Bilder, Hindernisse etc) und die wichtigsten Konstanten festgelegt sind
+   - Settings-Klasse in der einige Einstellungen angepasst werden können (Start/Endpunkt, Größe, Bilder, Hindernisse etc) und in der die wichtigsten Konstanten festgelegt sind
    - A* Algorithmus mit der Taste 'C' starten, Thymio fährt kürzeste Route zum Ziel
-   - Route wird grafisch angezeigt
+   - Dijkstra kann alternativ in Settings ausgewählt werden
+   - Route wird grafisch angezeigt (Settings)
+   - "Echter" Thymio kann hinzugeschaltet werden, fährt berechnete Route ab
 
-### Todo:
-   - Implementierung des "echten" Thymio.
-   - Dijkstra Klasse neu programmieren
 
 
