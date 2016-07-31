@@ -16,7 +16,9 @@ import thymio.ThymioVisualController;
  * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
  * 
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
- * 
+ *   
+ * Gruppe 6:
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
  * 
  * Calculates the shortes Path between two Tiles using A* and the Manhattan Heuristic
  * 
@@ -25,7 +27,7 @@ import thymio.ThymioVisualController;
  */
 
 
-public class AStar {
+public class PathCalculation {
 
 	private static final int COST_TURN = Settings.getTurnCost();
 	private static final Chessboard board = Settings.getBoard();

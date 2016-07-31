@@ -12,7 +12,9 @@ import java.util.List;
  * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
  * 
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
- * 
+ *   
+ * Gruppe 6:
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
  * 
  * Generates a new CSV File if necessary and starts the Map Generator
  * Has some Getter for the Nodes

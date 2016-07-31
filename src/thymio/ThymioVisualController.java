@@ -11,9 +11,11 @@ import main.Settings;
  * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
  * 
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
+ *   
+ * Gruppe 6:
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
  * 
- * 
- * Handles the Movement of the "Fake-Thymio"
+ * Handles the Movement of the "Real-Thymio"
  * 
  * 
  * @version 1.0
@@ -190,7 +192,6 @@ public class ThymioVisualController extends Image{
 				delay();
 			}
 		}
-		
 	}
 	
 	/**

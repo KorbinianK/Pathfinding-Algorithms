@@ -6,7 +6,7 @@ import java.util.HashMap;
 import de.ur.mi.graphicsapp.GraphicsApp;
 //import iw.ur.thymio.Thymio2.Thymio;
 import map.Chessboard;
-import pathfinding.AStar;
+import pathfinding.PathCalculation;
 import pathfinding.Node;
 import thymio.Thymio;
 import thymio.ThymioController;
@@ -18,6 +18,8 @@ import thymio.ThymioVisualController;
  * 
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
  * 
+ * Gruppe 6:
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
  * 
  * This Class handles the Interaction between the User and the "Game"
  * 
@@ -33,9 +35,6 @@ public class Controller extends GraphicsApp implements KeyListener {
 		private static final int CANVAS_WIDTH = Settings.getCanvasWidth();
 		private static int THYMIO_STARTFIELD_X = Settings.getStartXCoordinate();
 		private static int THYMIO_STARTFIELD_Y = Settings.getStartYCoordinate();;
-		private static final short SPEED_AHEAD = Settings.getSpeedAhead();
-		private static final short SPEED_ROTATION = Settings.getSpeedRotation();
-		private static final int MAX_SPEED = Settings.getSpeedMax();
 		private static final long MOVE_BIAS = Settings.getMoveBias();
 		private static Chessboard board = Settings.getBoard();
 		public static ThymioVisualController thymioHandler ;
@@ -63,9 +62,6 @@ public class Controller extends GraphicsApp implements KeyListener {
      */
     private void setupThymio(Thymio t) {
     	
-//    	t.setSpeed("max", MAX_SPEED);
-//    	t.setSpeed("rotation", SPEED_ROTATION);
-//    	t.setSpeed("ahead", SPEED_AHEAD);
     	t.setMoveSensitivity(MOVE_BIAS);
     	
     	if(Settings.getStartFieldColor() == Settings.getColorChessA()){
@@ -139,10 +135,10 @@ public class Controller extends GraphicsApp implements KeyListener {
 			break;
 
 		case'c':
-			AStar a = new AStar();
+			PathCalculation a = new PathCalculation();
 			a.calculate();
 			break;	
-		case 'r':
+		case 'r': // Reset Thymio
 			thymioHandler.setPosition(THYMIO_STARTFIELD_X, THYMIO_STARTFIELD_Y);
 			thymioHandler.setOrientation(Settings.getThymioStartRotation());
 			for(Node node : Settings.getBoardNodes()){
@@ -150,7 +146,7 @@ public class Controller extends GraphicsApp implements KeyListener {
 			}
 			break;
 		case'n':
-			thymio.drive(1000, 1000);
+			Settings.toggleLabels();
 			break;
     	}
     	

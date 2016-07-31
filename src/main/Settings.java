@@ -16,7 +16,9 @@ import thymio.ThymioController;
  * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
  * 
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
- * 
+ *   
+ * Gruppe 6:
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
  * 
  * Collection of all the Constants and variables used throughout the project
  * 
@@ -28,10 +30,10 @@ import thymio.ThymioController;
 public class Settings  {
 	
 	// General Settings
-	private static final boolean USE_THYMIO =false;
+	private static final boolean USE_THYMIO =false; //Set to true to activate the real thymio
 
-	private static final boolean OVERWRITE_MAP = false;
-	private static final int ANIMATION_DELAY = 0;
+	private static final boolean OVERWRITE_MAP = true;
+	private static final int ANIMATION_DELAY = 50;
 	private static final boolean DELAY_ANIMATIONS = true;
 	private static final boolean TILE_BORDER = true;
 	private static final boolean SHOW_OBSTACLES = true;
@@ -45,7 +47,7 @@ public class Settings  {
 	private static boolean DIJKSTRA = false;
 	
 	//Thymio Settings
-	private static final String THYMIO_IMG = "images/robot.gif"; 	//	Awesome Thymio Image
+	private static final String THYMIO_IMG = "images/thymio.gif"; 	//	Awesome Thymio Image
 	private static final String THYMIO_START_ROTATION = "north";
 	// Real Thymio
 	private static final int MAX_SPEED = 1000;
@@ -54,8 +56,8 @@ public class Settings  {
 	private static final long MOVE_BIAS = 3000;
 	
 	// Colors
-	private static final Color COLOR_CHESS_A = Color.LIGHT_GRAY; // Black
-	private static final Color COLOR_CHESS_B = Color.DARK_GRAY; // White
+	private static final Color COLOR_CHESS_A = Color.LIGHT_GRAY; // "Black"
+	private static final Color COLOR_CHESS_B = Color.DARK_GRAY; // "White"
 	private static final Color COLOR_OBSTACLE = Color.RED;
 	private static final Color COLOR_MOVEMENT = Color.YELLOW;
 	private static final Color COLOR_BG = Color.WHITE;
@@ -83,7 +85,7 @@ public class Settings  {
 	 * Probability is calculated by picking a random number between 0 and RANDOM_OBSTACLE_PROBABILTY_RANGE.
 	 * If it's greater than RANDOM_OBSTACLE COUNT, it is an obstacle.
 	 */
-	private static final int RANDOM_OBSTACLE_COUNT = 5;
+	private static final int RANDOM_OBSTACLE_COUNT = 3;
 	private static final int RANDOM_OBSTACLE_PROBABILITY_RANGE = 20;
 	
 
@@ -93,12 +95,11 @@ public class Settings  {
 	private static final int CANVAS_WIDTH  = 1000; // 1000 / 1170
 	private static final int FIELD_WIDTH = 50; //50 / 30
 
-	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv"; // maze.csv
+	private static final String OBSTACLE_MAP_SRC = "obstacle_map.csv";
 	private static final String TOP = "north";
 	private static final String BOTTOM = "south";
 	private static final String LEFT = "west";
 	private static final String RIGHT = "east";
-
 
 	private static CSVData csv = getReader();
 	private static List<String[]> csv_list = csv.getEntries();
@@ -557,10 +558,17 @@ public class Settings  {
 	 * 
 	 * @return
 	 */
-	public static void disableLabels() {
+	public static void toggleLabels() {
+		if(SHOW_LABELS == false){
+			SHOW_LABELS = true;
+		}else{
+			SHOW_LABELS = false;
+		}
 		SHOW_LABELS = false;
+		for(Node n : getBoardNodes()){
+			n.updateLabelVision(SHOW_LABELS);
+		}
 		Views.draw();
-		
 	}
 
 

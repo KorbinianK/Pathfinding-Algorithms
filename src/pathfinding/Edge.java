@@ -7,7 +7,9 @@ import main.Helper;
  * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
  * 
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
- * 
+ *   
+ * Gruppe 6:
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
  * 
  * Edge Object that saves the Start and End Node of the Vertex
  * 

@@ -12,7 +12,9 @@ import main.Settings;
  * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
  * 
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
- * 
+ *   
+ * Gruppe 6:
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
  * 
  * Node Object representing a Tile on the Chessboard
  * 
@@ -93,8 +95,7 @@ public class Node {
 	    label_x = x+Settings.getFieldHeight();
 	    fixedColors.add(Settings.getColorObstacle());
 		fixedColors.add(Settings.getStartFieldColor());
-		fixedColors.add(Settings.getEndFieldColor());
-		
+		fixedColors.add(Settings.getEndFieldColor());		
 	}
 	
 	
@@ -106,6 +107,15 @@ public class Node {
 		this.orientation = orientation;		
 	}
 	
+	
+	
+	public void updateLabelVision(boolean visible){
+		if(visible){
+			showLabels = true;
+		}else{
+			showLabels= false;
+		}
+	}
 	
 	/**
 	 * Getter for the Orientation
@@ -275,7 +285,7 @@ public class Node {
 	 */
 	public void draw(){
 		if(h_cost == 0){
-			this.h_cost = AStar.calculateCostH(this);
+			this.h_cost = PathCalculation.calculateCostH(this);
 		}
 		 drawTile(x,y);
 		 if(showLabels && x != Settings.getEndXCoordinate()*FIELD_SIZE && y != Settings.getEndYCoordinate()*FIELD_SIZE){

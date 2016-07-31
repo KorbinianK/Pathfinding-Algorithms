@@ -8,7 +8,9 @@ import main.Settings;
  * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
  * 
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
- * 
+ *   
+ * Gruppe 6:
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
  * 
  * Takes generates the CSV File and creates the obstacles (if set: random)
  * 
@@ -30,7 +32,7 @@ public class MapGenerator {
  * Constructor
  */
 	public MapGenerator(){
-		System.out.println("No map found, created map");
+		System.out.println("New map created");
 		generateMap(source);
 	}
 
@@ -47,7 +49,7 @@ public class MapGenerator {
 		boolean alreadyExists = new File(src).exists();
 
 		try{
-			if(!alreadyExists  ){
+			if(!alreadyExists){
 
 				File file = new File(src);
 				
@@ -74,7 +76,6 @@ public class MapGenerator {
 				}					
 				    writer.flush();
 				    writer.close();
-				   
 			}
 		  
 		}

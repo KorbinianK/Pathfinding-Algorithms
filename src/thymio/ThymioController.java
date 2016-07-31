@@ -2,6 +2,22 @@ package thymio;
 
 import main.Settings;
 
+/**
+ * <h1> Thymio Controller Class for the Thymio project</h1>
+ * <h3> Course: Informationssysteme (SS 2016) Universitaet Regensburg</h3>
+ * 
+ * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
+ *   
+ * Gruppe 6:
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
+ * 
+ * Handles the Movement of the "Fake-Thymio"
+ * 
+ * 
+ * @version 1.0
+ * @author Korbinian Kasberger: korbinian1.kasberger@stud.uni-regensburg.de
+ */
+
 public class ThymioController {
 	
 	private static final String TOP = "north";
@@ -58,7 +74,7 @@ public class ThymioController {
 					}
 				}
 				
-				delayedDrive();
+//				delayedDrive();
 				
 				CURRENT_ROTATION = 270 ;
 				
@@ -77,7 +93,7 @@ public class ThymioController {
 						t.rotate(-90);
 					}
 				}
-				delayedDrive();
+//				delayedDrive();
 				CURRENT_ROTATION = 90;
 				break;
 			case "north":
@@ -94,7 +110,7 @@ public class ThymioController {
 						t.rotate(180);
 					}
 				}
-				delayedDrive();
+//				delayedDrive();
 				CURRENT_ROTATION = 0;
 				break;
 			case "south":
@@ -111,7 +127,7 @@ public class ThymioController {
 						t.rotate(180);
 					}
 				}
-				delayedDrive();
+//				delayedDrive();
 				CURRENT_ROTATION = 180;
 				break;
 			default:
@@ -202,8 +218,10 @@ public class ThymioController {
 	
 	
 	
-	
-	
+		/**
+		 * Move Method to test without chess field
+		 */
+		@SuppressWarnings("unused")
 		private static void delayedDrive() {
 			t.drive(SPEED_AHEAD, SPEED_AHEAD);
 			try {
