@@ -9,7 +9,7 @@ import main.Helper;
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
  *   
  * Gruppe 6:
- * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Mykyttschak Lina 
  * 
  * Edge Object that saves the Start and End Node of the Vertex
  * 

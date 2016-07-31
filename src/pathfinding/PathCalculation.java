@@ -18,7 +18,7 @@ import thymio.ThymioVisualController;
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
  *   
  * Gruppe 6:
- * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Mykyttschak Lina 
  * 
  * Calculates the shortes Path between two Tiles using A* and the Manhattan Heuristic
  * 

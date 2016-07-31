@@ -13,7 +13,7 @@ import main.Settings;
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
  *   
  * Gruppe 6:
- * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Mykyttschak Lina 
  * 
  * Handles the Movement of the "Real-Thymio"
  * 
@@ -137,11 +137,10 @@ public class ThymioVisualController extends Image{
 	
 	
 	/**
-	 * Mpves Thymio
+	 * Moves Thymio
 	 * @param direction
 	 */
 	public void move(String direction){
-		
 		switch (direction) {
 		case TOP:
 			moveUp();

@@ -13,7 +13,7 @@ import pathfinding.Node;
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
  *   
  * Gruppe 6:
- * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Mykyttschak Lina 
  * 
  * Handles the Creation of the Chessboard 
  * Has some Getter for the Nodes

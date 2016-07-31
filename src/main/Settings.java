@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.util.List;
 
 import de.ur.mi.graphics.Color;
-//import iw.ur.thymio.Thymio.Thymio;
 import map.CSVData;
 import map.Chessboard;
 import pathfinding.Node;
@@ -18,7 +17,7 @@ import thymio.ThymioController;
  * <div>Dozent: Prof. Dr. Bernd Ludwig</div>
  *   
  * Gruppe 6:
- * Bauer Louisa, Durry Jan, Kasberger Korbinian, Kocher Sarah, Mykyttschak Lina 
+ * Bauer Louisa, Durry Jan, Kasberger Korbinian, Mykyttschak Lina 
  * 
  * Collection of all the Constants and variables used throughout the project
  * 
@@ -47,7 +46,7 @@ public class Settings  {
 	private static boolean DIJKSTRA = false;
 	
 	//Thymio Settings
-	private static final String THYMIO_IMG = "images/thymio.gif"; 	//	Awesome Thymio Image
+	private static final String THYMIO_IMG = "images/thymio.gif"; 
 	private static final String THYMIO_START_ROTATION = "north";
 	// Real Thymio
 	private static final int MAX_SPEED = 1000;
@@ -90,7 +89,7 @@ public class Settings  {
 	
 
  // No changes below this line.
-	private static final int CANVAS_HEIGHT = 400; // 400 / 900
+	private static final int CANVAS_HEIGHT = 400; // 400 / 1000
 	private static final int FIELD_HEIGHT = getFieldWidth();
 	private static final int CANVAS_WIDTH  = 1000; // 1000 / 1170
 	private static final int FIELD_WIDTH = 50; //50 / 30
